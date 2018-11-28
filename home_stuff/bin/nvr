@@ -1,0 +1,221 @@
+#!/usr/bin/env python3
+
+"""
+Copyright (c) 2015 Marco Hinz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+"""
+
+import sys
+import os
+import subprocess
+import textwrap
+import argparse
+
+from neovim import attach
+
+
+class Neovim():
+    """Thin wrapper around nvim.attach() for lazy attaching.
+
+    This helps handling the silent and non-silent arguments.
+    """
+    def __init__(self, sockpath):
+        self.sockpath = sockpath
+        self.server   = None
+
+    def attached(self, silent=False):
+        if self.server is not None:
+            return True
+        try:
+            self.server = attach('socket', path=self.sockpath)
+            return True
+        except FileNotFoundError:
+            if silent:
+                return False
+            else:
+                print("Can't find unix socket {}. Export $NVIM_LISTEN_ADDRESS or use --servername.".format(self.sockpath))
+                sys.exit(1)
+
+
+def parse_args():
+    form_class = argparse.RawDescriptionHelpFormatter
+    usage      = '{} [arguments]'.format(sys.argv[0])
+    epilog     = 'Happy hacking!'
+    desc       = textwrap.dedent("""
+        Helper tool for nvim that provides --remote and friends.
+
+        All unused arguments will be implicitely fed to --remote-silent.
+        Thus the following two lines are equivalent:
+
+            $ nvr --remote-silent foo bar quux
+            $ nvr foo bar quux
+    """)
+
+    parser = argparse.ArgumentParser(
+            formatter_class = form_class,
+            usage           = usage,
+            epilog          = epilog,
+            description     = desc)
+
+    # The following options are similar to their vim equivalents,
+    # but work on the remote instance instead.
+
+    parser.add_argument('-l',
+            action  = 'store_true',
+            help    = 'change to previous window via ":wincmd p"')
+    parser.add_argument('-c',
+            action  = 'append',
+            metavar = '<cmd>',
+            help    = 'execute single command')
+    parser.add_argument('-o',
+            action  = 'append',
+            metavar = '<files>',
+            help    = 'open files via ":split"')
+    parser.add_argument('-O',
+            action  = 'append',
+            metavar = '<files>',
+            help    = 'open files via ":vsplit"')
+
+    # The following options exactly emulate their vim equivalents.
+
+    parser.add_argument('--remote',
+            action  = 'append',
+            metavar = '<files>',
+            help    = 'open files via ":edit"')
+    parser.add_argument('--remote-wait',
+            action  = 'append',
+            metavar = '<files>',
+            help    = 'as --remote')
+    parser.add_argument('--remote-silent',
+            action  = 'append',
+            metavar = '<files>',
+            help    = "as --remote, but don't throw error if no server is found")
+    parser.add_argument('--remote-wait-silent',
+            action  = 'append',
+            metavar = '<files>',
+            help    = "as --remote, but don't throw error if no server is found")
+    parser.add_argument('--remote-tab', '-p',
+            action  = 'append',
+            metavar = '<files>',
+            help    = 'open files via ":tabedit"')
+    parser.add_argument('--remote-send',
+            action  = 'append',
+            metavar = '<keys>',
+            help    = 'send key presses')
+    parser.add_argument('--remote-expr',
+            action  = 'append',
+            nargs   = '+',
+            metavar = '<exprs>',
+            help    = 'evaluate expressions in server and print result')
+    parser.add_argument('--servername',
+            metavar = '<sock>',
+            help    = 'path to unix socket (overrides $NVIM_LISTEN_ADDRESS)')
+    parser.add_argument('--serverlist',
+            action  = 'store_true',
+            help    = 'prints socket path to be used')
+
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(0)
+
+    return parser.parse_known_args()
+
+def prepare_filename(fname):
+    return os.path.abspath(fname).replace(" ", "\ ")
+
+def main():
+    args, unused = parse_args()
+    sockpath = os.environ.get('NVIM_LISTEN_ADDRESS')
+
+    if args.servername:
+        sockpath = args.servername
+    else:
+        if sockpath is None:
+            sockpath = '/tmp/nvimsocket'
+
+    if args.serverlist:
+        if sockpath is not None:
+            print(sockpath)
+
+    n = Neovim(sockpath)
+
+    if args.l and n.attached(silent=True):
+        n.server.command('wincmd p', async=True)
+
+    if unused and n.attached(silent=True):
+        for fname in unused:
+            n.server.command('edit {}'.format(prepare_filename(fname)), async=True)
+
+    if args.remote_silent and n.attached(silent=True):
+        for fname in args.remote_silent:
+            n.server.command('edit {}'.format(prepare_filename(fname)), async=True)
+
+    if args.remote_wait_silent and n.attached(silent=True):
+        for fname in args.remote_wait_silent:
+            n.server.command('edit {}'.format(prepare_filename(fname)))
+
+    if args.remote and n.attached():
+        for fname in args.remote:
+            n.server.command('edit {}'.format(prepare_filename(fname)), async=True)
+
+    if args.remote_wait and n.attached():
+        for fname in args.remote_wait:
+            n.server.command('edit {}'.format(prepare_filename(fname)))
+
+    if args.remote_tab and n.attached():
+        for fname in args.remote_tab:
+            n.server.command('tabedit {}'.format(prepare_filename(fname)))
+
+    if args.remote_send and n.attached():
+        for keys in args.remote_send:
+            n.server.input(keys)
+
+    if args.remote_expr and n.attached():
+        for expr in args.remote_expr[0]:
+            result = ''
+            try:
+                result = n.server.eval(expr)
+            except:
+                print('Evaluation failed: ' + expr)
+                continue
+            if type(result) is bytes:
+                print(result.decode())
+            elif type(result) is list:
+                print(list(map(lambda x: x.decode() if type(x) is bytes else x, result)))
+            elif type(result) is dict:
+                print({ (k.decode() if type(k) is bytes else k): v for (k,v) in result.items() })
+            else:
+                print(result)
+
+    if args.o and n.attached():
+        for fname in args.o:
+            n.server.command('split {}'.format(prepare_filename(fname)), async=True)
+
+    if args.O and n.attached():
+        for fname in args.O:
+            n.server.command('vsplit {}'.format(prepare_filename(fname)), async=True)
+
+    if args.c and n.attached():
+        for cmd in args.c:
+            n.server.command(cmd)
+
+
+if __name__ == '__main__':
+    main()

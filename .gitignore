@@ -1,0 +1,15 @@
+#Neovim files to ignore
+home_stuff/.config/nvim/*
+!home_stuff/.config/nvim/init.vim
+!home_stuff/.config/nvim/syntax
+
+#MPD Files to ignore
+home_stuff/.config/mpd/*
+!home_stuff/.config/mpd/mpd.conf
+
+#NCMPCPP
+home_stuff/.ncmpcpp/error.log
+
+#Ranger
+home_stuff/.config/ranger/*
+!home_stuff/.config/ranger/rc.conf

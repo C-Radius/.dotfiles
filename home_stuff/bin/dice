@@ -1,0 +1,81 @@
+#!/bin/python3
+
+from collections import Counter, OrderedDict
+import math
+import sys
+import random
+import time
+
+def roll(dice):
+    return random.randrange(1, dice+1, 1)
+
+def process_argument (argument): 
+    argument = argument.lower()
+    split = argument.split("d")
+
+    if split[0] == '':
+        split.pop(0)
+
+    if len(split) == 1:
+        return [roll(int(split[0]))]
+    elif len(split) == 2:
+        result = []
+        for x in range(0, int(split[0])):
+            result.append(roll(int(split[1])))
+            time.sleep(float(random.randrange(1, 50)/500))
+        return result
+
+    print ("Invalid Argument. " + argument)
+    return False
+
+def test_roll(times, dice): 
+    throws = []
+
+    for i in range(times):
+        throws.append(roll(dice))
+
+    final = OrderedDict(sorted(Counter(throws).items()))
+
+    print (throws)
+    print ("Rolled Dice " + str(times) + "times.")
+    print ("Sum: " + str(sum(throws)))
+    print ("Average: " + str(sum(throws)/times))
+    print ("Frequency of dices bellow")
+    print (final)
+
+
+if __name__ == "__main__": 
+    #Initialize random module with seed from unix time
+    #random.seed(int(time.time()))
+    summary = []
+    num_sum = 0
+
+    args = sys.argv
+    args.pop(0) # Remove program name from arguments list.
+
+    if args == []:
+        print ("No arguments were supplied")
+        exit(1)
+
+    if args[0] == "tr": #Check if we're running in testing mode.
+        test_roll(int(args[1]), int(args[2]))
+        exit(1)
+    if args == []:
+        print ("No Arguments")
+        exit(1)
+
+    #Run the dices for each argument one by one.
+    for x in args:
+        result = process_argument(x)
+        if result == False:
+            exit(1)
+        else:
+            summary.append(result)
+
+    for i in range(0, len(args)):
+        print (args[i] \
+                + ": " \
+                + " ".join(str(x) + " +" if j+1 != len(summary[i]) else str(x) for j, x in enumerate(summary[i])) \
+                + " = " + str(sum(summary[i])))
+        num_sum += sum(summary[i])
+

@@ -1,0 +1,1 @@
+mpc add $(youtube-dl -i -x --yes-playlist --skip-unavailable-fragments --add-metadata -f bestaudio -g -o "%(title)s.%(ext)s" "$1")

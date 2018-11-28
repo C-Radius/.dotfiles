@@ -1,0 +1,128 @@
+!set $TERM variable
+URxvt.termName: xterm-256color
+
+!Reverse bg and fg colors.
+URxvt.reverseVideo:false
+
+!set Terminal fonts (xft gives antialised symbols)
+URxvt.font:xft:Bitstream Vera Sans Mono Nerd Font:pixelsize=19
+!           xft:Space Mono Nerd Font:pixelsize-12, \
+!           xft:Go Mono Nerd Font:pixelsize=14, \
+!           xft:Fura Mono Nerd Font:pixelsize=14, \
+!           xft:Bitstream Vera Sans Mono Nerd Font:pixelsize=14, \ 
+!           xft:Cousine Nerd Font:pixelsize=14, \
+!           xft:Roboto Mono:pixelsize=14, \
+!           xft:Space Mono Nerd Edit:pixelsize=14, \
+!           xft:Sauce Code Nerd Font:pixelsize=14, \
+!           xft:3270 Nerd Font:pixelsize=14
+
+!Don't delete this as you're going to need it
+URxvt.letterSpace:-0
+!Define perl extensions
+URxvt.perl-ext-common: default,matcher,resize-font,url-select,keyboard-selext
+Urxvt.colorUL: #4682B4
+URxvt.keysym.M-u: perl:url-select:select_next
+!! Url-select:
+URxvt.url-select.launcher: /usr/bin/xdg-open
+URxvt.url-select.underline: true
+URxvt.matcher.button: 1
+!! Keyboard-select:
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+!! Save history size
+URxvt.saveLines: 4095
+!! matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+!Set depth of color
+URxvt.depth: 32 
+
+!Set blur radius
+!urxvt.blurRadius: 5
+
+!border
+!URxvt.internalBorder: 3
+!URxvt.borderColor: #AAAAAA
+
+!Remove scrollbar
+URxvt.scrollBar: false
+
+! COLORS GUIDE
+!Use the specified colour for the colour value n, where 0-7 corresponds
+!to low-intensity (normal) colours and 8-15 corresponds to high-intensity
+!(bold = bright foreground, blink = bright background) colours. The 
+!canonical names are as follows: 0=black, 1=red, 2=green, 3=yellow, 4=blue,
+!5=magenta, 6=cyan, 7=white, but the actual colour names used are listed in the COLOURS
+
+!Gotham Theme
+! special
+!URxvt.fading:30
+!URxvt.fadingColor:FFFFFF
+
+*.foreground:   #B3B8C3
+*.background:   [90]#20242D
+*.cursorColor:  #98d1ce
+
+! black
+*.color0:       #000000
+*.color8:       #000000
+
+! red
+*.color1:       #B04B57
+*.color9:       #B04B57
+
+! green
+*.color2:       #87B379
+*.color10:      #87B379
+
+! yellow
+*.color3:       #E5C179
+*.color11:      #E5C179
+
+! blue
+*.color4:       #7D8FA4
+*.color12:      #7D8FA4
+
+! magenta
+*.color5:       #A47996
+*.color13:      #A47996
+
+! cyan
+*.color6:       #85A7A5
+*.color14:      #85A7A5
+
+ white
+*.color7:       #B3B8C3
+*.color15:      #FFFFFF
+
+
+! Custom
+! Original theme https://github.com/nathanbuchar/atom-one-dark-terminal
+!*.foreground:    #ABB2BF
+!*.background:    [90]#1E2127
+!*.cursorColor:   #5C6370
+!*.highlightColor:#3A3F4B
+!
+!! Negro y gris
+!*.color0:        #1E2127
+!*.color8:        #5C6370
+!! Rojos
+!*.color1:        #E06C75
+!*.color9:        #E06C75
+!! Verde
+!*.color2:        #98C379
+!*.color10:       #98C379
+!! Amarillo
+!*.color3:        #D19A66
+!*.color11:       #D19A66
+!! Azul
+!*.color4:        #61AFEF
+!*.color12:       #61AFEF
+!! Magenta
+!*.color5:        #C678DD
+!*.color13:       #C678DD
+!! Cyan
+!*.color6:        #56B6C2
+!*.color14:       #56B6C2
+!! Blanco
+!*.color7:        #ABB2BF
+!*.color15:       #FFFFFF

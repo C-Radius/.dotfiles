@@ -1,0 +1,29 @@
+! "Enabled modi" Set from: Default
+rofi.modi:window,drun,run
+! "Font to use" Set from: File
+rofi.font: Bitstream Vera Sans Mono Nerd Font 13
+! Icon's theme
+rofi.show-icons
+rofi.drun-icon-theme:Zafiro-icons 
+
+rofi.terminal: termite
+
+rofi.fake-transparency:true
+rofi.fake-background:screenshot
+!Fullscreen
+!rofi.fullscreen: true
+rofi.padding:10
+rofi.lines:8
+!SideBar
+rofi.sidebar-mode: true
+
+!Theme
+!State            'bg'        'fg'         'bg alt'    'hlbg'      'hlfg'
+rofi.color-normal: #dd2a2d35,  #ddfefefe,  #dd2a2d35,  #dd586e75,  #ddeee8d5
+rofi.color-urgent: #ddfdf6e3,  #dddc322f,  #ddeee8d5,  #dddc322f,  #ddfdf6e3
+rofi.color-active: #ddfdf6e3,  #dd268bd2,  #ddeee8d5,  #dd268bd2,  #ddfdf6e3
+
+!Rofi color window
+!                  'bg'      'border'  'separator'
+rofi.color-window: #DD2a2d35,  #DD1d2026,  #DD1d2026
+
