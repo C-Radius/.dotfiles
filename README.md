@@ -1,6 +1,6 @@
 My linux configuration files.
 
-Configuration files for awesome wm, vim, ranger, mpd, urxvt will be put automatically in .config directory.
+Configuration files for awesome wm, neovim, ranger, mpd, termite, compton and more will be put automatically in .config directory.
 An extra "Bin" Folder will be added in home directory. 
 
 **WARNING**
@@ -16,7 +16,7 @@ Keep that in mind before you download.
 
 .dotfiles
 
-Clone the repo 
+Clone the repo
 do:
     `git submodules init`
     `git submodules update`

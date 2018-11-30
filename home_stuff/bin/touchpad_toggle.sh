@@ -3,7 +3,10 @@
 declare -i ID
 ID=`xinput list | grep -Eio '(touchpad|glidepoint)\s*id\=[0-9]{1,2}' | grep -Eo '[0-9]{1,2}'`
 
-if [ "$1" == "1" ]; then
+if [ "$1" == "" ]; then
+    echo "Touchpad not found"
+    notify-send 'Touchpad' 'Not found' -i /usr/share/icons/Adwaita/devices/input-touchpad.png
+elif [ "$1" == "1" ]; then
     echo "Activating touchpad"
     xinput enable $ID
 elif [ "$1" == "0" ]; then
