@@ -70,7 +70,7 @@ end
 
 -- RUN_ONCE: entries must be comma-separated {{{
 run_once({ "nm-applet -sm-disable" }) -- Network manager tray icon
-run_once({ os.getenv("HOME") .. "/bin/touchpad_toggle.sh 0" })
+--run_once({ os.getenv("HOME") .. "/bin/touchpad_toggle.sh 0" })
 run_once({"compton --config " .. os.getenv("HOME") .. "/.config/compton.conf -b" })
 run_once({"mpd"})
 --run_once({ "xwinwrap -a -fs -sp -fs -nf -ov -- mplayer -speed 0.50 -quiet -loop 0 -nosound -wid WID " .. os.getenv("HOME") .. "/wallpaper.mp4" })
