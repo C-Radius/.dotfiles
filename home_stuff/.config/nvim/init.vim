@@ -1,4 +1,11 @@
-"Author: Deus Deceit
+" 
+"   ____      ____           _ _
+"  / ___|    |  _ \ __ _  __| (_)_   _ ___ 
+" | |   _____| |_) / _` |/ _` | | | | / __|
+" | |__|_____|  _ < (_| | (_| | | |_| \__ \
+"  \____|    |_| \_\__,_|\__,_|_|\__,_|___/
+"
+"Author: C-Radius
 "Last Mod: 25/10/2018
 
 "Environment variables
@@ -28,23 +35,33 @@ endif
 filetype off
 
 call plug#begin('~/.config/nvim/plugged')
-
+"Colorschemes
 Plug 'fxn/vim-monochrome'
 Plug 'rakr/vim-one'
+Plug 'morhetz/gruvbox'
+"Utility
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
+Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'equalsraf/neovim-gui-shim'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'sebastianmarkow/deoplete-rust'
+Plug 'scrooloose/nerdtree'
+Plug 'majutsushi/tagbar'
+"Shougo stuff
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'sebastianmarkow/deoplete-rust', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
+Plug 'wokalski/autocomplete-flow', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet.vim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet-snippets', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
+"Linter
 Plug 'neomake/neomake'
-Plug 'majutsushi/tagbar'
 Plug 'rust-lang/rust.vim'
-Plug 'scrooloose/nerdtree'
+"Web stuff
+Plug 'mattn/emmet-vim'
+"Snippets
 
 call plug#end()
 
@@ -141,6 +158,9 @@ inoremap <C-c> <Esc>
 "Clear search results
 noremap <leader><Space> :noh<cr>:call clearmatches()<cr>
 
+"Run neomake
+noremap <leader>n :Neomake<cr>
+
 "Neovim terminal keybindings
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
@@ -206,15 +226,14 @@ autocmd filetype lsl setlocal completeopt=longest,menuone
     "Neomake
     "-------------------------------------------------------------------------{{{
     " When writing a buffer (no delay).
-    call neomake#configure#automake('w')
+    call neomake#configure#automake('w', 0)
     " When writing a buffer (no delay), and on normal mode changes (after 750ms).
-    call neomake#configure#automake('nw', 750)
+    call neomake#configure#automake('nw', 0)
     " When reading a buffer (after 1s), and when writing (no delay).
-    call neomake#configure#automake('rw', 1000)
+    call neomake#configure#automake('rw', 500)
     " Full config: when writing or reading a buffer, and on changes in insert and
     " normal mode (after 1s; no delay when writing).
     call neomake#configure#automake('nrwi', 500)
-
     let g:airline#extensions#neomake#enabled=1
     "-------------------------------------------------------------------------}}}
 
@@ -241,8 +260,8 @@ autocmd filetype lsl setlocal completeopt=longest,menuone
     "NerdTree
     "-------------------------------------------------------------------------{{{
     nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
-    autocmd VimEnter *.rs,*.toml NERDTree | wincmd p
-    autocmd VimEnter *.rs,*.toml TagbarToggle
+    "autocmd VimEnter *.rs,*.toml NERDTree | wincmd p
+    "autocmd VimEnter *.rs,*.toml TagbarToggle
     "-------------------------------------------------------------------------}}}
 
     "Neosnippet
@@ -269,5 +288,15 @@ autocmd filetype lsl setlocal completeopt=longest,menuone
       set conceallevel=2 concealcursor=niv
     endif
     "-------------------------------------------------------------------------}}}
+
+    "Emmet (HTML made easy)
+    "-------------------------------------------------------------------------{{{
+    let g:user_emmet_expandabbr_key = '<C-a>,'
+    "-------------------------------------------------------------------------{{{
+
+    "Deoplete-flow
+    "-------------------------------------------------------------------------{{{
+    "# Binary path to your flow, defaults to your $PATH flow 
+    "-------------------------------------------------------------------------{{{
 
 "-------------------------------------------------------------------------}}}

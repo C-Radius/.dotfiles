@@ -39,6 +39,7 @@ cursor_shape=underline
 # "off", "left" or "right"
 #scrollbar=off
 
+#OneDark scheme
 [colors]
 # If both of these are unset, cursor falls back to the foreground color,
 # and cursor_foreground falls back to the background color.
@@ -52,7 +53,7 @@ highlight=#2f2f2f
 foreground     =#abb2bf
 foreground_bold=#abb2bf
 cursor         =#dcdccc
-background     =rgba(52, 55, 63, .80) 
+background     =rgba(52, 55, 63, 1)
 
 # black
 color0 =#282c34
