@@ -40,6 +40,7 @@ Plug 'fxn/vim-monochrome'
 Plug 'rakr/vim-one'
 Plug 'morhetz/gruvbox'
 "Utility
+Plug 'KabbAmine/vColor.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
@@ -49,10 +50,12 @@ Plug 'equalsraf/neovim-gui-shim'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
+Plug 'mbbill/undotree'
 "Shougo stuff
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'sebastianmarkow/deoplete-rust', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
+Plug 'carlitux/deoplete-ternjs'
 Plug 'wokalski/autocomplete-flow', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet.vim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet-snippets', { 'do': ':UpdateRemotePlugins' }
@@ -61,6 +64,9 @@ Plug 'neomake/neomake'
 Plug 'rust-lang/rust.vim'
 "Web stuff
 Plug 'mattn/emmet-vim'
+Plug 'ap/vim-css-color'
+Plug 'wavded/vim-stylus'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
 "Snippets
 
 call plug#end()
@@ -240,16 +246,31 @@ autocmd filetype lsl setlocal completeopt=longest,menuone
     "Deoplete
     "-------------------------------------------------------------------------{{{
     let g:deoplete#enable_at_startup = 1
-
-    "Disable preview of documentation and what not
-    set completeopt-=preview
-    "deoplete-rust
+    let g:deoplete#enable_ignore_case = 1
+    let g:deoplete#enable_smart_case = 1
+    let g:deoplete#enable_camel_case = 1
+    let g:deoplete#enable_refresh_always = 1
+    let g:deoplete#max_abbr_width = 0
+    let g:deoplete#max_menu_width = 0
+    let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
     let g:deoplete#sources#rust#racer_binary="/home/deus/.cargo/bin/racer"
     let g:deoplete#sources#rust#rust_source_path='/home/deus/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
     let g:deoplete#sources#rust#show_duplicates=1
 
+    "Tern
+    "-------------------------------------------------------------------------{{{
+    let g:tern_request_timeout = 1
+    let g:tern_request_timeout = 6000
+    let g:tern#command = ["tern"]
+    let g:tern#arguments = ["--persistent"]
+
+    "deoplete-rust
+
     nmap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
     nmap <buffer> K  <plug>DeopleteRustShowDocumentation
+
+    "Disable preview of documentation and what not
+    set completeopt-=preview
     "-------------------------------------------------------------------------}}}
 
     "Tagbar
@@ -291,7 +312,7 @@ autocmd filetype lsl setlocal completeopt=longest,menuone
 
     "Emmet (HTML made easy)
     "-------------------------------------------------------------------------{{{
-    let g:user_emmet_expandabbr_key = '<C-a>,'
+    let g:user_emmet_expandabbr_key = '<C-y>,'
     "-------------------------------------------------------------------------{{{
 
     "Deoplete-flow
@@ -299,4 +320,7 @@ autocmd filetype lsl setlocal completeopt=longest,menuone
     "# Binary path to your flow, defaults to your $PATH flow 
     "-------------------------------------------------------------------------{{{
 
-"-------------------------------------------------------------------------}}}
+    "Undotree
+    "-------------------------------------------------------------------------{{{
+    nnoremap <Leader>u :UndotreeToggle<CR>
+    "-------------------------------------------------------------------------}}}

@@ -13,3 +13,6 @@ home_stuff/.ncmpcpp/error.log
 #Ranger
 home_stuff/.config/ranger/*
 !home_stuff/.config/ranger/rc.conf
+
+#icons
+home_stuff/.icons

@@ -36,7 +36,7 @@ ZSH_THEME="muse" #"muse" #"agnoster" "muse"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="false"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -73,17 +73,17 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+#export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+#Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+export ARCHFLAGS="-arch x86_64"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
@@ -125,8 +125,7 @@ export NVIM_PYTHON_LOG_FILE=/tmp/nvlog
 export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket"
 
 #default applications
-export EDITOR="nvim"
-#export BROWSER="qutebrowser"
+export BROWSER="chromium"
 
 #fix for slowness caused by git-plugin
 function git_prompt_info() {
@@ -154,3 +153,9 @@ alias d2='rolldice 1d2%'
 export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin/racer:$PATH"
+
+if [ $(whoami) != "root" ]; then
+    export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src/"
+fi
+
