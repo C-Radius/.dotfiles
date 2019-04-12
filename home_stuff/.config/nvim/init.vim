@@ -40,7 +40,7 @@ Plug 'fxn/vim-monochrome'
 Plug 'rakr/vim-one'
 Plug 'morhetz/gruvbox'
 "Utility
-Plug 'KabbAmine/vColor.vim'
+Plug 'KabbAmine/vCoolor.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
