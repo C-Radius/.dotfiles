@@ -1,6 +1,6 @@
-" 
+"
 "   ____      ____           _ _
-"  / ___|    |  _ \ __ _  __| (_)_   _ ___ 
+"  / ___|    |  _ \ __ _  __| (_)_   _ ___
 " | |   _____| |_) / _` |/ _` | | | | / __|
 " | |__|_____|  _ < (_| | (_| | | |_| \__ \
 "  \____|    |_| \_\__,_|\__,_|_|\__,_|___/
@@ -51,6 +51,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
+Plug 'cloudhead/neovim-fuzzy'
 "Shougo stuff
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'sebastianmarkow/deoplete-rust', { 'do': ':UpdateRemotePlugins' }
@@ -102,9 +103,11 @@ if (empty($TMUX))
 endif
 
 syntax on
-colorscheme one "monochrome
-set background=dark
 
+set background=dark " for the dark version
+let g:one_allow_italics = 1
+" set background=light " for the light version
+colorscheme one
 
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
@@ -128,6 +131,7 @@ set autoindent                  " Indent at the same level of the previous line
 set shiftwidth=4                " Use indents of 4 spaces
 set expandtab                   " Tabs are spaces, not tabs
 set tabstop=4                   " An indentation every four columns
+set ts=4
 set softtabstop=4               " Let backspace delete indent
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 set splitright                  " Puts new vsplit windows to the right of the current
@@ -142,8 +146,10 @@ set keymap=greek_utf-8          "This enables greek in insert mode by hitting ct
 set iminsert=0                  "Make the default layout in insert mode to be english
 set imcmdline
 set imsearch=-1
-set cc=80                        "show 80 column"
+"set cc=80                        "show 80 column"
 set guicursor=
+
+
 "-------------------------------------------------------------------------}}}
 
 "Keybindings
@@ -317,10 +323,28 @@ autocmd filetype lsl setlocal completeopt=longest,menuone
 
     "Deoplete-flow
     "-------------------------------------------------------------------------{{{
-    "# Binary path to your flow, defaults to your $PATH flow 
+    "# Binary path to your flow, defaults to your $PATH flow
     "-------------------------------------------------------------------------{{{
 
     "Undotree
     "-------------------------------------------------------------------------{{{
     nnoremap <Leader>u :UndotreeToggle<CR>
     "-------------------------------------------------------------------------}}}
+
+    "neovim-fuzzy
+    "-------------------------------------------------------------------------}}}
+    nnoremap <C-p> :FuzzyOpen<cr>
+    "-------------------------------------------------------------------------}}}
+let t:is_transparent = 0
+function! Toggle_transparent()
+    if t:is_transparent == 0
+        hi Normal guibg=NONE ctermbg=NONE
+        let t:is_transparent = 1
+    else
+        set background=dark
+        let t:is_tranparent = 0
+    endif
+endfunction
+"nnoremap <C-t> : call Toggle_transparent()<CR>
+hi Normal guibg=NONE ctermbg=NONE
+

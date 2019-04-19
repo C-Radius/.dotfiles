@@ -16,3 +16,6 @@ home_stuff/.config/ranger/*
 
 #icons
 home_stuff/.icons
+
+#themes
+home_stuff/.themes
