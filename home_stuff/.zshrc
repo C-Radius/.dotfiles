@@ -125,7 +125,7 @@ export NVIM_PYTHON_LOG_FILE=/tmp/nvlog
 export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket"
 
 #default applications
-export BROWSER="chromium"
+export BROWSER="brave"
 
 #fix for slowness caused by git-plugin
 function git_prompt_info() {
@@ -152,8 +152,10 @@ alias d2='rolldice 1d2%'
 
 export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.cargo/:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.cargo/bin/racer:$PATH"
+export PATH="$HOME/.npm/:$PATH"
 
 if [ $(whoami) != "root" ]; then
     export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src/"

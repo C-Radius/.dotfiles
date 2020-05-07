@@ -16,5 +16,7 @@
 
 #exec startxfce4
 
-exec startkde
+#exec startkde
+
+#exec openbox-session
 

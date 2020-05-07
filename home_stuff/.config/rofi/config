@@ -1,5 +1,5 @@
 ! "Enabled modi" Set from: Default
-rofi.modi:window,drun,run
+rofi.modi:drun,window,run
 ! "Font to use" Set from: File
 rofi.font: Bitstream Vera Sans Mono Nerd Font 13
 ! Icon's theme

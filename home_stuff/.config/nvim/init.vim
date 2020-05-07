@@ -15,7 +15,6 @@ let $NVIM_PYTHON_LOG_FILE="/tmp/nvlog"  "Set locaiton for nvlog file.
 "-------------------------------------------------------------------------
 let g:python_host_prog='/usr/bin/python2'
 let g:python3_host_prog='/usr/bin/python3'
-
 "-------------------------------------------------------------------------
 "Setting up vimplug - the vim plugin bundler
 "-------------------------------------------------------------------------{{{
@@ -35,40 +34,24 @@ endif
 filetype off
 
 call plug#begin('~/.config/nvim/plugged')
-"Colorschemes
-Plug 'fxn/vim-monochrome'
+
+Plug 'cloudhead/neovim-fuzzy'
 Plug 'rakr/vim-one'
-Plug 'morhetz/gruvbox'
-"Utility
 Plug 'KabbAmine/vCoolor.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline'
 Plug 'ryanoasis/vim-devicons'
-Plug 'equalsraf/neovim-gui-shim'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
-Plug 'cloudhead/neovim-fuzzy'
-"Shougo stuff
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'sebastianmarkow/deoplete-rust', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
-Plug 'carlitux/deoplete-ternjs'
-Plug 'wokalski/autocomplete-flow', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neosnippet.vim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neosnippet-snippets', { 'do': ':UpdateRemotePlugins' }
-"Linter
-Plug 'neomake/neomake'
-Plug 'rust-lang/rust.vim'
-"Web stuff
-Plug 'mattn/emmet-vim'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
 Plug 'ap/vim-css-color'
-Plug 'wavded/vim-stylus'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
-"Snippets
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neomake/neomake'
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 
@@ -90,16 +73,16 @@ filetype on
 filetype plugin on
 
 if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
+    if (has("nvim"))
+        "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    endif
+    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+    if (has("termguicolors"))
+        set termguicolors
+    endif
 endif
 
 syntax on
@@ -109,13 +92,26 @@ let g:one_allow_italics = 1
 " set background=light " for the light version
 colorscheme one
 
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+"Settings parameters for coc-neovim
+set hidden
+set nobackup
+set nowritebackup
+set cmdheight=1
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+"---------------------------------
+
+"General
 set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
 set nu                          " Line numbers on
 set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
-set hlsearch                    " Highlight search terms
-set winminheight=0              " Windows can be 0 line high
+set hlsearch                    " Highlight search terms set winminheight=0              " Windows can be 0 line high
 set ignorecase                  " Case insensitive search
 set smartcase                   " Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
@@ -161,8 +157,8 @@ nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 "Shortcut to switch buffers
-noremap gB :bp<CR>
-noremap gb :bn<CR>
+noremap bn :bp<CR>
+noremap bp :bn<CR>
 
 "Use Ctrl + c in insert mode to enter normal mode.
 inoremap <C-c> <Esc>
@@ -194,9 +190,9 @@ nnoremap <A-l> <C-w>l
 set number relativenumber
 
 augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
 "Fold method for individual files
@@ -210,7 +206,7 @@ augroup END
 
 "lsl Configuration
 augroup filetypedetect
-     au BufRead,BufNewFile *.lsl setfiletype lsl
+    au BufRead,BufNewFile *.lsl setfiletype lsl
 augroup END
 
 filetype plugin on
@@ -222,119 +218,32 @@ autocmd filetype lsl setlocal completeopt=longest,menuone
 "Plugin Configuration
 "-------------------------------------------------------------------------{{{
 
-    "airline
-    "-------------------------------------------------------------------------{{{
-    let g:airline_theme='one'
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#formatter = 'default'
-    let g:airline_powerline_fonts = 1
-    "-------------------------------------------------------------------------}}}
+"airline
+"-------------------------------------------------------------------------{{{
+let g:airline_theme='one'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline_powerline_fonts = 1
+"-------------------------------------------------------------------------}}}
 
-    """Use bear to make compile_commands.json
-    """eg:
-    """~> qmake -spec linux-clang ..
-    """~> bear make
 
-    "Neomake
-    "-------------------------------------------------------------------------{{{
-    " When writing a buffer (no delay).
-    call neomake#configure#automake('w', 0)
-    " When writing a buffer (no delay), and on normal mode changes (after 750ms).
-    call neomake#configure#automake('nw', 0)
-    " When reading a buffer (after 1s), and when writing (no delay).
-    call neomake#configure#automake('rw', 500)
-    " Full config: when writing or reading a buffer, and on changes in insert and
-    " normal mode (after 1s; no delay when writing).
-    call neomake#configure#automake('nrwi', 500)
-    let g:airline#extensions#neomake#enabled=1
-    "-------------------------------------------------------------------------}}}
+"Disable preview of documentation and what not
+set completeopt-=preview
+"-------------------------------------------------------------------------}}}
 
-    "Deoplete
-    "-------------------------------------------------------------------------{{{
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#enable_ignore_case = 1
-    let g:deoplete#enable_smart_case = 1
-    let g:deoplete#enable_camel_case = 1
-    let g:deoplete#enable_refresh_always = 1
-    let g:deoplete#max_abbr_width = 0
-    let g:deoplete#max_menu_width = 0
-    let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-    let g:deoplete#sources#rust#racer_binary="/home/deus/.cargo/bin/racer"
-    let g:deoplete#sources#rust#rust_source_path='/home/deus/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
-    let g:deoplete#sources#rust#show_duplicates=1
+"NerdTree
+"-------------------------------------------------------------------------{{{
+nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
+"autocmd VimEnter * NERDTree | wincmd p
+"autocmd VimEnter *.rs,*.toml NERDTree | wincmd p
+"autocmd VimEnter *.rs,*.toml TagbarToggle
+"-------------------------------------------------------------------------}}}
 
-    "Tern
-    "-------------------------------------------------------------------------{{{
-    let g:tern_request_timeout = 1
-    let g:tern_request_timeout = 6000
-    let g:tern#command = ["tern"]
-    let g:tern#arguments = ["--persistent"]
+"Undotree
+"-------------------------------------------------------------------------{{{
+nnoremap <Leader>u :UndotreeToggle<CR>
+"-------------------------------------------------------------------------}}}
 
-    "deoplete-rust
-
-    nmap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
-    nmap <buffer> K  <plug>DeopleteRustShowDocumentation
-
-    "Disable preview of documentation and what not
-    set completeopt-=preview
-    "-------------------------------------------------------------------------}}}
-
-    "Tagbar
-    "-------------------------------------------------------------------------{{{
-    nmap <silent> <Leader>t :TagbarToggle<CR>
-    "-------------------------------------------------------------------------}}}
-
-    "NerdTree
-    "-------------------------------------------------------------------------{{{
-    nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
-    "autocmd VimEnter *.rs,*.toml NERDTree | wincmd p
-    "autocmd VimEnter *.rs,*.toml TagbarToggle
-    "-------------------------------------------------------------------------}}}
-
-    "Neosnippet
-    "-------------------------------------------------------------------------{{{
-    " Plugin key-mappings.
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    let g:neosnippet#enable_completed_snippet = 1
-
-    imap <C-j>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-j>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-j>     <Plug>(neosnippet_expand_target)
-
-    " SuperTab like snippets behavior.
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    "imap <expr><TAB>
-    " \ pumvisible() ? "\<C-n>" :
-    " \ neosnippet#expandable_or_jumpable() ?
-    " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-    " For conceal markers.
-    if has('conceal')
-      set conceallevel=2 concealcursor=niv
-    endif
-    "-------------------------------------------------------------------------}}}
-
-    "Emmet (HTML made easy)
-    "-------------------------------------------------------------------------{{{
-    let g:user_emmet_expandabbr_key = '<C-y>,'
-    "-------------------------------------------------------------------------{{{
-
-    "Deoplete-flow
-    "-------------------------------------------------------------------------{{{
-    "# Binary path to your flow, defaults to your $PATH flow
-    "-------------------------------------------------------------------------{{{
-
-    "Undotree
-    "-------------------------------------------------------------------------{{{
-    nnoremap <Leader>u :UndotreeToggle<CR>
-    "-------------------------------------------------------------------------}}}
-
-    "neovim-fuzzy
-    "-------------------------------------------------------------------------}}}
-    nnoremap <C-p> :FuzzyOpen<cr>
-    "-------------------------------------------------------------------------}}}
 let t:is_transparent = 0
 function! Toggle_transparent()
     if t:is_transparent == 0
@@ -345,6 +254,130 @@ function! Toggle_transparent()
         let t:is_tranparent = 0
     endif
 endfunction
-"nnoremap <C-t> : call Toggle_transparent()<CR>
+nnoremap <C-t> : call Toggle_transparent()<CR>
 hi Normal guibg=NONE ctermbg=NONE
 
+
+"Coc.nvim sample config skeleton
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Introduce function text object
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for selections ranges.
+" NOTE: Requires 'textDocument/selectionRange' support from the language server.
+" coc-tsserver, coc-python are the examples of servers that support it.
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings using CoCList:
+" Show all diagnostics.
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+"neovim-fuzzy
+nnoremap <C-p> :FuzzyOpen<CR>
