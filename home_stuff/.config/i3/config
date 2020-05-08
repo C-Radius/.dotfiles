@@ -34,6 +34,9 @@ exec --no-startup-id nm-applet
 
 exec nitrogen --restore &
 exec  compton &
+# Start polybar
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+
 # Use pactl to adjust volume in PulseAudio.
 #set $refresh_i3status killall -SIGUSR1 i3status
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -187,12 +190,7 @@ new_window 1pixel
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 
-# Start polybar
-exec_always --no-startup-id ~/.config/polybar/launch.sh
 
-#bar {
-#        status_command i3status
-#}
 
 # Only enable gaps on a workspace when there is at least one container
 #smart_gaps on #uncomment to enable
