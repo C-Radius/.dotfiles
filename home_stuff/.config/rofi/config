@@ -1,29 +1,29 @@
 ! "Enabled modi" Set from: Default
 rofi.modi:drun,window,run
 ! "Font to use" Set from: File
-rofi.font: Bitstream Vera Sans Mono Nerd Font 13
+rofi.font: Fira Code 13
 ! Icon's theme
 rofi.show-icons
-rofi.drun-icon-theme:Zafiro-icons 
+rofi.drun-icon-theme:Zafiro-icons
 
-rofi.terminal: termite
+rofi.terminal: kitty
 
-rofi.fake-transparency:true
-rofi.fake-background:screenshot
+rofi.fake-transparency:false
+!rofi.fake-background:screenshot
 !Fullscreen
 !rofi.fullscreen: true
 rofi.padding:10
 rofi.lines:8
 !SideBar
-rofi.sidebar-mode: true
+rofi.sidebar-mode:true
 
 !Theme
-!State            'bg'        'fg'         'bg alt'    'hlbg'      'hlfg'
-rofi.color-normal: #dd2a2d35,  #ddfefefe,  #dd2a2d35,  #dd586e75,  #ddeee8d5
-rofi.color-urgent: #ddfdf6e3,  #dddc322f,  #ddeee8d5,  #dddc322f,  #ddfdf6e3
-rofi.color-active: #ddfdf6e3,  #dd268bd2,  #ddeee8d5,  #dd268bd2,  #ddfdf6e3
+!State            'bg'        'fg'     'bg alt'    'hlbg'      'hlfg'
+rofi.color-normal: #DD2a2d35,  #FFFFFF,  #DD2a2d35,  #fb8c00,  #FFFFFF
+rofi.color-urgent: #1f1f1f,  #FFFFFF,  #1f1f1f,  #3949ab,  #FFFFFF
+rofi.color-active: #1f1f1f,  #e53935,  #1f1f1f,  #fb8c00,  #FFFFFF
 
 !Rofi color window
 !                  'bg'      'border'  'separator'
-rofi.color-window: #DD2a2d35,  #DD1d2026,  #DD1d2026
+rofi.color-window: #DD2a2d35,  #000000,  #DD2a2d35
 

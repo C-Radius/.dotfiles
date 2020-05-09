@@ -193,9 +193,15 @@ new_window 1pixel
 
 
 # Only enable gaps on a workspace when there is at least one container
-#smart_gaps on #uncomment to enable
+smart_gaps on #uncomment to enable
+smart_borders on
 
-gaps inner 8 
-gaps outer 8 
+client.urgent #e53935 #e53935 #e53935 #e53935
+client.unfocused #fb8c00 #fb8c00 #fb8c00 #fb8c00
+client.focused_inactive #7cb342 #7cb342  #7cb342 #7cb342
+client.focused #fdd835 #fdd835 #fdd835 #fdd835
 
-border_radius 25
+gaps inner 12
+gaps outer 12
+border_radius 1
+

@@ -34,9 +34,9 @@ endif
 filetype off
 
 call plug#begin('~/.config/nvim/plugged')
-
+Plug 'ap/vim-css-color'
 Plug 'cloudhead/neovim-fuzzy'
-Plug 'rakr/vim-one'
+Plug 'C-Radius/vim-one'
 Plug 'KabbAmine/vCoolor.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
@@ -52,6 +52,7 @@ Plug 'ap/vim-css-color'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neomake/neomake'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neosnippet.vim'
 
 call plug#end()
 
@@ -162,6 +163,7 @@ noremap bp :bn<CR>
 
 "Use Ctrl + c in insert mode to enter normal mode.
 inoremap <C-c> <Esc>
+inoremap jj <Esc>
 
 "Clear search results
 noremap <leader><Space> :noh<cr>:call clearmatches()<cr>
