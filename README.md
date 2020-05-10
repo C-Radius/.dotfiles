@@ -1,16 +1,34 @@
 My linux configuration files.
 
-Configuration files for awesome wm, neovim, ranger, mpd, termite, compton and more will be put automatically in .config directory.
-An extra "Bin" Folder will be added in home directory. 
+Configuration files for i3 wm, neovim, ranger, mpd, kitty, picom and more will
+be put automatically in .config directory. An extra "Bin" Folder will be added
+in home directory.
 
 **WARNING**
 
 In case someone does download this repo. InstallSystem.sh script will delete:
--   ~/.config/awesome
+
+-   ~/Bin
+-   ~/.icons
+-   ~/.ncmpcpp
+-   ~/.xinitrc
+-   ~/.zshrc
+-   ~/.zprofile
+-   ~/.xdefaults
+-   ~/.irssi
+-   ~/.themes
+-   ~/.config/i3
 -   ~/.config/ranger
 -   ~/.config/mpd
 -   ~/.config/nvim
--   ~/Bin
+-   ~/.config/rofi
+-   ~/.config/nitrogen
+-   ~/.config/kitty
+-   ~/.mpd
+-   ~/.polybar
+-   ~/.Thunar
+-   ~/.picom.cfg
+-   ~/.dunst
 
 Keep that in mind before you download. 
 
