@@ -19,11 +19,11 @@ rofi.sidebar-mode:true
 
 !Theme
 !State            'bg'        'fg'     'bg alt'    'hlbg'      'hlfg'
-rofi.color-normal: #DD2a2d35,  #FFFFFF,  #DD2a2d35,  #fb8c00,  #FFFFFF
+rofi.color-normal: #1f1f1f,  #f5f5f5,  #252525,  #5e35b1,  #FFFFFF
 rofi.color-urgent: #1f1f1f,  #FFFFFF,  #1f1f1f,  #3949ab,  #FFFFFF
-rofi.color-active: #1f1f1f,  #e53935,  #1f1f1f,  #fb8c00,  #FFFFFF
+rofi.color-active: #1f1f1f,  #e53935,  #1f1f1f,  #5e35b1,  #FFFFFF
 
 !Rofi color window
 !                  'bg'      'border'  'separator'
-rofi.color-window: #DD2a2d35,  #000000,  #DD2a2d35
+rofi.color-window: #252525,  #000000,  #555555
 
