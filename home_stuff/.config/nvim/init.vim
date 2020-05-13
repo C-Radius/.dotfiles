@@ -1,3 +1,4 @@
+
 "
 "   ____      ____           _ _
 "  / ___|    |  _ \ __ _  __| (_)_   _ ___
@@ -492,5 +493,4 @@ function! s:denite_my_settings() abort
     nnoremap <silent><buffer><expr> <C-h>
                 \ denite#do_map('do_action', 'split')
 endfunction
-
 
