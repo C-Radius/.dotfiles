@@ -23,7 +23,6 @@ set $mod Mod4
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-
 exec /usr/bin/start-pulseaudio-x11 &
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec_always --no-startup-id "/bin/picom"  #--config /home/home/.config/compton/compton.conf" &
@@ -36,7 +35,8 @@ exec dunst &
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 
-
+#Set keyboard layouts and enable language switching with alt+shift (Languages: English/Greek)
+exec --no-startup-id setxkbmap -model pc105 -layout us,gr -variant qwerty -option grp:alt_shift_toggle
 
 # Use pactl to adjust volume in PulseAudio.
 #set $refresh_i3status killall -SIGUSR1 i3status
