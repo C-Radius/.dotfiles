@@ -25,14 +25,14 @@ set $mod Mod4
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec /usr/bin/start-pulseaudio-x11 &
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-exec_always --no-startup-id "/bin/picom"  #--config /home/home/.config/compton/compton.conf" &
+exec_always --no-startup-id "/bin/picom --experimental-backends --backend glx"  #--config /home/home/.config/compton/compton.conf" &
 exec --no-startup-id nm-applet &
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec nitrogen --restore &
 exec dunst &
 # Start polybar
-exec_always --no-startup-id ~/.config/polybar/launch.sh
+#exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 
 #Set keyboard layouts and enable language switching with alt+shift (Languages: English/Greek)
@@ -188,21 +188,51 @@ bindsym $mod+r mode "resize"
 
 new_window 1pixel
 
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+     bindsym l exec --no-startup-id i3exit lock, mode "default"
+     bindsym e exec --no-startup-id i3exit logout, mode "default"
+     bindsym s exec --no-startup-id i3exit suspend, mode "default"
+     bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+     bindsym r exec --no-startup-id i3exit reboot, mode "default"
+     bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+     bindsym Return mode "default"
+     bindsym Escape mode "default"
+}
+
+bindsym $mod+F12 mode "$mode_system"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 
+bar {
+    i3bar_command i3bar -t
+    workspace_buttons yes
+    status_command i3status -t
+    position bottom
+    font pango:Fira Code 13
+    separator_symbol "|"
+    strip_workspace_numbers yes
+    binding_mode_indicator yes
+
+    colors {
+        background #282c34
+
+        statusline #61afef
+        separator #828997
+        focused_workspace #1c1e20 #61afef #1c1e20
+    }
+}
 
 
 # Only enable gaps on a workspace when there is at least one container
 smart_gaps on #uncomment to enable
 smart_borders on
 
-client.urgent #d81b60 #d81b60 #d81b60 #d81b60
-client.unfocused #5e35b1 #5e35b1 #5e35b1 #5e35b1
-client.focused_inactive #7cb342 #7cb342  #7cb342 #7cb342
-client.focused #f5f5f5 #f5f5f5 #f5f5f5 #f5f5f5
+#client.urgent #d81b60 #d81b60 #d81b60 #d81b60
+#client.unfocused #5e35b1 #5e35b1 #5e35b1 #5e35b1
+#client.focused_inactive #7cb342 #7cb342  #7cb342 #7cb342
+#client.focused #f5f5f5 #f5f5f5 #f5f5f5 #f5f5f5
 
 gaps inner 12
 gaps outer 12
-border_radius 1
 

@@ -42,8 +42,8 @@ Plug 'KabbAmine/vCoolor.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'scrooloose/nerdtree'
@@ -57,6 +57,7 @@ Plug 'neomake/neomake'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/denite.nvim'
 Plug 'rafi/awesome-vim-colorschemes'
+Plug 'nightsense/vimspectr'
 
 call plug#end()
 
@@ -137,7 +138,7 @@ set softtabstop=4               " Let backspace delete indent
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow
-set laststatus=2                "Airline configuration to be visible all the time.
+set laststatus=1                "Airline configuration to be visible all the time.
 set encoding=utf-8                "Configuration for airline so it's symbols show properly.
 set ttimeoutlen=50                "Configuration for airline so that there's no wait between insert and normal mode changing.
 set mouse=a
@@ -226,10 +227,10 @@ autocmd filetype lsl setlocal completeopt=longest,menuone
 
 "airline
 "-------------------------------------------------------------------------{{{
-let g:airline_theme='one'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'default'
-let g:airline_powerline_fonts = 1
+"let g:airline_theme='one'
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#formatter = 'default'
+"let g:airline_powerline_fonts = 1
 "-------------------------------------------------------------------------}}}
 
 
@@ -494,3 +495,21 @@ function! s:denite_my_settings() abort
                 \ denite#do_map('do_action', 'split')
 endfunction
 
+"if strftime("%H") < 7 || strftime("%H") >= 19
+"  let themes = [
+"    \ 'vimspectr0-dark'   , 'vimspectr0-dark'    , 'vimspectr30-dark'  ,
+"    \ 'vimspectr60-dark'  , 'vimspectr90-dark'   , 'vimspectr120-dark' ,
+"    \ 'vimspectr150-dark' , 'vimspectr180-dark'  , 'vimspectr210-dark' ,
+"    \ 'vimspectr240-dark' , 'vimspectr270-dark'  , 'vimspectr300-dark' ,
+"    \ 'vimspectr330-dark' , 'vimspectrgrey-dark'
+"    \ ]
+"else
+"  let themes = [
+"    \ 'vimspectr0-light'  , 'vimspectr0-light'   , 'vimspectr30-light' ,
+"    \ 'vimspectr60-light' , 'vimspectr90-light'  , 'vimspectr120-light',
+"    \ 'vimspectr150-light', 'vimspectr180-light' , 'vimspectr210-light',
+"    \ 'vimspectr240-light', 'vimspectr270-light' , 'vimspectr300-light',
+"    \ 'vimspectr330-light', 'vimspectrgrey-light'
+"    \ ]
+"endif
+"exe 'colorscheme '.themes[localtime() % len(themes)]
