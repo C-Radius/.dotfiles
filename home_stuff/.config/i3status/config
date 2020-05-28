@@ -22,7 +22,7 @@ disk /home {
 
 tztime NY {
     timezone = "America/New_York"
-    format = "NY %H:%M:%S"
+    format = "NY  %H:%M:%S"
 }
 
 ethernet eth0 {
@@ -46,9 +46,40 @@ disk / {
     format = "/ %free"
 }
 
-cpu_temperature 0 {
-    path = "/sys/devices/platform/coretemp.0/temp1_input"
-    format = "%degrees°C"
+cpu_temperature 1 {
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp1_input"
+    format = "﬙ %degrees°C"
+}
+
+cpu_temperature 2 {
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp2_input"
+    format = "﬙ %degrees°C"
+}
+
+cpu_temperature 3 {
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp3_input"
+    format = "﬙ %degrees°C"
+}
+
+cpu_temperature 4 {
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp4_input"
+    format = "﬙ %degrees°C"
+}
+
+cpu_temperature 5 {
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp5_input"
+    format = "﬙ %degrees°C"
+}
+
+cpu_temperature 6 {
+    path = "/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp6_input"
+    format = "﬙ %degrees°C"
+}
+
+memory {
+        format = " %used"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
 }
 
 wireless wlp2s0 {
@@ -62,9 +93,17 @@ run_watch DHCP {
 }
 
 time {
-    format = "%d/%m/%y %H:%M:%S"
+    format = " %d/%m/%y  %H:%M:%S"
 }
 
+
+order += "cpu_temperature 1"
+order += "cpu_temperature 2"
+order += "cpu_temperature 3"
+order += "cpu_temperature 4"
+order += "cpu_temperature 5"
+order += "cpu_temperature 6"
+order += "memory"
 order += "disk /home"
 order += "disk /"
 order += "ethernet eth0"

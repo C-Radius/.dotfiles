@@ -19,6 +19,7 @@ function update_package_list ()
 {
     echo "Updating package list..."
     sudo pacman -Qqen > MyPackageList
+    sudo pacman -Qqm > MyPackageListForeign
 }
 
 
@@ -28,7 +29,7 @@ function update_package_list ()
 #of bringing your system back to how it was fast. Maybe after a re-install.
 function install_packages () {
     sudo pacman -S $(< MyPackageList)
-    yaourt -S oh-my-zsh-git
+    yay -S oh-my-zsh-git
 }
 
 

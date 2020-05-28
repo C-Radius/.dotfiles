@@ -7,7 +7,7 @@
 "  \____|    |_| \_\__,_|\__,_|_|\__,_|___/
 "
 "Author: C-Radius
-"Last Mod: 25/10/2018
+"Last Mod: 22/05/2020
 
 "Environment variables
 let $NVIM_PYTHON_LOG_FILE="/tmp/nvlog"  "Set locaiton for nvlog file.
@@ -40,10 +40,8 @@ Plug 'cloudhead/neovim-fuzzy'
 Plug 'C-Radius/vim-one'
 Plug 'KabbAmine/vCoolor.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
 Plug 'easymotion/vim-easymotion'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'scrooloose/nerdtree'
@@ -58,6 +56,8 @@ Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/denite.nvim'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nightsense/vimspectr'
+Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -93,14 +93,10 @@ endif
 
 syntax on
 
-set background=dark " for the dark version
+set background=dark" for the dark version
 let g:one_allow_italics = 1
-" set background=light " for the light version
 colorscheme one
 
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 "Settings parameters for coc-neovim
 set hidden
 set nobackup
@@ -139,8 +135,8 @@ set nojoinspaces                " Prevents inserting two spaces after punctuatio
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow
 set laststatus=1                "Airline configuration to be visible all the time.
-set encoding=utf-8                "Configuration for airline so it's symbols show properly.
-set ttimeoutlen=50                "Configuration for airline so that there's no wait between insert and normal mode changing.
+set encoding=utf-8              "Configuration for airline so it's symbols show properly.
+set ttimeoutlen=50              "Configuration for airline so that there's no wait between insert and normal mode changing.
 set mouse=a
 set noswapfile
 set hidden
@@ -157,7 +153,6 @@ set guicursor=
 "Keybindings
 "-------------------------------------------------------------------------{{{
 let mapleader=","
-let maplocalleader = "\\"
 
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
@@ -209,6 +204,7 @@ augroup foldmethod_detec
     au BufRead,BufNewFile,BufWrite *.cpp set foldmethod=syntax
     au BufRead,BufNewFile,BufWrite *.py set foldmethod=indent
     au BufRead,BufNewFile,BufWrite *.lua set foldmethod=marker
+    "au BufRead,BufNewFIle,BufWrite *.rs set foldmethod=syntax
 augroup END
 
 "lsl Configuration
@@ -225,22 +221,13 @@ autocmd filetype lsl setlocal completeopt=longest,menuone
 "Plugin Configuration
 "-------------------------------------------------------------------------{{{
 
-"airline
-"-------------------------------------------------------------------------{{{
-"let g:airline_theme='one'
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#formatter = 'default'
-"let g:airline_powerline_fonts = 1
-"-------------------------------------------------------------------------}}}
-
-
 "Disable preview of documentation and what not
 set completeopt-=preview
 "-------------------------------------------------------------------------}}}
 
 "NerdTree
 "-------------------------------------------------------------------------{{{
-nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
+nnoremap <silent> <leader>e :NERDTreeToggle<CR>
 "autocmd VimEnter * NERDTree | wincmd p
 "autocmd VimEnter *.rs,*.toml NERDTree | wincmd p
 "autocmd VimEnter *.rs,*.toml TagbarToggle
@@ -248,9 +235,11 @@ nnoremap <silent> <Leader>e :NERDTreeToggle<CR>
 
 "Undotree
 "-------------------------------------------------------------------------{{{
-nnoremap <Leader>u :UndotreeToggle<CR>
+nnoremap <leader>u :UndotreeToggle<CR>
 "-------------------------------------------------------------------------}}}
 
+"Toggle transparency (Unecessary with transparent terminal).
+"-------------------------------------------------------------------------{{{
 let t:is_transparent = 0
 function! Toggle_transparent()
     if t:is_transparent == 0
@@ -263,9 +252,10 @@ function! Toggle_transparent()
 endfunction
 nnoremap <C-t> : call Toggle_transparent()<CR>
 hi Normal guibg=NONE ctermbg=NONE
+"-------------------------------------------------------------------------}}}
 
-
-"Coc.nvim sample config skeleton
+"Coc.nvim configuration.
+"-------------------------------------------------------------------------{{{
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -332,8 +322,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+"xmap <leader>f  <Plug>(coc-format-selected) "DO NOT FORGET TO BIND THESE TO OTHER KEYS BCZ THEY ARE USED BY LeaderF extension
+"nmap <leader>f  <Plug>(coc-format-selected) "DO NOT FORGET TO BIND THESE TO OTHER KEYS BCZ THEY ARE USED BY LeaderF extension
 
 augroup mygroup
     autocmd!
@@ -399,7 +389,10 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 "neovim-fuzzy
 nnoremap <C-p> :FuzzyOpen<CR>
+"-------------------------------------------------------------------------}}}
+
 "Denite
+"-------------------------------------------------------------------------{{{
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
     nnoremap <silent><buffer><expr> <CR>
@@ -494,22 +487,43 @@ function! s:denite_my_settings() abort
     nnoremap <silent><buffer><expr> <C-h>
                 \ denite#do_map('do_action', 'split')
 endfunction
+"-------------------------------------------------------------------------}}}
 
-"if strftime("%H") < 7 || strftime("%H") >= 19
-"  let themes = [
-"    \ 'vimspectr0-dark'   , 'vimspectr0-dark'    , 'vimspectr30-dark'  ,
-"    \ 'vimspectr60-dark'  , 'vimspectr90-dark'   , 'vimspectr120-dark' ,
-"    \ 'vimspectr150-dark' , 'vimspectr180-dark'  , 'vimspectr210-dark' ,
-"    \ 'vimspectr240-dark' , 'vimspectr270-dark'  , 'vimspectr300-dark' ,
-"    \ 'vimspectr330-dark' , 'vimspectrgrey-dark'
-"    \ ]
-"else
-"  let themes = [
-"    \ 'vimspectr0-light'  , 'vimspectr0-light'   , 'vimspectr30-light' ,
-"    \ 'vimspectr60-light' , 'vimspectr90-light'  , 'vimspectr120-light',
-"    \ 'vimspectr150-light', 'vimspectr180-light' , 'vimspectr210-light',
-"    \ 'vimspectr240-light', 'vimspectr270-light' , 'vimspectr300-light',
-"    \ 'vimspectr330-light', 'vimspectrgrey-light'
-"    \ ]
-"endif
-"exe 'colorscheme '.themes[localtime() % len(themes)]
+
+""LeaderF
+""-------------------------------------------------------------------------{{{
+"" don't show the help in normal mode
+"let g:Lf_HideHelp = 1
+"let g:Lf_UseCache = 0
+"let g:Lf_UseVersionControlTool = 0
+"let g:Lf_IgnoreCurrentBufferName = 1
+"" popup mode
+"let g:Lf_WindowPosition = 'popup'
+"let g:Lf_PreviewInPopup = 1
+"let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+"let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+"
+"let g:Lf_ShortcutF = "<leader>ff"
+"noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+"noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+"noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+"noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+"
+"noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+"noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+"" search visually selected text literally
+"xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+"noremap go :<C-U>Leaderf! rg --recall<CR>
+"
+"" should use `Leaderf gtags --update` first
+"let g:Lf_GtagsAutoGenerate = 0
+"let g:Lf_PythonVersion = 3
+"let g:Lf_Gtagslabel = 'native-pygments'
+"let g:LF_Ctags = '/usr/bin/ctags'
+"
+"noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+"noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+"noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+"noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+"noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+""-------------------------------------------------------------------------}}}
