@@ -4,6 +4,7 @@ CUR_DIR=$(pwd)
 
 function show_help() {
     echo 'Usage: '
+    echo '  --yay 	- Install yay helper'
     echo '  --links     - Create symbolic links for configuration files in this repo to home directory'
     echo '  --packages  - Install packages in MyPackageList file to system.'
     echo '  --upl       - Update package list'
@@ -25,6 +26,19 @@ function update_package_list ()
 
 
 
+#Install yay helper
+function install_yay () {
+	sudo pacman -S git --needed
+	git clone https://aur.archlinux.org/yay.git
+	cd yay
+	makepkg -si
+	cd ..
+	rm -rf yay
+}
+
+
+
+
 #This function should be used if you want to speed up the process
 #of bringing your system back to how it was fast. Maybe after a re-install.
 function install_packages () {
@@ -41,6 +55,10 @@ function install_packages () {
 #create sym links for everything in home except for .config file
 #because it contains more stuff that we don't want to backup.
 function create_symlinks () {
+    #Install python-neovim package for neovim plugins (RemotePlugUpdate)
+    sudo pacman -S python-neovim --needed
+
+    #proceed with creating all the symlinks
     echo "links option selected. Creating symlink..."
 
     rm -rf $HOME/.config/awesome $HOME/.config/nvim $HOME/.config/mpd $HOME/.config/ranger
@@ -55,10 +73,10 @@ function create_symlinks () {
     done
 
     if [ -d $HOME/.config ]; then
-	echo ".config directory exists"
+        echo ".config directory exists"
     else
-	echo ".config directory doesn't exist... creating"
-	mkdir $HOME/.config
+        echo ".config directory doesn't exist... creating"
+        mkdir $HOME/.config
     fi
 
     for x in $(ls -A $CUR_DIR/home_stuff/.config);
@@ -84,6 +102,8 @@ for x in $@ ;
 do
     if [ $x == "--links" ]; then
         let install_links=1
+    elif [ $x == "--yay" ]; then
+	let install_yay=1
     elif [ $x == "--packages" ]; then
         let install_packages=1
     elif [ $x == "--upl" ]; then
@@ -102,6 +122,10 @@ fi
 
 echo "Starting Setup..."
 echo "Working on $CUR_DIR..."
+
+if [ "$install_yay" == "1" ]; then
+    install_yay
+fi
 
 if [ "$install_packages" == "1" ]; then
     install_packages
