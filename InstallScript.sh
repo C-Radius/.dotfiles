@@ -28,12 +28,12 @@ function update_package_list ()
 
 #Install yay helper
 function install_yay () {
-	sudo pacman -S git --needed
-	git clone https://aur.archlinux.org/yay.git
-	cd yay
-	makepkg -si
-	cd ..
-	rm -rf yay
+    sudo pacman -S git --needed
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+    cd ..
+    rm -rf yay
 }
 
 
@@ -59,7 +59,7 @@ function create_symlinks () {
     sudo pacman -S python-neovim --needed
 
     #proceed with creating all the symlinks
-    echo "links option selected. Creating symlink..."
+    echo "Links option selected. Creating symlink..."
 
     rm -rf $HOME/.config/awesome $HOME/.config/nvim $HOME/.config/mpd $HOME/.config/ranger
 
@@ -103,7 +103,7 @@ do
     if [ $x == "--links" ]; then
         let install_links=1
     elif [ $x == "--yay" ]; then
-	let install_yay=1
+        let install_yay=1
     elif [ $x == "--packages" ]; then
         let install_packages=1
     elif [ $x == "--upl" ]; then
