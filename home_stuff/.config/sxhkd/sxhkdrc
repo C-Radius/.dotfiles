@@ -4,11 +4,11 @@
 
 # terminal emulator
 super + Return
-	urxvt
+	kitty
 
 # program launcher
 super + @space
-	dmenu_run
+	rofi -show-icons -show
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -19,7 +19,7 @@ super + Escape
 #
 
 # quit/restart bspwm
-super + alt + {q,r}
+super + shift + {e,r}
 	bspc {quit,wm -r}
 
 # close and kill
