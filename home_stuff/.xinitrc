@@ -4,6 +4,7 @@
 
 #this is for debugging.
 #exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
-exec i3
+#exec i3
+exec bspwm
 
 
