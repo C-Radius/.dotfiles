@@ -16,12 +16,14 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
+setxkbmap -model pc105 -layout us,gr -variant qwerty -option grp:alt_shift_toggle
 setxkbmap us
 
-setxkbmap -model pc105 -layout us,gr -variant qwerty -option grp:alt_shift_toggle
+xsetroot -cursor_name left_ptr &
 picom --experimental-backends --backend glx
 start-pulseaudio-x11 &
 nm-applet &
 nitrogen --restore &
+dunst &
 killall polybar
 polybar bspwm
