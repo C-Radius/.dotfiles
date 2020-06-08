@@ -1,7 +1,16 @@
-#! /bin/sh
-sxhkd &
+#!/bin/bash
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+sxhkd &
+setxkbmap -model pc105 -layout us,gr -variant qwerty -option grp:alt_shift_toggle &
+setxkbmap us &
+
+picom --experimental-backends --backend glx &
+start-pulseaudio-x11 &
+nm-applet &
+nitrogen --restore &
+dunst &
+polybar bspwm &
+xsetroot -cursor_name left_ptr &
 
 bspc config border_width         0
 bspc config window_gap           10 
@@ -16,14 +25,4 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
-setxkbmap -model pc105 -layout us,gr -variant qwerty -option grp:alt_shift_toggle
-setxkbmap us
-
-xsetroot -cursor_name left_ptr &
-picom --experimental-backends --backend glx
-start-pulseaudio-x11 &
-nm-applet &
-nitrogen --restore &
-dunst &
-killall polybar
-polybar bspwm
+bspc monitor -d I II III IV V VI VII VIII IX X
