@@ -15,6 +15,10 @@ nitrogen --restore &
 
 if pgrep polybar; then killall polybar; fi
 polybar bspwm &
+
+if pgrep flashfocus; then killall flashfocus; fi
+flashfocus &
+
 xsetroot -cursor_name left_ptr &
 
 
