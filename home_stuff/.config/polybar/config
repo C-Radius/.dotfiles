@@ -111,19 +111,33 @@ label-unmounted-foreground = ${colors.foreground-alt}
 [module/bspwm]
 type = internal/bspwm
 
-label-focused = %index%
+ws-icon-0 = 1;I
+ws-icon-1=  2;II
+ws-icon-2=  3;III
+ws-icon-3=  4;IV
+ws-icon-4=  5;V
+ws-icon-5=  6;VI
+ws-icon-6=  7;VII
+ws-icon-7=  8;VIII
+ws-icon-8=  9;IX
+ws-icon-9=  10;X
+
+label-font = fira code
+format = <label-state> <label-mode>
+label-monitor = %icon%
+label-focused = %name%
 label-focused-background = ${colors.background-alt}
 label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
-label-occupied = %index%
+label-occupied = %name%
 label-occupied-padding = 2
 
-label-urgent = %index%!
+label-urgent = %name%!
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-label-empty = %index%
+label-empty = %name%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 

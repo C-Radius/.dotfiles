@@ -4,13 +4,19 @@ sxhkd &
 setxkbmap -model pc105 -layout us,gr -variant qwerty -option grp:alt_shift_toggle &
 setxkbmap us &
 
+if pgrep picom; then killall picom; fi
 picom --experimental-backends --backend glx &
+
 start-pulseaudio-x11 &
 nm-applet &
 nitrogen --restore &
-dunst &
+
+/usr/bin/dunst &
+
+if pgrep polybar; then killall polybar; fi
 polybar bspwm &
 xsetroot -cursor_name left_ptr &
+
 
 bspc config border_width         0
 bspc config window_gap           10 
@@ -26,3 +32,8 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
 bspc monitor -d I II III IV V VI VII VIII IX X
+
+if pgrep jackd; then killall jackd; fi
+if pgrep jackdbus; then killall jackdbus; fi
+~/bin/start_jack.sh
+
