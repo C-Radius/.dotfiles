@@ -4,3 +4,6 @@
 [submodule "home_stuff/.icons/Zafiro-icons"]
 	path = home_stuff/.icons/Zafiro-icons
 	url = https://github.com/zayronxio/Zafiro-icons.git
+[submodule "home_stuff/.config/polybar/polybar-spotify"]
+	path = home_stuff/.config/polybar/polybar-spotify
+	url = https://github.com/Jvanrhijn/polybar-spotify.git

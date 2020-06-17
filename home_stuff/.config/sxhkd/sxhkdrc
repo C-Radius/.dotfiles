@@ -26,6 +26,9 @@ super + shift + {e,r}
 super + {_,shift + }w
 	bspc node -{c,k}
 
+button2
+    bspc node -c
+
 # alternate between the tiled and monocle layout
 super + m
 	bspc desktop -l next

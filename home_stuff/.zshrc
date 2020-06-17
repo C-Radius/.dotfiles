@@ -125,7 +125,7 @@ export NVIM_PYTHON_LOG_FILE=/tmp/nvlog
 export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket"
 
 #default applications
-export BROWSER="firefox"
+export BROWSER="qutebrowser"
 
 #fix for slowness caused by git-plugin
 function git_prompt_info() {

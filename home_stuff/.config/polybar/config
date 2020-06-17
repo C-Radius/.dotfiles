@@ -51,12 +51,16 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
+#font-0 = fixed:pixelsize=10;1
+#font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+#font-2 = siji:pixelsize=10;1
+
+font-1 = FontAwesome5Free:style=Solid:size=10;4
+font-2 = FontAwesome5Free:style=Regular:size=10;4
+font-3 = FontAwesome5Brands:style=Regular:size=10;4
 
 modules-left = bspwm
-modules-center = mpd
+modules-center = xwindow spotify
 modules-right = filesystem xbacklight pulseaudio xkeyboard memory cpu wlan eth temperature date powermenu
 
 tray-position = right
@@ -184,14 +188,19 @@ label-urgent-padding = 2
 
 [module/mpd]
 type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
+interval = 2
+format-online = <label-song> <icon-prev> <icon-stop> <toggle> <icon-next>
+label-song = 𝄞 %artist% - %title%
+icon-play = ⏵
+icon-pause = ⏸
+icon-stop = ⏹
+icon-prev = ⏮
+icon-next = ⏭
+icon-seekb = ⏪
+icon-seekf = ⏩
+icon-random = 🔀
+icon-repeat = 🔁
+icon-repeatone = 🔂
 label-song-maxlen = 25
 label-song-ellipsis = true
 
@@ -401,7 +410,7 @@ expand-right = true
 
 format-spacing = 1
 
-label-open = 
+label-open = ☰
 label-open-foreground = ${colors.secondary}
 label-close =  cancel
 label-close-foreground = ${colors.secondary}
@@ -417,11 +426,18 @@ menu-1-0 = cancel
 menu-1-0-exec = menu-open-0
 menu-1-1 = reboot
 menu-1-1-exec = sudo reboot
-
-menu-2-0 = power off
+menu-2-0 = power off 
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = "♫ "
+format = <label>
+exec = python ~/.config/polybar/polybar-spotify/spotify_status.py -f '{artist}: {song}'
+format-underline = #1db954
 
 [settings]
 screenchange-reload = true

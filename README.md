@@ -1,6 +1,6 @@
 My linux configuration files.
 
-Configuration files for i3 wm, neovim, ranger, mpd, kitty, picom and more will
+Configuration files for bspwm, neovim, ranger, mpd, kitty, picom and more will
 be put automatically in .config directory. An extra "Bin" Folder will be added
 in home directory.
 
@@ -17,13 +17,14 @@ In case someone does download this repo. InstallSystem.sh script will delete:
 -   ~/.xdefaults
 -   ~/.irssi
 -   ~/.themes
--   ~/.config/i3
+-   ~/.config/bspwm
 -   ~/.config/ranger
 -   ~/.config/mpd
 -   ~/.config/nvim
 -   ~/.config/rofi
 -   ~/.config/nitrogen
 -   ~/.config/kitty
+-   ~/.config/sxhkd
 -   ~/.mpd
 -   ~/.polybar
 -   ~/.Thunar
