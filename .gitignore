@@ -20,6 +20,3 @@ home_stuff/.icons
 #themes
 home_stuff/.themes
 
-#qutebrowser dracula theme cache
-home_stuff/.config/qutebrowser/dracula
-home_stuff/.config/qutebrowser/dracula/*
