@@ -10,4 +10,4 @@
 [submodule "home_stuff/.config/qutebrowser/dracula"]
 	path = home_stuff/.config/qutebrowser/dracula
 	url = https://github.com/dracula/qutebrowser-dracula-theme.git
-	ignore = untracked
+	ignore = dirty
