@@ -1,14 +1,17 @@
+# dracula theme configuration
 import dracula.draw
-
 config.load_autoconfig()
-
 dracula.draw.blood(c, {
     'spacing': {
         'vertical': 6,
         'horizontal': 8
     }
 })
+
+# detach videos to mpv
 # Uncomment this to still load settings configured via autoconfig.yml
+config.bind('<Ctrl-Shift-y>',
+            'hint links spawn --detach mpv --force-window yes {hint-url}')
 # config.load_autoconfig()
 
 # Which cookies to accept. With QtWebEngine, this setting also controls
@@ -167,7 +170,10 @@ c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?hl=en&q={}",
     "d": "https://duckduckgo.com/?q={}",
     "aw": "https://wiki.archlinux.org/?search={}",
-    "gh": "https://github.com/search?q={}"}
+    "gh": "https://github.com/search?q={}",
+    "rs": "https://doc.rust-lang.org/std/index.html?search={}",
+    "rd": "https://www.reddit.com/search/?q={}"
+}
 
 # Page(s) to open at the start.
 # Type: List of FuzzyUrl, or FuzzyUrl

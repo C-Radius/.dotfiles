@@ -124,7 +124,10 @@ super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 Print
-    scrot -u #Screenshot focused window 
+    scrot #Screenshot focused window 
+
+Alt + Print
+    scrot -u
 
 #Volume managemen
 XF86AudioRaiseVolume

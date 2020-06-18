@@ -1,5 +1,6 @@
 #!/bin/bash
 
+if pgrep sxhkd; then killall sxhkd; fi
 sxhkd &
 setxkbmap -model pc105 -layout us,gr -variant qwerty -option grp:alt_shift_toggle &
 setxkbmap us &
@@ -16,14 +17,15 @@ nitrogen --restore &
 if pgrep polybar; then killall polybar; fi
 polybar bspwm &
 
-if pgrep flashfocus; then killall flashfocus; fi
-flashfocus &
+#if pgrep flashfocus; then killall flashfocus; fi
+#flashfocus &
 
 xsetroot -cursor_name left_ptr &
 
 /bin/discord &
 
-bspc config focus_follows_pointer true
+#bspc config focus_follows_pointer true
+bspc config ignore_ewmh_focus true
 bspc config border_width         1
 bspc config window_gap           10
 bspc config single_monocle true
@@ -35,6 +37,7 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 bspc rule -a krita desktop='^5'
+bspc rule -a mpv state=floating
 bspc rule -a REAPER desktop='^4'
 bspc rule -a discord desktop='^9' focus=no
 bspc rule -a QjackCtl desktop='^8'
