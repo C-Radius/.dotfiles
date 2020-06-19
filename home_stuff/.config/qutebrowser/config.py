@@ -411,3 +411,5 @@ config.bind('N', 'prompt-accept --save no', mode='yesno')
 config.bind('Y', 'prompt-accept --save yes', mode='yesno')
 config.bind('n', 'prompt-accept no', mode='yesno')
 config.bind('y', 'prompt-accept yes', mode='yesno')
+
+config.source('qutewal.py')

@@ -11,3 +11,6 @@
 	path = home_stuff/.config/qutebrowser/dracula
 	url = https://github.com/dracula/qutebrowser-dracula-theme.git
 	ignore = dirty
+[submodule "home_stuff/.config/qutebrowser/qutewal"]
+	path = home_stuff/.config/qutebrowser/qutewal
+	url = https://github.com/jjzmajic/qutewal.git
