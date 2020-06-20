@@ -44,7 +44,7 @@ bspc rule -a QjackCtl desktop='^8'
 bspc rule -a firefox desktop='^1'
 bspc rule -a mplayer2 state=floating
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+bspc monitor -d I II III IV V VI VII VIII IX #ᨁ ᨂ ᨃ ᨄ ᨅ ᨆ ᨇ ᨈ ᨉ
 
 if pgrep jackd; then killall jackd; fi
 if pgrep jackdbus; then killall jackdbus; fi

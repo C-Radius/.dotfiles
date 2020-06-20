@@ -168,6 +168,7 @@ c.url.default_page = 'https://www.google.com'
 # Type: Dict
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?hl=en&q={}",
+    "yt": "https://www.youtube.com/results?search_query={}",
     "d": "https://duckduckgo.com/?q={}",
     "aw": "https://wiki.archlinux.org/?search={}",
     "gh": "https://github.com/search?q={}",
@@ -338,7 +339,7 @@ config.bind('<Ctrl+Shift+c>', 'completion-item-yank --sel', mode='command')
 config.bind('<Ctrl+Tab>', 'completion-item-focus next-category', mode='command')
 config.bind('<Ctrl+a>', 'rl-beginning-of-line', mode='command')
 config.bind('<Ctrl+b>', 'rl-backward-char', mode='command')
-config.bind('<Ctrl+c>', 'completion-item-yank', mode='command')
+#config.bind('<Ctrl+c>', 'completion-item-yank', mode='command')
 config.bind('<Ctrl+d>', 'completion-item-del', mode='command')
 config.bind('<Ctrl+e>', 'rl-end-of-line', mode='command')
 config.bind('<Ctrl+f>', 'rl-forward-char', mode='command')

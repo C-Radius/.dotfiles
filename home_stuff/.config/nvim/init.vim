@@ -94,7 +94,8 @@ endif
 
 syntax on
 
-set background=dark" for the dark version
+set background=light
+
 let g:one_allow_italics = 1
 colorscheme one
 
@@ -237,22 +238,6 @@ nnoremap <silent> <leader>e :NERDTreeToggle<CR>
 "Undotree
 "-------------------------------------------------------------------------{{{
 nnoremap <leader>u :UndotreeToggle<CR>
-"-------------------------------------------------------------------------}}}
-
-"Toggle transparency (Unecessary with transparent terminal).
-"-------------------------------------------------------------------------{{{
-let t:is_transparent = 0
-function! Toggle_transparent()
-    if t:is_transparent == 0
-        hi Normal guibg=NONE ctermbg=NONE
-        let t:is_transparent = 1
-    else
-        set background=dark
-        let t:is_tranparent = 0
-    endif
-endfunction
-nnoremap <C-t> : call Toggle_transparent()<CR>
-hi Normal guibg=NONE ctermbg=NONE
 "-------------------------------------------------------------------------}}}
 
 "Coc.nvim configuration.

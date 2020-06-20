@@ -10,6 +10,8 @@ settings:
     https://www.reddit.com: true
   content.register_protocol_handler:
     https://mail.google.com?extsrc=mailto&url=%25s: true
+  fonts.web.family.cursive:
+    global: O
   url.default_page:
     global: https://www.google.com
   url.searchengines:

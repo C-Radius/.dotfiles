@@ -10,7 +10,7 @@ configuration {
     padding: 20;
     lines: 8;
     sidebar-mode: true;
-    theme: "~/.cache/wal/colors-rofi-dark.rasi";
+    theme: "~/.config/rofi/theme.rasi";
     kb-row-up:                      "Up,Control+k,Shift+Tab,Shift+ISO_Left_Tab";
     kb-row-down:                    "Down,Control+j";
     kb-accept-entry:                "Control+m,Return,KP_Enter";
