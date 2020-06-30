@@ -26,13 +26,20 @@ if [[ -z $image  ]]; then
 fi
 
 #Use wal to generate colorschemes
-wal -q $intensity --backend haishoku -i $image
-
-#Set dark or light mode for vim theme
-if [[ $intensity == "-d" ]]; then
+if [[ -z $intensity ]]; then
+    #Execute wal with proper backend for dark theme
+    wal -q --backend haishoku -i $image
+    #Modify vim settings to reflect our theme change
     sed -i 's/set background=.*$/set background=dark/g' ~/.config/nvim/init.vim
+    #Select proper colors-rofi-{dark|light} file.
+    cat ~/.cache/wal/colors-rofi-dark.rasi > ~/.config/rofi/theme.rasi
 else
+    #Execute wal with proper backend for light theme
+    wal -q -l --backend haishoku -i $image
+    #Modify vim settings to reflect our theme change
     sed -i 's/set background=.*$/set background=light/g' ~/.config/nvim/init.vim
+    #Select proper colors-rofi-{dark|light} file.
+    cat ~/.cache/wal/colors-rofi-light.rasi > ~/.config/rofi/theme.rasi
 fi
 
 
@@ -40,15 +47,8 @@ fi
 rm -rf ~/.themes/wal-gtk-theme
 /opt/oomox/plugins/theme_oomox/gtk-theme/change_color.sh -o wal-gtk-theme -d true -m all ~/.cache/wal/colors-oomox  1>/dev/null
 
+#Use oomoxify to generate colorscheme for spotify
+oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
+
 #modify gtk-3.0 settings to reflect our new theme.
 sed -i 's/gtk-theme-name=.*$/gtk-theme-name=wal-gtk-theme/g' ~/.config/gtk-3.0/settings.ini 
-
-if [[ $intensity == "-d" ]]; then
-    cat ~/.cache/wal/colors-rofi-dark.rasi > ~/.config/rofi/theme.rasi
-else
-    cat ~/.cache/wal/colors-rofi-light.rasi > ~/.config/rofi/theme.rasi
-fi
-
-if pgrep dunst; then killall dunst; fi
-exec dunst &
-

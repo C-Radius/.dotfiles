@@ -8,5 +8,3 @@ jack_control dps nperiods 2
 jack_control dps period 64
 sleep 2
 a2jmidid -e &
-sleep 2
-qjackctl &
