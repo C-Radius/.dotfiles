@@ -42,13 +42,21 @@ else
     cat ~/.cache/wal/colors-rofi-light.rasi > ~/.config/rofi/theme.rasi
 fi
 
+# If qutebrowser is running, source the new colorscheme
+if pgrep qutebrowser; then
+    qutebrowser ':config-source'
+fi
 
 #Use oomox to generate the colorscheme for gtk
 rm -rf ~/.themes/wal-gtk-theme
 /opt/oomox/plugins/theme_oomox/gtk-theme/change_color.sh -o wal-gtk-theme -d true -m all ~/.cache/wal/colors-oomox  1>/dev/null
 
+#####Commented out because it interfers with auto_theme_changer.sh script
+#####oomoxify asks for root password which interrupts the process
 #Use oomoxify to generate colorscheme for spotify
-oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
+#oomoxify-cli -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
 
 #modify gtk-3.0 settings to reflect our new theme.
 sed -i 's/gtk-theme-name=.*$/gtk-theme-name=wal-gtk-theme/g' ~/.config/gtk-3.0/settings.ini 
+
+

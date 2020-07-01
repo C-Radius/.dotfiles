@@ -8,6 +8,9 @@ nm-applet &
 xsetroot -cursor_name left_ptr &
 
 
+if pidof watch; then killall watch; fi
+watch -n 3600 ~/bin/auto_theme_changer.sh &
+
 #bspc config focus_follows_pointer true
 bspc config ignore_ewmh_focus true
 bspc config border_width         1
