@@ -8,8 +8,6 @@ nm-applet &
 xsetroot -cursor_name left_ptr &
 
 
-if pidof watch; then killall watch; fi
-watch -n 3600 ~/bin/auto_theme_changer.sh &
 
 #bspc config focus_follows_pointer true
 bspc config ignore_ewmh_focus true
@@ -31,3 +29,7 @@ bspc rule -a mplayer2 state=floating
 
 
 bspc monitor -d I II III IV V VI VII VIII IX
+
+if pidof watch; then killall watch; fi
+watch -n 3600 ~/bin/auto_theme_changer.sh &
+
