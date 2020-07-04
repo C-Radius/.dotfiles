@@ -117,7 +117,7 @@ export PATH="/home/deus/.gem/ruby/2.5.0/bin:$PATH"
 bindkey -v
 
 #Enable 256 colors for terminals
-export TERM="xterm-256color"
+export TERM="xterm-kitty" #"xterm-256color"
 
 #Debugging info for lldb-nvim pluggin. store at.
 export NVIM_PYTHON_LOG_FILE=/tmp/nvlog

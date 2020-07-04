@@ -173,7 +173,9 @@ c.url.searchengines = {
     "aw": "https://wiki.archlinux.org/?search={}",
     "gh": "https://github.com/search?q={}",
     "rs": "https://doc.rust-lang.org/std/index.html?search={}",
-    "rd": "https://www.reddit.com/search/?q={}"
+    "rd": "https://www.reddit.com/search/:q?q={}",
+    "rdr": "https://www.reddit.com/r/{}/",
+    "gh": "https://github.com/search?q={}"
 }
 
 # Page(s) to open at the start.
