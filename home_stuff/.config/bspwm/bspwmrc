@@ -19,17 +19,17 @@ bspc config split_ratio          0.50
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc rule -a krita desktop='^5'
+bspc rule -a krita desktop='^'
 bspc rule -a mpv state=floating
 bspc rule -a REAPER desktop='^4'
-bspc rule -a discord desktop='^9' focus=no
-bspc rule -a QjackCtl desktop='^8'
-bspc rule -a firefox desktop='^1'
-bspc rule -a qutebrowser desktop='^1'
+bspc rule -a discord desktop='^' focus=no
+bspc rule -a QjackCtl desktop='^ﬓ'
+bspc rule -a firefox desktop='^'
+bspc rule -a qutebrowser desktop='^'
 bspc rule -a mplayer2 state=floating
 
 
-bspc monitor -d I II III IV V VI VII VIII IX
+bspc monitor -d      ﬓ ﬓ ﬓ 
 
 if pidof watch; then killall watch; fi
 watch -n 3600 ~/bin/auto_theme_changer.sh &

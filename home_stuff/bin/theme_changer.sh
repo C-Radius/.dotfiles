@@ -28,14 +28,14 @@ fi
 #Use wal to generate colorschemes
 if [[ -z $intensity ]]; then
     #Execute wal with proper backend for dark theme
-    wal -q --backend haishoku -i $image
+    wal -q --backend wal -i $image
     #Modify vim settings to reflect our theme change
     sed -i 's/set background=.*$/set background=dark/g' ~/.config/nvim/init.vim
     #Select proper colors-rofi-{dark|light} file.
     cat ~/.cache/wal/colors-rofi-dark.rasi > ~/.config/rofi/theme.rasi
 else
     #Execute wal with proper backend for light theme
-    wal -q -l --backend haishoku -i $image
+    wal -q -l --backend wal -i $image
     #Modify vim settings to reflect our theme change
     sed -i 's/set background=.*$/set background=light/g' ~/.config/nvim/init.vim
     #Select proper colors-rofi-{dark|light} file.
@@ -45,6 +45,11 @@ fi
 # If qutebrowser is running, source the new colorscheme
 if pgrep qutebrowser; then
     qutebrowser ':config-source'
+fi
+
+if pgrep dunst; then
+    killall dunst
+    notify-send test-string
 fi
 
 #Use oomox to generate the colorscheme for gtk
@@ -58,5 +63,3 @@ oomoxify-cli -g -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
 
 #modify gtk-3.0 settings to reflect our new theme.
 sed -i 's/gtk-theme-name=.*$/gtk-theme-name=wal-gtk-theme/g' ~/.config/gtk-3.0/settings.ini 
-
-

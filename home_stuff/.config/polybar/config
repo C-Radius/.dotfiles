@@ -15,15 +15,14 @@
 ;   The README contains a lot of information
 ;
 ;==========================================================
-
 [colors]
-background = ${xrdb:color0:#222}
-background-alt = ${xrdb:color0:#222}
-foreground = ${xrdb:color7:#222}
-foreground-alt = ${xrdb:color8:#222}
-primary = ${xrdb:color1:#222}
-secondary = ${xrdb:color2:#222}
-alert = ${xrdb:color3:#222}
+background = ${xrdb:color0}
+background-alt = ${xrdb:color12:#222}
+foreground = ${xrdb:color1:#222}
+foreground-alt = ${xrdb:color9:#222}
+primary = ${xrdb:color6:#222}
+secondary = ${xrdb:color12:#222}
+alert = ${xrdb:color6:#222}
 
 [bar/bspwm]
 ;monitor = ${env:MONITOR:HDMI-1}
@@ -31,36 +30,38 @@ width = 100%
 height = 27
 ;offset-x = 1%
 ;offset-y = 1%
-radius = 6.0
-fixed-center = false
+radius = 0 
+fixed-center=true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 3
-line-color = #f00
+line-color = ${colors.alert} 
 
-border-size = 4
-border-color = #00000000
+border-size = 0
+border-color = ${colors.background}
 
 padding-left = 0
-padding-right = 2
+padding-right = 0
 
-module-margin-left = 1
-module-margin-right = 2
+module-margin-left =0
+module-margin-right =1 
 
 #font-0 = fixed:pixelsize=10;1
 #font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 #font-2 = siji:pixelsize=10;1
 
-font-1 = FontAwesome5Free:style=Solid:size=10;4
-font-2 = FontAwesome5Free:style=Regular:size=10;4
-font-3 = FontAwesome5Brands:style=Regular:size=10;4
-font-4 = FreeSerif:style=Regular:size=10;4
+font-0 = SauceCodePro Nerd Font:style=Blazck Italic, Italic:size=14;4 
+font-1 = SauceCodePro Nerd Font:style=Blazck Italic, Italic:size=10;3 
+font-2 = FontAwesome5Free:style=Solid:size=10;4
+font-3 = FontAwesome5Free:style=Regular:size=10;4
+font-4 = FontAwesome5Brands:style=Regular:size=10;4
+font-5 = FreeSerif:style=Regular:size=12;4
 
-modules-left = bspwm
-modules-center = xwindow spotify
-modules-right = filesystem xbacklight pulseaudio xkeyboard memory cpu wlan eth temperature date powermenu
+modules-left = bspwm xwindow
+modules-center = spotify
+modules-right = cpu memory wlan eth temperature pulseaudio xkeyboard date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -82,6 +83,9 @@ cursor-scroll = ns-resize
 bottom= true
 
 [module/xwindow]
+label-font=2
+format-prefix-underline = ${colors.secondary}
+format-foreground=${colors.foreground}
 type = internal/xwindow
 label = %title:0:30:...%
 
@@ -89,17 +93,19 @@ label = %title:0:30:...%
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground}
+#format-prefix-underline = ${colors.secondary}
 
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
+label-font=2
+label-layout =  %layout%
+#label-layout-underline = ${colors.secondary}
 
+label-indicator-font=2
 label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
+#label-indicator-underline = ${colors.secondary}
 
 [module/filesystem]
 type = internal/fs
@@ -110,42 +116,44 @@ mount-1 = /home
 
 label-mounted = %{F#0a81f5}%mountpoint%%{F-} %percentage_used%%
 label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
+label-unmounted-foreground = $d{colors.foreground-alt}
 
 [module/bspwm]
 type = internal/bspwm
 
-ws-icon-0 = 1;I
-ws-icon-1=  2;II
-ws-icon-2=  3;III
-ws-icon-3=  4;IV
-ws-icon-4=  5;V
-ws-icon-5=  6;VI
-ws-icon-6=  7;VII
-ws-icon-7=  8;VIII
-ws-icon-8=  9;IX
+ws-icon-0=1;
+ws-icon-1=2;
+ws-icon-2=3;
+ws-icon-3=4;
+ws-icon-4=5;
+ws-icon-5=6;
+ws-icon-6=7;
+ws-icon-7=8;
+ws-icon-8=9;
 
-label-font = 4
-format = <label-state> <label-mode>
-label-monitor = %name%
-label-focused = %name%
-label-focused-background = ${colors.background-alt}
+label-font = 1
+format =<label-state> <label-mode>
+label-monitor =%name%
+label-focused =%name%
+label-focused-background = ${colors.background}
 label-focused-underline = ${colors.primary}
 label-focused-padding = 2
 
-label-occupied = %name%
+label-occupied =%name%
 label-occupied-padding = 2
+label-occupied-foreground=${colors.secondary}
 
-label-urgent = %name%!
+label-urgent =%name%!
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-label-empty = %name%
+label-empty =%name%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
 ; Separator in between workspaces
- label-separator = |
+label-separator =
+label-separator-foreground=${colors.foreground}
 
 [module/i3]
 type = internal/i3
@@ -212,9 +220,9 @@ label = BL
 bar-width = 10
 bar-indicator = |
 bar-indicator-foreground = #fff
-bar-indicator-font = 2
+bar-indicator-font = 1
 bar-fill = ─
-bar-fill-font = 2
+bar-fill-font = 1
 bar-fill-foreground = #9f78e1
 bar-empty = ─
 bar-empty-font = 2
@@ -226,20 +234,23 @@ type = internal/backlight
 card = intel_backlight
 
 [module/cpu]
+label-font=2
 type = internal/cpu
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
-label = %percentage:2%%
+#format-underline = ${colors.foreground} 
+label =﬙ %percentage:2%%
 
 [module/memory]
-type = internal/memory
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
-label = %percentage_used%%
+#format-underline = ${xrdb:color3} 
+border-size=2
+border-color=${xrdb:color3}
+label-font=2
+label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
@@ -268,16 +279,19 @@ type = internal/network
 interface = eno1
 interval = 3.0
 
-format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
+label-disconnected-font=2
+label-connected-font=2
+#format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.primary}
+label-connected =%downspeed% 祝%upspeed%
 
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
+format-disconnected =" "
+format-disconnected-foreground=${xrdb:color10}
+#format-disconnected = <label-disconnected>
+#format-disconnected-underline = ${self.format-connected-underline}
+#label-disconnected =
+#label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]
 type = internal/date
@@ -291,7 +305,7 @@ time-alt = %H:%M:%S
 
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
+#format-underline = #0a6cf5
 
 label = %date% %time%
 
@@ -301,6 +315,7 @@ type = internal/pulseaudio
 format-volume = <label-volume> <bar-volume>
 label-volume = VOL %percentage%%
 label-volume-foreground = ${root.foreground}
+label-volume-font=2 
 
 label-muted = 🔇 muted
 label-muted-foreground = #666
@@ -314,12 +329,12 @@ bar-volume-foreground-4 = #55aa55
 bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
+bar-volume-indicator = 
+bar-volume-indicator-font = 1
 bar-volume-fill = ─
-bar-volume-fill-font = 2
+bar-volume-fill-font = 1
 bar-volume-empty = ─
-bar-volume-empty-font = 2
+bar-volume-empty-font = 1
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/alsa]
@@ -342,7 +357,7 @@ bar-volume-foreground-4 = #55aa55
 bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
-bar-volume-indicator = |
+bar-volume-indicator = 
 bar-volume-indicator-font = 2
 bar-volume-fill = ─
 bar-volume-fill-font = 2
@@ -389,12 +404,14 @@ thermal-zone = 0
 warn-temperature = 60
 
 format = <ramp> <label>
-format-underline = #f50a4d
+#format-underline = #f50a4d
 format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
+#format-warn-underline = ${self.format-underline}
 
-label = %temperature-c%
-label-warn = %temperature-c%
+label-font=2
+label-warn-font=2
+label =%temperature-c%
+label-warn =%temperature-c%
 label-warn-foreground = ${colors.secondary}
 
 ramp-0 = 
@@ -413,7 +430,7 @@ label-open = ☰
 label-open-foreground = ${colors.secondary}
 label-close =  cancel
 label-close-foreground = ${colors.secondary}
-label-separator = |
+label-separator = 
 label-separator-foreground = ${colors.foreground-alt}
 
 menu-0-0 = reboot
@@ -433,10 +450,12 @@ menu-2-1-exec = menu-open-0
 [module/spotify]
 type = custom/script
 interval = 1
-format-prefix = "♫ "
+format-prefix-font=2
+format-label-font=2
+format-prefix = " "
 format = <label>
-exec = python ~/.config/polybar/polybar-spotify/spotify_status.py -f '{artist}: {song}'
-format-underline = #1db954
+exec = python ~/.config/polybar/polybar-spotify/spotify_status.py --font=2 -f '{artist}: {song}'
+#format-underline = #1db954
 
 [settings]
 screenchange-reload = true
@@ -448,6 +467,6 @@ screenchange-reload = true
 
 [global/wm]
 margin-top = 5
-margin-bottom = 5
+margin-bottom = 0
 
 ; vim:ft=dosini

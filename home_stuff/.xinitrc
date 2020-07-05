@@ -1,4 +1,5 @@
 #!/bin/bash
+systemctl --user set-environment DISPLAY=:0
 
 start-pulseaudio-x11 &
 jack_control start
