@@ -121,33 +121,33 @@ label-unmounted-foreground = $d{colors.foreground-alt}
 [module/bspwm]
 type = internal/bspwm
 
-ws-icon-0=1;
-ws-icon-1=2;
-ws-icon-2=3;
-ws-icon-3=4;
-ws-icon-4=5;
-ws-icon-5=6;
-ws-icon-6=7;
-ws-icon-7=8;
-ws-icon-8=9;
+ws-icon-0="1;"
+ws-icon-1="2;"
+ws-icon-2="3;"
+ws-icon-3="4;"
+ws-icon-4="5;"
+ws-icon-5="6;ﬓ"
+ws-icon-6="7;ﬓ"
+ws-icon-7="8;ﬓ"
+ws-icon-8="9;"
 
 label-font = 1
 format =<label-state> <label-mode>
 label-monitor =%name%
-label-focused =%name%
+label-focused =%icon%
 label-focused-background = ${colors.background}
 label-focused-underline = ${colors.primary}
 label-focused-padding = 2
 
-label-occupied =%name%
+label-occupied =%icon%
 label-occupied-padding = 2
 label-occupied-foreground=${colors.secondary}
 
-label-urgent =%name%!
+label-urgent =%icon%!
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-label-empty =%name%
+label-empty= 
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
@@ -400,8 +400,8 @@ animation-discharging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
+thermal-zone = 00
+warn-temperature = 70
 
 format = <ramp> <label>
 #format-underline = #f50a4d
@@ -410,13 +410,13 @@ format-warn = <ramp> <label-warn>
 
 label-font=2
 label-warn-font=2
-label =%temperature-c%
-label-warn =%temperature-c%
+label =%temperature-c%
+label-warn =%temperature-c%
 label-warn-foreground = ${colors.secondary}
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]

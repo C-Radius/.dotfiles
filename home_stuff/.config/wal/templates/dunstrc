@@ -170,18 +170,18 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "{color4}"
-    foreground = "{foreground}"
+    background = "{background}"
+    foreground = "{color1}"
     timeout = 5
 
 [urgency_normal]
-    background = "{color3}"
-    foreground = "{foreground}"
+    background = "{background}"
+    foreground = "{color8}"
     timeout = 5
 
 [urgency_critical]
-    background = "{color2}"
-    foreground = "{foreground}"
+    background = "{background}"
+    foreground = "{color7}"
     timeout = 0
 
 
