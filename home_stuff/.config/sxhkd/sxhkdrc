@@ -133,6 +133,21 @@ alt + Print
     scrot -u
 
 #Volume managemen
+XF86AudioPlay
+    playerctl play-pause
+XF86AudioStop
+    playerctl stop
+XF86AudioPrev
+    playerctl previous
+XF86AudioNext
+    playerctl next
+
+XF86WWW
+    qutebrowser
+
+XF86MyComputer
+    kitty ranger
+
 XF86AudioRaiseVolume
     pactl set-sink-volume @DEFAULT_SINK@ +10%
 

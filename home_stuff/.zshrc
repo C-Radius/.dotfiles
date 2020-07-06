@@ -140,14 +140,6 @@ fi
 
 set -o vi
 
-alias d100='rolldice 1d100%'
-alias d20='rolldice 1d20%'
-alias d12='rolldice 1d12%'
-alias d8='rolldice 1d8%'
-alias d6='rolldice 1d6%'
-alias d4='rolldice 1d4%'
-alias d2='rolldice 1d2%'
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
@@ -170,3 +162,15 @@ PERL5LIB="/home/chris/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB
 PERL_LOCAL_LIB_ROOT="/home/chris/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/chris/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/chris/perl5"; export PERL_MM_OPT;
+
+
+alias d100='rolldice 1d100%'
+alias d20='rolldice 1d20%'
+alias d12='rolldice 1d12%'
+alias d8='rolldice 1d8%'
+alias d6='rolldice 1d6%'
+alias d4='rolldice 1d4%'
+alias d2='rolldice 1d2%'
+
+#make it so ranger exists in the browsing directory
+alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
