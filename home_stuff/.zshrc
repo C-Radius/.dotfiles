@@ -174,3 +174,4 @@ alias d2='rolldice 1d2%'
 
 #make it so ranger exists in the browsing directory
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+alias hex='bviplus'

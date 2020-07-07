@@ -27,7 +27,7 @@ alert = ${xrdb:color6:#222}
 [bar/bspwm]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
-height = 27
+height = 42
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0 
@@ -52,8 +52,8 @@ module-margin-right =1
 #font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 #font-2 = siji:pixelsize=10;1
 
-font-0 = SauceCodePro Nerd Font:style=Blazck Italic, Italic:size=14;4 
-font-1 = SauceCodePro Nerd Font:style=Blazck Italic, Italic:size=10;3 
+font-0 = SauceCodePro Nerd Font:style=Blazck Italic, Italic:size=15;4 
+font-1 = SauceCodePro Nerd Font:style=Blazck Italic, Italic:size=12;3 
 font-2 = FontAwesome5Free:style=Solid:size=10;4
 font-3 = FontAwesome5Free:style=Regular:size=10;4
 font-4 = FontAwesome5Brands:style=Regular:size=10;4
@@ -63,8 +63,8 @@ modules-left = bspwm xwindow
 modules-center = spotify
 modules-right = cpu memory wlan eth temperature pulseaudio xkeyboard date powermenu
 
-tray-position = right
-tray-padding = 2
+tray-position =right
+tray-padding = 4
 ;tray-background = #0063ff
 
 wm-restack = bspwm

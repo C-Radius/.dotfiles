@@ -1,12 +1,12 @@
 # dracula theme configuration
-import dracula.draw
-config.load_autoconfig()
-dracula.draw.blood(c, {
-    'spacing': {
-        'vertical': 6,
-        'horizontal': 8
-    }
-})
+#import dracula.draw
+# config.load_autoconfig()
+# dracula.draw.blood(c, {
+#    'spacing': {
+#        'vertical': 6,
+#        'horizontal': 8
+#    }
+# })
 
 # detach videos to mpv
 # Uncomment this to still load settings configured via autoconfig.yml
