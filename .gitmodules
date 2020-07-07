@@ -7,10 +7,7 @@
 [submodule "home_stuff/.config/polybar/polybar-spotify"]
 	path = home_stuff/.config/polybar/polybar-spotify
 	url = https://github.com/Jvanrhijn/polybar-spotify.git
-[submodule "home_stuff/.config/qutebrowser/dracula"]
-	path = home_stuff/.config/qutebrowser/dracula
-	url = https://github.com/dracula/qutebrowser-dracula-theme.git
-	ignore = dirty
 [submodule "home_stuff/.config/qutebrowser/qutewal"]
 	path = home_stuff/.config/qutebrowser/qutewal
 	url = https://github.com/jjzmajic/qutewal.git
+	ignore = dirty
