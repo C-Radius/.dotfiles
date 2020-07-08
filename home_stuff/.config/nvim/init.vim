@@ -35,6 +35,8 @@ endif
 filetype off
 
 call plug#begin('~/.config/nvim/plugged')
+
+Plug 'dylanaraps/wal.vim'
 Plug 'ap/vim-css-color'
 Plug 'cloudhead/neovim-fuzzy'
 Plug 'C-Radius/vim-one'
@@ -93,9 +95,8 @@ endif
 
 syntax on
 
-set background=dark
-
 let g:one_allow_italics = 1
+set background=dark
 colorscheme one
 
 "Settings parameters for coc-neovim
@@ -147,13 +148,11 @@ set imcmdline
 set imsearch=-1
 "set cc=80                        "show 80 column"
 set guicursor=
-
-
 "-------------------------------------------------------------------------}}}
-
 "Keybindings
 "-------------------------------------------------------------------------{{{
 let mapleader=","
+
 
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
@@ -498,5 +497,6 @@ nnoremap <Leader>b :%!xxd<cr>
 nnoremap <Leader>br :%!xxd -r<cr>
 
 "-------------------------------------------------------------------------}}}
+
 
 

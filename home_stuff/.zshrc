@@ -113,6 +113,8 @@ alias vtop="vtop -t nord"
 #Add gem/bin in PATH
 export PATH="/home/deus/.gem/ruby/2.5.0/bin:$PATH"
 
+#add 
+export PATH="$HOME/.dotfiles/wal-discord:$PATH"
 #Enable vim mode for zsh
 bindkey -v
 

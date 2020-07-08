@@ -11,3 +11,6 @@
 	path = home_stuff/.config/qutebrowser/qutewal
 	url = https://github.com/jjzmajic/qutewal.git
 	ignore = dirty
+[submodule "wal-discord"]
+	path = wal-discord
+	url = https://github.com/guglicap/wal-discord.git

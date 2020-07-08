@@ -27,7 +27,7 @@ alert = ${xrdb:color6:#222}
 [bar/bspwm]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
-height = 42
+height = 35
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0 
@@ -36,11 +36,14 @@ fixed-center=true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
-line-color = ${colors.alert} 
+line-size = 0
+line-color=${xrdb:color15} 
+
 
 border-size = 0
-border-color = ${colors.background}
+border-top-size=1
+border-bottom-size=1
+border-color = ${xrdb:color1}
 
 padding-left = 0
 padding-right = 0
@@ -52,15 +55,15 @@ module-margin-right =1
 #font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 #font-2 = siji:pixelsize=10;1
 
-font-0 = SauceCodePro Nerd Font:style=Blazck Italic, Italic:size=15;4 
-font-1 = SauceCodePro Nerd Font:style=Blazck Italic, Italic:size=12;3 
+font-0 = SauceCodePro Nerd Font:style=Blazck Italic, Italic:size=14;4 
+font-1 = SauceCodePro Nerd Font:style=Blazck Italic, Italic:size=10;3 
 font-2 = FontAwesome5Free:style=Solid:size=10;4
 font-3 = FontAwesome5Free:style=Regular:size=10;4
 font-4 = FontAwesome5Brands:style=Regular:size=10;4
 font-5 = FreeSerif:style=Regular:size=12;4
 
-modules-left = bspwm xwindow
-modules-center = spotify
+modules-left = bspwm 
+modules-center =  spotify
 modules-right = cpu memory wlan eth temperature pulseaudio xkeyboard date powermenu
 
 tray-position =right
@@ -85,7 +88,7 @@ bottom= true
 [module/xwindow]
 label-font=2
 format-prefix-underline = ${colors.secondary}
-format-foreground=${colors.foreground}
+format-foreground=${xrdb:color7}
 type = internal/xwindow
 label = %title:0:30:...%
 
@@ -93,15 +96,15 @@ label = %title:0:30:...%
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground}
+format-prefix = " "
+format-prefix-foreground = ${colors.primary}
 #format-prefix-underline = ${colors.secondary}
 
-label-font=2
+label-font=1
 label-layout =  %layout%
 #label-layout-underline = ${colors.secondary}
 
-label-indicator-font=2
+label-indicator-font=1
 label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
@@ -121,35 +124,37 @@ label-unmounted-foreground = $d{colors.foreground-alt}
 [module/bspwm]
 type = internal/bspwm
 
-ws-icon-0="1;"
-ws-icon-1="2;"
-ws-icon-2="3;"
-ws-icon-3="4;"
-ws-icon-4="5;"
-ws-icon-5="6;ﬓ"
-ws-icon-6="7;ﬓ"
-ws-icon-7="8;ﬓ"
-ws-icon-8="9;"
+ws-icon-0="1;ⁱ"
+ws-icon-1="2;²"
+ws-icon-2="3;³"
+ws-icon-3="4;⁴"
+ws-icon-4="5;⁵"
+ws-icon-5="6;⁶ﬓ"
+ws-icon-6="7;⁷ﬓ"
+ws-icon-7="8;⁸ﬓ"
+ws-icon-8="9;⁹"
 
 label-font = 1
 format =<label-state> <label-mode>
 label-monitor =%name%
 label-focused =%icon%
-label-focused-background = ${colors.background}
+
+label-focused-background = ${xrdb:color0}
+label-focused-foreground= ${xrdb:color6}
 label-focused-underline = ${colors.primary}
-label-focused-padding = 2
+label-focused-padding = 1
 
 label-occupied =%icon%
-label-occupied-padding = 2
-label-occupied-foreground=${colors.secondary}
+label-occupied-padding = 1
+label-occupied-foreground=${xrdb:color1}
 
 label-urgent =%icon%!
 label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
+label-urgent-padding = 1
 
 label-empty= 
-label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
+label-empty-foreground = ${xrdb:color8}
+label-empty-padding = 1
 
 ; Separator in between workspaces
 label-separator =
@@ -237,20 +242,22 @@ card = intel_backlight
 label-font=2
 type = internal/cpu
 interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-font=1
+format-prefix = "﬙ "
+format-prefix-foreground = ${colors.primary}
 #format-underline = ${colors.foreground} 
-label =﬙ %percentage:2%%
+label = %percentage:2%%
 
 [module/memory]
+type=internal/memory
 interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-#format-underline = ${xrdb:color3} 
-border-size=2
+format-prefix = " "
+format-prefix-foreground = ${colors.primary}
+format-underline = ${xrdb:color3} 
+border-size=0
 border-color=${xrdb:color3}
 label-font=2
-label = %percentage_used%%
+label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
@@ -284,7 +291,7 @@ label-connected-font=2
 #format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.primary}
-label-connected =%downspeed% 祝%upspeed%
+label-connected = %downspeed% 祝%upspeed%
 
 format-disconnected =" "
 format-disconnected-foreground=${xrdb:color10}
@@ -298,13 +305,13 @@ type = internal/date
 interval = 5
 
 date =
-date-alt = " %Y-%m-%d"
+date-alt = "%Y-%m-%d"
 
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix = 
+format-prefix-foreground = ${colors.primary}
 #format-underline = #0a6cf5
 
 label = %date% %time%
@@ -312,30 +319,35 @@ label = %date% %time%
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+format-volume = <ramp-volume> <bar-volume> <label-volume>
+label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
 label-volume-font=2 
 
-label-muted = 🔇 muted
-label-muted-foreground = #666
+label-muted = ﱝ
+label-muted-foreground = ${xrdb:color2} 
+
+ramp-volume-0=
+ramp-volume-1=
+ramp-volume-2=
+ramp-volume-foreground=${colors.primary}
 
 bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = 
+bar-volume-foreground-0 = ${xrdb:color1} 
+bar-volume-foreground-1 = ${xrdb:color1} 
+bar-volume-foreground-2 = ${xrdb:color1} 
+bar-volume-foreground-3 = ${xrdb:color1} 
+bar-volume-foreground-4 = ${xrdb:color1} 
+bar-volume-foreground-5 = ${xrdb:color1} 
+bar-volume-foreground-6 = ${xrdb:color1} 
+bar-volume-gradient = true
+bar-volume-indicator =
 bar-volume-indicator-font = 1
-bar-volume-fill = ─
+bar-volume-fill = 
 bar-volume-fill-font = 1
-bar-volume-empty = ─
+bar-volume-empty = " "
 bar-volume-empty-font = 1
-bar-volume-empty-foreground = ${colors.foreground-alt}
+bar-volume-empty-foreground = ${xrdb:color2}
 
 [module/alsa]
 type = internal/alsa
@@ -378,7 +390,7 @@ format-discharging = <animation-discharging> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
 format-full-prefix = " "
-format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-prefix-foreground = ${colors.primary}
 format-full-underline = ${self.format-charging-underline}
 
 ramp-capacity-0 = 
@@ -417,41 +429,43 @@ label-warn-foreground = ${colors.secondary}
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
+ramp-foreground = ${colors.primary}
 
 [module/powermenu]
 type = custom/menu
 
 expand-right = true
 
-format-spacing = 1
+format-spacing = 0
 
-label-open = ☰
+label-open = 
 label-open-foreground = ${colors.secondary}
-label-close =  cancel
+label-close = 
 label-close-foreground = ${colors.secondary}
-label-separator = 
+label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
 
-menu-0-0 = reboot
+menu-0-0 = 勒
 menu-0-0-exec = menu-open-1
-menu-0-1 = power off
+menu-0-1 = 
 menu-0-1-exec = menu-open-2
 
-menu-1-0 = cancel
+menu-1-0 = ﰸ
 menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
-menu-2-0 = power off 
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
+menu-1-1 = 勒
+menu-1-1-exec = reboot
+menu-2-0 = ﰸ
+menu-2-0-exec = poweroff
+menu-2-1 = ﰸ
 menu-2-1-exec = menu-open-0
 
 [module/spotify]
 type = custom/script
 interval = 1
-format-prefix-font=2
+format-prefix-font=1
 format-label-font=2
+format-prefix-foreground = #1DB954
+label-foreground = #1DB954
 format-prefix = " "
 format = <label>
 exec = python ~/.config/polybar/polybar-spotify/spotify_status.py --font=2 -f '{artist}: {song}'

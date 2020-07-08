@@ -166,6 +166,34 @@ c.url.default_page = 'https://www.google.com'
 # the search engine name to the search term, e.g. `:open google
 # qutebrowser`.
 # Type: Dict
+c.bindings.key_mappings = {
+    'Α': 'A', 'α': 'a',
+    'Β': 'B', 'β': 'b',
+    'Γ': 'G', 'γ': 'g',
+    'Δ': 'D', 'δ': 'd',
+    'Ε': 'E', 'ε': 'e',
+    'Ζ': 'Z', 'ζ': 'z',
+    'Η': 'H', 'η': 'h',
+    'Θ': 'U', 'θ': 'u',
+    'Ι': 'I', 'ι': 'i',
+    'Κ': 'K', 'κ': 'k',
+    'Λ': 'L', 'λ': 'l',
+    'Μ': 'M', 'μ': 'm',
+    'Ν': 'N', 'ν': 'n',
+    'Ξ': 'J', 'ξ': 'j',
+    'Ο': 'O', 'ο': 'o',
+    'Π': 'P', 'π': 'p',
+    'Ρ': 'R', 'ρ': 'r',
+    'Σ': 'S', 'σ': 's',
+    'Τ': 'T', 'τ': 't',
+    'Υ': 'Y', 'υ': 'y',
+    'Φ': 'F', 'φ': 'f',
+    'Χ': 'X', 'χ': 'x',
+    'Ψ': 'C', 'ψ': 'c',
+    'Ω': 'V', 'ω': 'v',
+    'ς': 'w', '᾽': ";"
+}
+
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?hl=en&q={}",
     "yt": "https://www.youtube.com/results?search_query={}",

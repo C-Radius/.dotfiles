@@ -35,7 +35,7 @@ if [[ -z $intensity ]]; then
     cat ~/.cache/wal/colors-rofi-dark.rasi > ~/.config/rofi/theme.rasi
 else
     #Execute wal with proper backend for light theme
-    wal -q -l --backend wal -i $image
+    wal -q -l --backend haishoku -i $image
     #Modify vim settings to reflect our theme change
     sed -i 's/set background=.*$/set background=light/g' ~/.config/nvim/init.vim
     #Select proper colors-rofi-{dark|light} file.
@@ -63,3 +63,5 @@ oomoxify-cli -g -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
 
 #modify gtk-3.0 settings to reflect our new theme.
 sed -i 's/gtk-theme-name=.*$/gtk-theme-name=wal-gtk-theme/g' ~/.config/gtk-3.0/settings.ini 
+
+wal-discord; beautifuldiscord --css ~/.cache/wal-discord/style.css

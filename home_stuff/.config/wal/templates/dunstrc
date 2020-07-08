@@ -132,7 +132,7 @@
     # dmenu path.
     dmenu = /usr/bin/rofi -dmenu -p dunst:
     # Browser for opening urls in context menu.
-    browser = /usr/bin/brave -new-tab
+    browser = xdg-open
 
     # Align icons left/right/off
     icon_position = left
