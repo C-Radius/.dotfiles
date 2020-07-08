@@ -13,6 +13,7 @@ bison
 blender
 bspwm
 carla
+cmatrix
 code
 ctags
 cups
@@ -90,6 +91,7 @@ pacutils
 patch
 perl-font-ttf
 perl-image-exiftool
+pianobar
 picom
 pkgconf
 playerctl
@@ -132,6 +134,7 @@ ttf-nerd-fonts-symbols
 tumbler
 udiskie
 unzip
+vim
 vimb
 w3m
 which
