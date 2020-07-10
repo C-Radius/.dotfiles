@@ -59,9 +59,13 @@ rm -rf ~/.themes/wal-gtk-theme
 #####Commented out because it interfers with auto_theme_changer.sh script
 #####oomoxify asks for root password which interrupts the process
 #Use oomoxify to generate colorscheme for spotify
-oomoxify-cli -g -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
+#oomoxify-cli -g -s /opt/spotify/Apps ~/.cache/wal/colors-oomox
 
 #modify gtk-3.0 settings to reflect our new theme.
 sed -i 's/gtk-theme-name=.*$/gtk-theme-name=wal-gtk-theme/g' ~/.config/gtk-3.0/settings.ini 
 
 wal-discord; beautifuldiscord --css ~/.cache/wal-discord/style.css
+
+if [ -d $HOME/.config/spicetify ] && [ -d $HOME/.config/spicetify/Themes/wal ]; then
+    spicetify apply update
+fi

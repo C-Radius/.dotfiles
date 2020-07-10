@@ -12,7 +12,6 @@ binutils
 bison
 blender
 bspwm
-carla
 cmatrix
 code
 ctags
@@ -191,6 +190,7 @@ xorg-xvinfo
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
+xsecurelock
 yarn
 youtube-dl
 zsh

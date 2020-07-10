@@ -7,6 +7,7 @@ function show_help() {
     echo '  --yay 	- Install yay helper'
     echo '  --links     - Create symbolic links for configuration files in this repo to home directory'
     echo '  --packages  - Install packages in MyPackageList file to system.'
+    echo '  --foreign   - Install foreign packages'
     echo '  --upl       - Update package list'
     echo '  --help      - Displays this information'
     exit 1
@@ -34,6 +35,11 @@ function install_yay () {
     makepkg -si
     cd ..
     rm -rf yay
+}
+
+
+function install_foreign_packages() {
+    yay -S $(< MyPackageListForeign)
 }
 
 
@@ -106,6 +112,8 @@ do
         let install_yay=1
     elif [ $x == "--packages" ]; then
         let install_packages=1
+    elif [ $x == "--foreign" ]; then
+        let install_foreign=1
     elif [ $x == "--upl" ]; then
         let install_upl=1
     elif [ $x == "--help" ]; then
@@ -129,6 +137,10 @@ fi
 
 if [ "$install_packages" == "1" ]; then
     install_packages
+fi
+
+if [ "$install_foreign" ]; then
+    install_foreign_packages
 fi
 
 if [ "$install_links" == "1" ]; then

@@ -132,11 +132,16 @@ Print
 alt + Print
     scrot -u
 
+meta + F11
+    xsecurelock
+
 #Volume managemen
 XF86AudioPlay
     playerctl play-pause
+
 XF86AudioStop
     playerctl stop
+
 XF86AudioPrev
     playerctl previous
 XF86AudioNext

@@ -4,7 +4,6 @@ firestorm-bin
 flashfocus-git
 gconf
 gyazo
-neovim-remote
 nerd-fonts-source-code-pro
 oh-my-zsh-git
 oomox
@@ -15,6 +14,7 @@ python-pystache
 python3-beautifuldiscord
 resvg
 shantz-xwinwrap-bzr
+spicetify-cli
 spotify
 xfce-polkit-git
 xkblayout-state-git

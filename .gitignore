@@ -23,3 +23,7 @@ home_stuff/.themes
 #rofi theme/config file because we generate it every time from pywal template
 home_stuff/.config/rofi/theme.rasi
 
+#spicetify
+home_stuff/.config/spicetify/* 
+!home_stuff/.config/spicetify/Themes
+!home_stuff/.config/spicetify/config.ini

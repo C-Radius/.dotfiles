@@ -93,22 +93,6 @@ export ARCHFLAGS="-arch x86_64"
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-alias vim=nvim
-alias projects="cd ~/Projects"
-alias jmodules="cd /opt/JUCE/modules"
-alias introjucer="~/bin/Introjucer"
-alias desktop="cd ~/Desktop"
-alias downloads="cd ~/Downloads"
-alias music="cd ~/music"
-alias nvimrc="~/.config/nvim"
-alias wine32='env WINEARCH=win32 WINEPREFIX="$HOME/.wine32" wine'
-alias info="info --vi-keys"
-alias music="ncmpcpp"
-alias vtop="vtop -t nord"
 
 #Add gem/bin in PATH
 export PATH="/home/deus/.gem/ruby/2.5.0/bin:$PATH"
@@ -159,12 +143,28 @@ fi
 
 source ~/.cache/wal/colors-tty.sh
 
-PATH="/home/chris/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/chris/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/chris/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/chris/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/chris/perl5"; export PERL_MM_OPT;
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+alias vim=nvim
+alias projects="cd ~/Projects"
+alias jmodules="cd /opt/JUCE/modules"
+alias introjucer="~/bin/Introjucer"
+alias desktop="cd ~/Desktop"
+alias downloads="cd ~/Downloads"
+alias music="cd ~/music"
+alias nvimrc="~/.config/nvim"
+alias wine32='env WINEARCH=win32 WINEPREFIX="$HOME/.wine32" wine'
+alias info="info --vi-keys"
+alias music="ncmpcpp"
+alias vtop="vtop -t nord"
 
 alias d100='rolldice 1d100%'
 alias d20='rolldice 1d20%'
@@ -177,3 +177,4 @@ alias d2='rolldice 1d2%'
 #make it so ranger exists in the browsing directory
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 alias hex='bviplus'
+alias sxiv="$HOME/bin/sxiv.sh"
