@@ -52,8 +52,22 @@ function install_packages () {
     yay -S oh-my-zsh-git
 }
 
+function install_my_system() {
+    sudo pacman -S alsa alsa-utils pulseaudio pulsemixer networkmanager network-manager-applet neovim \
+                   git ranger sudo xorg xorg-xinit bspwm sxhkd dunst rofi qutebrowser \
+                   kitty discord picom sxiv ntfs-3g python-pywal python-dbus lxapperance --needed --noconfirm
+
+    yay -S bviplus colorz flashfocus-git gconf gyazo nerd-fonts-source-code-pro \
+           oh-my-zsh-git oomox polybar-git python-colorthief python-haishoku python-pystache \
+           python3-beautifuldiscord resvg shantz-xwinwrap-bzr spicetify-cli spotify xfce-polkit-git\
+           xkblayout-state-git zafiro-icon-theme --needed --noconfirm --removemake --cleanafter
+}
 
 
+function enable_services() {
+    sudo systemctl enable dbus-brooker
+    sudo systemctl --global enable dbus-brooker
+}
 
 #WARNING: this function will replace(delete) your config files
 #of neovim, awesome wm, ranger file manager, mpd music player.
@@ -104,7 +118,7 @@ if [[ $# -eq 0  ]] ; then
 fi
 
 
-for x in $@ ;
+for x in $@
 do
     if [ $x == "--links" ]; then
         let install_links=1
@@ -116,6 +130,8 @@ do
         let install_foreign=1
     elif [ $x == "--upl" ]; then
         let install_upl=1
+    elif [ $x == "--desktop" ]; then
+        let install_desktop=1
     elif [ $x == "--help" ]; then
         show_help
     else
@@ -145,6 +161,10 @@ fi
 
 if [ "$install_links" == "1" ]; then
     create_symlinks
+fi
+
+if [ "$install_desktop" == "1" ]; then
+    install_my_system
 fi
 
 if [ "$install_upl" == "1" ]; then

@@ -434,7 +434,7 @@ ramp-foreground = ${colors.primary}
 [module/powermenu]
 type = custom/menu
 
-expand-right = true
+expand-right = false
 
 format-spacing = 0
 

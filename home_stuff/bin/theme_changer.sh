@@ -52,8 +52,16 @@ if pgrep dunst; then
     notify-send test-string
 fi
 
+#Check if gtk config directory exists
+if [ ! -d "$HOME/.config/gtk-3.0" ]; then
+    cp -r /usr/share/gtk-3.0 $HOME/.config/gtk-3.0
+fi
+
 #Use oomox to generate the colorscheme for gtk
-rm -rf ~/.themes/wal-gtk-theme
+if [ -d "$HOME/themes/wal-gtk-theme" ]; then
+    rm -rf $HOME/.themes/wal-gtk-theme
+fi
+
 /opt/oomox/plugins/theme_oomox/gtk-theme/change_color.sh -o wal-gtk-theme -d true -m all ~/.cache/wal/colors-oomox  1>/dev/null
 
 #####Commented out because it interfers with auto_theme_changer.sh script
@@ -69,3 +77,4 @@ wal-discord; beautifuldiscord --css ~/.cache/wal-discord/style.css
 if [ -d $HOME/.config/spicetify ] && [ -d $HOME/.config/spicetify/Themes/wal ]; then
     spicetify apply update
 fi
+

@@ -3,11 +3,7 @@
 if pgrep polybar; then killall polybar; fi
 polybar bspwm &
 
-nm-applet &
-
 xsetroot -cursor_name left_ptr &
-
-
 
 #bspc config focus_follows_pointer true
 bspc config ignore_ewmh_focus true
@@ -35,4 +31,12 @@ bspc monitor -d 1 2 3 4 5 6 7 8 9
 #watch -n 3600 ~/bin/auto_theme_changer.sh &
 
 discord &
-flashfocus &
+
+nm-applet &
+
+#if [ -d "$HOME/.cache/wal" ]; then
+#    wal -R
+#else
+#    $HOME/bin/theme_changer.sh -d $HOME/Pictures/nerdy.jpg
+#fi
+

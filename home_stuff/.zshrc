@@ -119,11 +119,6 @@ function git_prompt_info() {
   echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
-
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    startx
-fi
-
 set -o vi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -178,3 +173,8 @@ alias d2='rolldice 1d2%'
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 alias hex='bviplus'
 alias sxiv="$HOME/bin/sxiv.sh"
+
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+    startx
+fi
+

@@ -40,6 +40,7 @@ Plug 'dylanaraps/wal.vim'
 Plug 'ap/vim-css-color'
 Plug 'cloudhead/neovim-fuzzy'
 Plug 'C-Radius/vim-one'
+Plug 'vim-airline/vim-airline'
 Plug 'KabbAmine/vCoolor.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'machakann/vim-sandwich'
@@ -99,6 +100,7 @@ let g:one_allow_italics = 1
 set background=dark
 colorscheme one
 
+let g:airline_theme='wal'
 "Settings parameters for coc-neovim
 set hidden
 set nobackup
@@ -497,6 +499,3 @@ nnoremap <Leader>b :%!xxd<cr>
 nnoremap <Leader>br :%!xxd -r<cr>
 
 "-------------------------------------------------------------------------}}}
-
-
-
