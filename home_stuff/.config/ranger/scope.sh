@@ -154,20 +154,20 @@ handle_image() {
             exit 7;;
 
         ## Video
-        # video/*)
-        #     # Thumbnail
-        #     ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
-        #     exit 1;;
+        video/*)
+            # Thumbnail
+            ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
+            exit 1;;
 
         ## PDF
-        # application/pdf)
-        #     pdftoppm -f 1 -l 1 \
-        #              -scale-to-x "${DEFAULT_SIZE%x*}" \
-        #              -scale-to-y -1 \
-        #              -singlefile \
-        #              -jpeg -tiffcompression jpeg \
-        #              -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
-        #         && exit 6 || exit 1;;
+        application/pdf)
+            pdftoppm -f 1 -l 1 \
+                     -scale-to-x "${DEFAULT_SIZE%x*}" \
+                     -scale-to-y -1 \
+                     -singlefile \
+                     -jpeg -tiffcompression jpeg \
+                     -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
+                && exit 6 || exit 1;;
 
 
         ## ePub, MOBI, FB2 (using Calibre)
@@ -247,19 +247,19 @@ handle_image() {
     #     mv "${TMPPNG}" "${IMAGE_CACHE_PATH}"
     # }
 
-    # case "${FILE_EXTENSION_LOWER}" in
-    #     ## 3D models
-    #     ## OpenSCAD only supports png image output, and ${IMAGE_CACHE_PATH}
-    #     ## is hardcoded as jpeg. So we make a tempfile.png and just
-    #     ## move/rename it to jpg. This works because image libraries are
-    #     ## smart enough to handle it.
-    #     csg|scad)
-    #         openscad_image "${FILE_PATH}" && exit 6
-    #         ;;
-    #     3mf|amf|dxf|off|stl)
-    #         openscad_image <(echo "import(\"${FILE_PATH}\");") && exit 6
-    #         ;;
-    # esac
+    case "${FILE_EXTENSION_LOWER}" in
+        ## 3D models
+        ## OpenSCAD only supports png image output, and ${IMAGE_CACHE_PATH}
+        ## is hardcoded as jpeg. So we make a tempfile.png and just
+        ## move/rename it to jpg. This works because image libraries are
+        ## smart enough to handle it.
+        csg|scad)
+            openscad_image "${FILE_PATH}" && exit 6
+            ;;
+        3mf|amf|dxf|off|stl)
+            openscad_image <(echo "import(\"${FILE_PATH}\");") && exit 6
+            ;;
+    esac
 }
 
 handle_mime() {

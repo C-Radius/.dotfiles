@@ -8,11 +8,17 @@
 #    }
 # })
 
-# detach videos to mpv
 # Uncomment this to still load settings configured via autoconfig.yml
+config.load_autoconfig()
+
+# detach videos to mpv
 config.bind('<Ctrl-Shift-y>',
             'hint links spawn --detach mpv --force-window yes {hint-url}')
-# config.load_autoconfig()
+
+#download video in your with youtube-dl
+config.bind('<Ctrl-Shift-d>',
+            'hint links spawn --detach youtube-dl -o \'~/Videos/%(title)s.%(ext)s\' {hint-url}')
+
 
 # Which cookies to accept. With QtWebEngine, this setting also controls
 # other features with tracking capabilities similar to those of cookies;
@@ -198,12 +204,13 @@ c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?hl=en&q={}",
     "yt": "https://www.youtube.com/results?search_query={}",
     "d": "https://duckduckgo.com/?q={}",
-    "aw": "https://wiki.archlinux.org/?search={}",
-    "gh": "https://github.com/search?q={}",
-    "rs": "https://doc.rust-lang.org/std/index.html?search={}",
+    "aws": "https://wiki.archlinux.org/?search={}",
+    "ghu": "https://github.com/{}",
+    "ghs": "https://github.com/search?q={}",
+    "rss": "https://doc.rust-lang.org/std/index.html?search={}",
     "rd": "https://www.reddit.com/search/?q={}",
     "rdr": "https://www.reddit.com/r/{}/",
-    "gh": "https://github.com/search?q={}",
+    "rdu": "https://www.reddit.com/u/{}/",
     "cio": "https://crates.io/search?q={}"
 
 }
@@ -213,6 +220,7 @@ c.url.searchengines = {
 c.url.start_pages = 'https://www.google.com'
 
 # Bindings for normal mode
+config.bind('gp', 'tab-pin')
 config.bind('Sq', 'open qute://bookmarks')
 config.bind('Ss', 'open qute://settings')
 config.bind('T', 'tab-focus')
@@ -444,5 +452,8 @@ config.bind('N', 'prompt-accept --save no', mode='yesno')
 config.bind('Y', 'prompt-accept --save yes', mode='yesno')
 config.bind('n', 'prompt-accept no', mode='yesno')
 config.bind('y', 'prompt-accept yes', mode='yesno')
+
+#MY CUSTOM STUFF
+config.set('auto_save.session', True)
 
 config.source('qutewal.py')

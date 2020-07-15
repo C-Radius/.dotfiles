@@ -26,8 +26,8 @@ super + shift + {e,r}
 super + {_,shift + }w
 	bspc node -{c,k}
 
-button2
-    bspc node -c
+#button2
+#    bspc node -c
 
 # alternate between the tiled and monocle layout
 super + m
@@ -137,15 +137,13 @@ meta + F11
 
 #Volume managemen
 XF86AudioPlay
-    playerctl play-pause
-
+    dbus-send --print-reply --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 XF86AudioStop
-    playerctl stop
-
+    dbus-send --print-reply --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop
 XF86AudioPrev
-    playerctl previous
+    dbus-send --print-reply --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 XF86AudioNext
-    playerctl next
+    dbus-send --print-reply --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 
 XF86WWW
     qutebrowser

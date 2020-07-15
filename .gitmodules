@@ -14,3 +14,6 @@
 [submodule "wal-discord"]
 	path = wal-discord
 	url = https://github.com/guglicap/wal-discord.git
+[submodule "grub2-themes"]
+	path = grub2-themes
+	url = https://github.com/vinceliuice/grub2-themes.git

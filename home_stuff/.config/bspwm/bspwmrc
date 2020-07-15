@@ -5,12 +5,13 @@ polybar bspwm &
 
 xsetroot -cursor_name left_ptr &
 
+
 #bspc config focus_follows_pointer true
 bspc config ignore_ewmh_focus true
 bspc config border_width         1
 bspc config window_gap           35
 bspc config single_monocle true
-
+bspc config border_radius 10
 bspc config split_ratio          0.50
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
@@ -27,6 +28,8 @@ bspc rule -a mplayer2 state=floating
 
 bspc monitor -d 1 2 3 4 5 6 7 8 9
 
+##Uncomment if you want theme to change automatically every hour
+##Sources images from ~/Pictures folder.
 #if pidof watch; then killall watch; fi
 #watch -n 3600 ~/bin/auto_theme_changer.sh &
 
@@ -34,9 +37,7 @@ discord &
 
 nm-applet &
 
-#if [ -d "$HOME/.cache/wal" ]; then
-#    wal -R
-#else
-#    $HOME/bin/theme_changer.sh -d $HOME/Pictures/nerdy.jpg
-#fi
-
+if pgrep sxhkd; then killall sxhkd; fi
+sxhkd &
+setxkbmap -model pc105 -layout us,gr -variant qwerty -option grp:alt_shift_toggle &
+setxkbmap us &

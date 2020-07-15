@@ -54,13 +54,13 @@ function install_packages () {
 
 function install_my_system() {
     sudo pacman -S alsa alsa-utils pulseaudio pulsemixer networkmanager network-manager-applet neovim \
-                   git ranger sudo xorg xorg-xinit bspwm sxhkd dunst rofi qutebrowser \
-                   kitty discord picom sxiv ntfs-3g python-pywal python-dbus lxapperance --needed --noconfirm
+                   git ranger sudo xorg xorg-xinit bspwm sxhkd dunst rofi qutebrowser youtube-dl mpv\
+                   kitty discord picom sxiv ntfs-3g python-pywal python-dbus lxapperance gstreamer gvfs  --needed --noconfirm
 
     yay -S bviplus colorz flashfocus-git gconf gyazo nerd-fonts-source-code-pro \
            oh-my-zsh-git oomox polybar-git python-colorthief python-haishoku python-pystache \
            python3-beautifuldiscord resvg shantz-xwinwrap-bzr spicetify-cli spotify xfce-polkit-git\
-           xkblayout-state-git zafiro-icon-theme --needed --noconfirm --removemake --cleanafter
+           xkblayout-state-git zafiro-icon-theme gtk3-patched-filechooser-icon-view gtk2-patched-filechooser-icon-view --needed --noconfirm --removemake --cleanafter
 }
 
 
