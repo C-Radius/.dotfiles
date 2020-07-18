@@ -19,7 +19,7 @@ bspc config gapless_monocle      true
 bspc rule -a krita desktop='^5'
 bspc rule -a mpv state=floating
 bspc rule -a REAPER desktop='^4'
-bspc rule -a spotify desktop='^7' focus=no
+bspc rule -a spotify desktop='^8' fullscreen=no focus=no
 bspc rule -a discord desktop='^9' focus=no
 bspc rule -a QjackCtl desktop='^8'
 bspc rule -a qutebrowser desktop='^2'

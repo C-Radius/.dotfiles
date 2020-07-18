@@ -1,0 +1,8 @@
+{
+    "rust.show_hover_context": true,
+    "coc.preferences.formatOnSaveFiletypes": ["rust"],
+    "coc.preferences.formatOnTypeFiletypes": ["rust"],
+    "coc.preferences.formatOnType": true,
+    "coc.preferences.formatOnSave": true
+}
+

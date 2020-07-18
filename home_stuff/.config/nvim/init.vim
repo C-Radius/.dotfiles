@@ -201,11 +201,11 @@ augroup END
 
 "Fold method for individual files
 augroup foldmethod_detec
-    au BufRead,BufNewFile,BufWrite *.vim set foldmethod=marker
-    au BufRead,BufNewFile,BufWrite *.txt set foldmethod=marker
-    au BufRead,BufNewFile,BufWrite *.cpp set foldmethod=syntax
-    au BufRead,BufNewFile,BufWrite *.py set foldmethod=indent
-    au BufRead,BufNewFile,BufWrite *.lua set foldmethod=marker
+    "au BufRead,BufNewFile,BufWrite *.vim set foldmethod=marker
+    "au BufRead,BufNewFile,BufWrite *.txt set foldmethod=marker
+    "au BufRead,BufNewFile,BufWrite *.cpp set foldmethod=syntax
+    "au BufRead,BufNewFile,BufWrite *.py set foldmethod=indent
+    "au BufRead,BufNewFile,BufWrite *.lua set foldmethod=marker
     "au BufRead,BufNewFIle,BufWrite *.rs set foldmethod=syntax
 augroup END
 

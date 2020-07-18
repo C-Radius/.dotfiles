@@ -1,7 +1,4 @@
 #!/bin/bash
-
-eval $(dbus-launch --sh-syntax --exit-with-session)
-
 systemctl --user set-environment DISPLAY=:0
 start-pulseaudio-x11 &
 
