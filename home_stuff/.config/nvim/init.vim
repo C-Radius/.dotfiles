@@ -31,7 +31,6 @@ if !filereadable(vim_plug_exists)
 
     let iCanHazVimPlug=0
 endif
-
 filetype off
 
 call plug#begin('~/.config/nvim/plugged')
@@ -42,7 +41,8 @@ Plug 'cloudhead/neovim-fuzzy'
 Plug 'C-Radius/vim-one'
 Plug 'vim-airline/vim-airline'
 Plug 'KabbAmine/vCoolor.vim'
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs' "Let's see how life is without auto pairs
+"Plug 'cohama/lexima.vim' "Let's see how life is without auto pairs
 Plug 'machakann/vim-sandwich'
 Plug 'easymotion/vim-easymotion'
 Plug 'ryanoasis/vim-devicons'
@@ -61,6 +61,7 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nightsense/vimspectr'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-fugitive'
+Plug 'cespare/vim-toml'
 
 call plug#end()
 
@@ -206,7 +207,7 @@ augroup foldmethod_detec
     "au BufRead,BufNewFile,BufWrite *.cpp set foldmethod=syntax
     "au BufRead,BufNewFile,BufWrite *.py set foldmethod=indent
     "au BufRead,BufNewFile,BufWrite *.lua set foldmethod=marker
-    "au BufRead,BufNewFIle,BufWrite *.rs set foldmethod=syntax
+    "au BufRead,BufNewFile,BufWrite *.rs set foldmethod=syntax
 augroup END
 
 "lsl Configuration

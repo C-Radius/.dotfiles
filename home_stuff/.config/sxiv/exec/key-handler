@@ -30,8 +30,12 @@ do
         "C-g")      tr '\n' '\0' | xargs -0 krita & ;;
         "C-r")      rotate 90 ;;
         "C-d")      mv "$file" /tmp/ ;;
-        "C-1")      theme_changer.sh -d $file & ;;
-        "C-2")      theme_changer.sh -l $file & ;;
+        "C-1")      theme_changer.sh -d $file wal & ;;
+        "C-2")      theme_changer.sh -d $file haishoku & ;;
+        "C-3")      theme_changer.sh -d $file colorthief & ;;
+        "C-4")      theme_changer.sh -l $file wal & ;;
+        "C-5")      theme_changer.sh -l $file haishoku & ;;
+        "C-7")      theme_changer.sh -l $file colorthief & ;;
     esac
 done
 

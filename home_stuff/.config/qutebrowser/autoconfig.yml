@@ -6,16 +6,7 @@
 
 config_version: 2
 settings:
-  auto_save.session:
-    global: true
   colors.webpage.bg:
     global: white
-  content.images:
-    '*://*.www.google.com/*': true
-  content.notifications:
-    https://www.facebook.com: true
-    https://www.gmail.com: true
-    https://www.instagram.com: true
-    https://www.reddit.com: true
-  content.register_protocol_handler:
-    https://mail.google.com?extsrc=mailto&url=%25s: true
+  colors.webpage.darkmode.enabled:
+    global: true

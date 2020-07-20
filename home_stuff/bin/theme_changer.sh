@@ -1,15 +1,29 @@
 #!/bin/bash
-SYNTAX="theme_changer mode image 
-where mode can be -l for light and -d for dark.
-Image must be a valid path to an image file."
+SYNTAX='\nUsage: theme_changer.sh [mode] [image] [backend]\nMode: -l\t  - Light mode\n\t-d\t  - Dark mode\nImage: A valid path to an image.\n
+backend: Backend to be used for color palete creation\n
+Available backends:\n
+\twal\n
+\thaishoku\n
+\tcolorthief\n'
 
-if [[ $# == 0  ]] || [[ $# > 2 ]]; then
-    echo $SYNTAX
+if [[ $# == 0  ]] || [[ $# > 3 ]]; then
+    echo -e $SYNTAX
     exit 1
 fi
 
 intensity=$1
 image=$2
+backend=$3
+
+if [[ ! -z $backend ]]; then
+    backend="--backend $backend"
+else
+    if [[ $intensity == "-l" ]]; then
+        backend="--backend haishoku"
+    else
+        backend="--backend wal"
+    fi
+fi
 
 if [[ -z $intensity  ]] && [[ $intensity != "-l" ]] && [[ $intensity != "-d" ]]; then
     echo "No dark or light mode specified"
@@ -28,14 +42,14 @@ fi
 #Use wal to generate colorschemes
 if [[ -z $intensity ]]; then
     #Execute wal with proper backend for dark theme
-    wal -q --backend wal -i $image
+    wal -q $backend -i $image
     #Modify vim settings to reflect our theme change
     sed -i 's/set background=.*$/set background=dark/g' ~/.config/nvim/init.vim
     #Select proper colors-rofi-{dark|light} file.
     cat ~/.cache/wal/colors-rofi-dark.rasi > ~/.config/rofi/theme.rasi
 else
     #Execute wal with proper backend for light theme
-    wal -q -l --backend haishoku -i $image
+    wal -q -l $backend -i $image
     #Modify vim settings to reflect our theme change
     sed -i 's/set background=.*$/set background=light/g' ~/.config/nvim/init.vim
     #Select proper colors-rofi-{dark|light} file.
