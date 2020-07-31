@@ -145,6 +145,11 @@ XF86AudioPrev
 XF86AudioNext
     dbus-send --print-reply --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 
+XF86MonBrightnessUp
+    xbacklight -inc 10
+XF86MonBrightnessDown
+    xbacklight -dec 10
+
 XF86WWW
     qutebrowser
 
