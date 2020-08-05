@@ -35,7 +35,6 @@ filetype off
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'mattn/webapi-vim'
 Plug 'dylanaraps/wal.vim'
 Plug 'ap/vim-css-color'
 Plug 'cloudhead/neovim-fuzzy'
