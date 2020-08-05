@@ -1,9 +1,11 @@
 bviplus
 colorz
-firestorm-bin
+cordless-git
 flashfocus-git
 gconf
 gyazo
+neovim-gtk
+neovim-remote
 nerd-fonts-source-code-pro
 oh-my-zsh-git
 oomox
@@ -13,11 +15,7 @@ python-haishoku
 python-pystache
 python3-beautifuldiscord
 resvg
-shantz-xwinwrap-bzr
 spicetify-cli
 spotify
-xfce-polkit-git
-xkblayout-state-git
-xorg-font-utils
-yay-git
+yay
 zafiro-icon-theme

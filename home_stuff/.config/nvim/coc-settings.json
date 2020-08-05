@@ -3,6 +3,12 @@
     "coc.preferences.formatOnSaveFiletypes": ["rust"],
     "coc.preferences.formatOnTypeFiletypes": ["rust"],
     "coc.preferences.formatOnType": true,
-    "coc.preferences.formatOnSave": true
+    "coc.preferences.formatOnSave": true,
+    "snippets.snipmate.enable": true,
+    "snippets.ultisnips.enable": true,
+    "snippets.ultisnips.directories": [
+        "UltiSnips",
+        "/home/chris/.config/nvim/my_snippets"
+    ]
 }
 

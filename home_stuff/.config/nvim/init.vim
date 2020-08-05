@@ -35,14 +35,15 @@ filetype off
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'mattn/webapi-vim'
 Plug 'dylanaraps/wal.vim'
 Plug 'ap/vim-css-color'
 Plug 'cloudhead/neovim-fuzzy'
 Plug 'C-Radius/vim-one'
 Plug 'vim-airline/vim-airline'
 Plug 'KabbAmine/vCoolor.vim'
-"Plug 'jiangmiao/auto-pairs' "Let's see how life is without auto pairs
-"Plug 'cohama/lexima.vim' "Let's see how life is without auto pairs
+Plug 'jiangmiao/auto-pairs' "Let's see how life is without auto pairs
+Plug 'cohama/lexima.vim' "Let's see how life is without auto pairs
 Plug 'machakann/vim-sandwich'
 Plug 'easymotion/vim-easymotion'
 Plug 'ryanoasis/vim-devicons'
@@ -500,3 +501,20 @@ nnoremap <Leader>b :%!xxd<cr>
 nnoremap <Leader>br :%!xxd -r<cr>
 
 "-------------------------------------------------------------------------}}}
+
+"CocSnippets
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
