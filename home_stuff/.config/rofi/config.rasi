@@ -2,7 +2,7 @@ configuration {
     modi:"drun,window,run";
     font: "Fira Code 13";
     show-icons: true;
-    drun-icon-theme: "Zafiro-icons";
+    //drun-icon-theme: "Zafiro-icons";
     terminal: "kitty";
     fake-transparency: false;
     fake-background: "screenshot";
@@ -10,14 +10,15 @@ configuration {
     padding: 20;
     lines: 8;
     sidebar-mode: true;
-    theme: "~/.config/rofi/theme.rasi";
     kb-row-up:                      "Up,Control+k,Shift+Tab,Shift+ISO_Left_Tab";
     kb-row-down:                    "Down,Control+j";
     kb-accept-entry:                "Control+m,Return,KP_Enter";
     terminal:                       "kitty";
     kb-remove-to-eol:               "Control+Shift+e";
-    kb-mode-next:                   "Shift+Right,Control+Tab,Control+l";
+    kb-mode-next:                   "Shift+Right,Control+Tab";
     kb-mode-previous:               "Shift+Left,Control+Shift+Tab,Control+h";
     kb-remove-char-back:            "BackSpace";
-
 }
+
+@theme "~/.config/rofi/theme.rasi"
+

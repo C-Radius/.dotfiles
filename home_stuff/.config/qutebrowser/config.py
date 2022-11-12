@@ -11,7 +11,7 @@
 #   qute://help/settings.html
 
 # Uncomment this to still load settings configured via autoconfig.yml
-# config.load_autoconfig()
+config.load_autoconfig(False)
 
 # Always restore open sites when qutebrowser is reopened.
 # Type: Bool
@@ -161,7 +161,7 @@ config.set('content.javascript.enabled', True, 'qute://*/*')
 #   - true
 #   - false
 #   - ask
-config.set('content.notifications', True, 'https://www.facebook.com')
+config.set('content.notifications.enabled', True, 'https://www.facebook.com')
 
 # Allow websites to show notifications.
 # Type: BoolAsk
@@ -169,7 +169,7 @@ config.set('content.notifications', True, 'https://www.facebook.com')
 #   - true
 #   - false
 #   - ask
-config.set('content.notifications', True, 'https://www.gmail.com')
+config.set('content.notifications.enabled', True, 'https://www.gmail.com')
 
 # Allow websites to show notifications.
 # Type: BoolAsk
@@ -177,7 +177,7 @@ config.set('content.notifications', True, 'https://www.gmail.com')
 #   - true
 #   - false
 #   - ask
-config.set('content.notifications', True, 'https://www.instagram.com')
+config.set('content.notifications.enabled', True, 'https://www.instagram.com')
 
 # Allow websites to show notifications.
 # Type: BoolAsk
@@ -185,7 +185,7 @@ config.set('content.notifications', True, 'https://www.instagram.com')
 #   - true
 #   - false
 #   - ask
-config.set('content.notifications', True, 'https://www.reddit.com')
+config.set('content.notifications.enabled', True, 'https://www.reddit.com')
 
 # Allow websites to register protocol handlers via
 # `navigator.registerProtocolHandler`.
@@ -240,12 +240,12 @@ config.bind('<Ctrl+Shift+y>', 'hint links spawn --detach mpv --force-window yes 
 config.bind('Sq', 'open qute://bookmarks')
 config.bind('Ss', 'open qute://settings')
 config.bind('T', 'tab-focus')
-config.bind('V', 'enter-mode caret ;; toggle-selection --line')
+config.bind('V', 'mode-enter caret ;; toggle-selection --line')
 config.bind('ZQ', 'quit')
 config.bind('ZZ', 'quit --save')
 config.bind('[[', 'navigate prev')
 config.bind(']]', 'navigate next')
-config.bind('`', 'enter-mode set_mark')
+config.bind('`', 'mode-enter set_mark')
 config.bind('ad', 'download-cancel')
 config.bind('b', 'set-cmd-text -s :quickmark-load')
 config.bind('cd', 'download-clear')
@@ -274,7 +274,7 @@ config.bind('gr', 'tab-move +')
 config.bind('gt', 'set-cmd-text -s :buffer')
 config.bind('gu', 'navigate up')
 config.bind('h', 'scroll left')
-config.bind('i', 'enter-mode insert')
+config.bind('i', 'mode-enter insert')
 config.bind('j', 'scroll down')
 config.bind('k', 'scroll up')
 config.bind('l', 'scroll right')
@@ -310,7 +310,7 @@ config.bind('tsH', 'config-cycle -p -t -u *://*.{url:host}/* content.javascript.
 config.bind('tsh', 'config-cycle -p -t -u *://{url:host}/* content.javascript.enabled ;; reload')
 config.bind('tsu', 'config-cycle -p -t -u {url} content.javascript.enabled ;; reload')
 config.bind('u', 'undo')
-config.bind('v', 'enter-mode caret')
+config.bind('v', 'mode-enter caret')
 config.bind('wB', 'set-cmd-text -s :bookmark-load -w')
 config.bind('wO', 'set-cmd-text :open -w {url:pretty}')
 config.bind('wP', 'open -w -- {primary}')
@@ -340,8 +340,8 @@ config.bind('}}', 'navigate next -t')
 config.bind('$', 'move-to-end-of-line', mode='caret')
 config.bind('0', 'move-to-start-of-line', mode='caret')
 config.bind('<Ctrl+Space>', 'drop-selection', mode='caret')
-config.bind('<Ctrl+c>', 'leave-mode', mode='caret')
-config.bind('<Escape>', 'leave-mode', mode='caret')
+config.bind('<Ctrl+c>', 'mode-leave', mode='caret')
+config.bind('<Escape>', 'mode-leave', mode='caret')
 config.bind('<Return>', 'yank selection', mode='caret')
 config.bind('<Space>', 'toggle-selection', mode='caret')
 config.bind('G', 'move-to-end-of-document', mode='caret')
@@ -354,7 +354,7 @@ config.bind('Y', 'yank selection -s', mode='caret')
 config.bind('[', 'move-to-start-of-prev-block', mode='caret')
 config.bind(']', 'move-to-start-of-next-block', mode='caret')
 config.bind('b', 'move-to-prev-word', mode='caret')
-config.bind('c', 'enter-mode normal', mode='caret')
+config.bind('c', 'mode-enter normal', mode='caret')
 config.bind('e', 'move-to-end-of-word', mode='caret')
 config.bind('gg', 'move-to-start-of-document', mode='caret')
 config.bind('h', 'move-to-prev-char', mode='caret')
@@ -380,7 +380,7 @@ config.bind('<Ctrl+Shift+c>', 'completion-item-yank --sel', mode='command')
 config.bind('<Ctrl+Tab>', 'completion-item-focus next-category', mode='command')
 config.bind('<Ctrl+a>', 'rl-beginning-of-line', mode='command')
 config.bind('<Ctrl+b>', 'rl-backward-char', mode='command')
-config.bind('<Ctrl+c>', 'leave-mode', mode='command')
+config.bind('<Ctrl+c>', 'mode-leave', mode='command')
 config.bind('<Ctrl+d>', 'completion-item-del', mode='command')
 config.bind('<Ctrl+e>', 'rl-end-of-line', mode='command')
 config.bind('<Ctrl+f>', 'rl-forward-char', mode='command')
@@ -392,7 +392,7 @@ config.bind('<Ctrl+u>', 'rl-unix-line-discard', mode='command')
 config.bind('<Ctrl+w>', 'rl-unix-word-rubout', mode='command')
 config.bind('<Ctrl+y>', 'rl-yank', mode='command')
 config.bind('<Down>', 'completion-item-focus --history next', mode='command')
-config.bind('<Escape>', 'leave-mode', mode='command')
+config.bind('<Escape>', 'mode-leave', mode='command')
 config.bind('<Return>', 'command-accept', mode='command')
 config.bind('<Shift+Del>', 'completion-item-del', mode='command')
 config.bind('<Shift+Tab>', 'completion-item-focus prev', mode='command')
@@ -401,20 +401,20 @@ config.bind('<Up>', 'completion-item-focus --history prev', mode='command')
 
 # Bindings for hint mode
 config.bind('<Ctrl+b>', 'hint all tab-bg', mode='hint')
-config.bind('<Ctrl+c>', 'leave-mode', mode='hint')
+config.bind('<Ctrl+c>', 'mode-leave', mode='hint')
 config.bind('<Ctrl+f>', 'hint links', mode='hint')
 config.bind('<Ctrl+r>', 'hint --rapid links tab-bg', mode='hint')
-config.bind('<Escape>', 'leave-mode', mode='hint')
+config.bind('<Escape>', 'mode-leave', mode='hint')
 config.bind('<Return>', 'follow-hint', mode='hint')
 
 # Bindings for insert mode
-config.bind('<Ctrl+c>', 'leave-mode', mode='insert')
+config.bind('<Ctrl+c>', 'mode-leave', mode='insert')
 config.bind('<Ctrl+e>', 'open-editor', mode='insert')
-config.bind('<Escape>', 'leave-mode', mode='insert')
+config.bind('<Escape>', 'mode-leave', mode='insert')
 config.bind('<Shift+Ins>', 'insert-text -- {primary}', mode='insert')
 
 # Bindings for passthrough mode
-config.bind('<Shift+Escape>', 'leave-mode', mode='passthrough')
+config.bind('<Shift+Escape>', 'mode-leave', mode='passthrough')
 
 # Bindings for prompt mode
 config.bind('<Alt+Backspace>', 'rl-backward-kill-word', mode='prompt')
@@ -436,19 +436,19 @@ config.bind('<Ctrl+w>', 'rl-unix-word-rubout', mode='prompt')
 config.bind('<Ctrl+x>', 'prompt-open-download', mode='prompt')
 config.bind('<Ctrl+y>', 'rl-yank', mode='prompt')
 config.bind('<Down>', 'prompt-item-focus next', mode='prompt')
-config.bind('<Escape>', 'leave-mode', mode='prompt')
+config.bind('<Escape>', 'mode-leave', mode='prompt')
 config.bind('<Return>', 'prompt-accept', mode='prompt')
 config.bind('<Shift+Tab>', 'prompt-item-focus prev', mode='prompt')
 config.bind('<Tab>', 'prompt-item-focus next', mode='prompt')
 config.bind('<Up>', 'prompt-item-focus prev', mode='prompt')
 
 # Bindings for register mode
-config.bind('<Escape>', 'leave-mode', mode='register')
+config.bind('<Escape>', 'mode-leave', mode='register')
 
 # Bindings for yesno mode
 config.bind('<Alt+Shift+y>', 'prompt-yank --sel', mode='yesno')
 config.bind('<Alt+y>', 'prompt-yank', mode='yesno')
-config.bind('<Escape>', 'leave-mode', mode='yesno')
+config.bind('<Escape>', 'mode-leave', mode='yesno')
 config.bind('<Return>', 'prompt-accept', mode='yesno')
 config.bind('N', 'prompt-accept --save no', mode='yesno')
 config.bind('Y', 'prompt-accept --save yes', mode='yesno')

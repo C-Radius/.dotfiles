@@ -1,1152 +1,1229 @@
-" Vim syntax file
-" Language: Linden Scripting Language
-" Maintainer: Deus Deceit <deus.deceit@gmail.com>
-" Original File By: Timo Frenay <timo@frenay.net>
-" Last Change: 20 Jan 2014
-"
-" Quit when a syntax file was already loaded
-if exists("b:current_syntax")
+
+" syntax/lsl.vim
+" LSL Syntax File
+" Language: lsl
+" Maintainer: PumpkinPai <pumpkin@luvotron.com>
+" Last update: 2018-09-10
+" Credits:
+"         Builder's Brewery maintains a set of lsl syntax files in
+"               https://github.com/buildersbrewery/lsl-for-vim
+"           and https://github.com/buildersbrewery/linden-scripting-language
+"         The idea for this plugin was ultimately from those projects
+
+
+if version < 600
+  syntax clear
+elseif exists("b:current_syntax")
   finish
 endif
 
-" Initializations
-syn case match
-
-" Keywords
-syn keyword lslKeyword default do else for if jump return state while
-
-" Types
-syn keyword lslType float integer key list quaternion rotation string vector
-
-" Labels
-syn match lslLabel +@\h\w*+ display
-
-" Constants
-syn keyword lslConstant TRUE
-syn keyword lslConstant FALSE
-syn keyword lslConstant NULL_KEY
-syn keyword lslConstant STATUS_PHYSICS
-syn keyword lslConstant STATUS_PHANTOM
-syn keyword lslConstant STATUS_ROTATE_X
-syn keyword lslConstant STATUS_ROTATE_Y
-syn keyword lslConstant STATUS_ROTATE_Z
-syn keyword lslConstant STATUS_SANDBOX
-syn keyword lslConstant STATUS_BLOCK_GRAB
-syn keyword lslConstant STATUS_BLOCK_GRAB_OBJECT
-syn keyword lslConstant STATUS_DIE_AT_EDGE
-syn keyword lslConstant STATUS_RETURN_AT_EDGE
-syn keyword lslConstant STATUS_CAST_SHADOWS
-syn keyword lslConstant AGENT
-syn keyword lslConstant AGENT_BY_LEGACY_NAME
-syn keyword lslConstant AGENT_BY_USERNAME
-syn keyword lslConstant ACTIVE
-syn keyword lslConstant PASSIVE
-syn keyword lslConstant SCRIPTED
-syn keyword lslConstant CONTROL_FWD
-syn keyword lslConstant CONTROL_BACK
-syn keyword lslConstant CONTROL_LEFT
-syn keyword lslConstant CONTROL_RIGHT
-syn keyword lslConstant CONTROL_ROT_LEFT
-syn keyword lslConstant CONTROL_ROT_RIGHT
-syn keyword lslConstant CONTROL_UP
-syn keyword lslConstant CONTROL_DOWN
-syn keyword lslConstant CONTROL_LBUTTON
-syn keyword lslConstant CONTROL_ML_LBUTTON
-syn keyword lslConstant PERMISSION_DEBIT
-syn keyword lslConstant PERMISSION_TAKE_CONTROLS
-syn keyword lslConstant PERMISSION_REMAP_CONTROLS
-syn keyword lslConstant PERMISSION_TRIGGER_ANIMATION
-syn keyword lslConstant PERMISSION_ATTACH
-syn keyword lslConstant PERMISSION_RELEASE_OWNERSHIP
-syn keyword lslConstant PERMISSION_CHANGE_LINKS
-syn keyword lslConstant PERMISSION_CHANGE_JOINTS
-syn keyword lslConstant PERMISSION_CHANGE_PERMISSIONS
-syn keyword lslConstant PERMISSION_TRACK_CAMERA
-syn keyword lslConstant PERMISSION_CONTROL_CAMERA
-syn keyword lslConstant PERMISSION_TELEPORT
-syn keyword lslConstant PERMISSION_OVERRIDE_ANIMATIONS
-syn keyword lslConstant DEBUG_CHANNEL
-syn keyword lslConstant PUBLIC_CHANNEL
-syn keyword lslConstant AGENT_FLYING
-syn keyword lslConstant AGENT_ATTACHMENTS
-syn keyword lslConstant AGENT_SCRIPTED
-syn keyword lslConstant AGENT_SITTING
-syn keyword lslConstant AGENT_ON_OBJECT
-syn keyword lslConstant AGENT_MOUSELOOK
-syn keyword lslConstant AGENT_AWAY
-syn keyword lslConstant AGENT_WALKING
-syn keyword lslConstant AGENT_IN_AIR
-syn keyword lslConstant AGENT_TYPING
-syn keyword lslConstant AGENT_CROUCHING
-syn keyword lslConstant AGENT_BUSY
-syn keyword lslConstant AGENT_ALWAYS_RUN
-syn keyword lslConstant AGENT_AUTOPILOT
-syn keyword lslConstant AGENT_LIST_PARCEL
-syn keyword lslConstant AGENT_LIST_PARCEL_OWNER
-syn keyword lslConstant AGENT_LIST_REGION
-syn keyword lslConstant PSYS_PART_FLAGS
-syn keyword lslConstant PSYS_PART_START_COLOR
-syn keyword lslConstant PSYS_PART_START_ALPHA
-syn keyword lslConstant PSYS_PART_START_SCALE
-syn keyword lslConstant PSYS_PART_END_COLOR
-syn keyword lslConstant PSYS_PART_END_ALPHA
-syn keyword lslConstant PSYS_PART_END_SCALE
-syn keyword lslConstant PSYS_PART_MAX_AGE
-syn keyword lslConstant PSYS_PART_BOUNCE_MASK
-syn keyword lslConstant PSYS_PART_WIND_MASK
-syn keyword lslConstant PSYS_PART_INTERP_COLOR_MASK
-syn keyword lslConstant PSYS_PART_INTERP_SCALE_MASK
-syn keyword lslConstant PSYS_PART_FOLLOW_SRC_MASK
-syn keyword lslConstant PSYS_PART_FOLLOW_VELOCITY_MASK
-syn keyword lslConstant PSYS_PART_TARGET_POS_MASK
-syn keyword lslConstant PSYS_PART_EMISSIVE_MASK
-syn keyword lslConstant PSYS_PART_TARGET_LINEAR_MASK
-syn keyword lslConstant PSYS_SRC_PATTERN
-syn keyword lslConstant PSYS_SRC_INNERANGLE
-syn keyword lslConstant PSYS_SRC_OUTERANGLE
-syn keyword lslConstant PSYS_SRC_ANGLE_BEGIN
-syn keyword lslConstant PSYS_SRC_ANGLE_END
-syn keyword lslConstant PSYS_SRC_BURST_RATE
-syn keyword lslConstant PSYS_SRC_BURST_PART_COUNT
-syn keyword lslConstant PSYS_SRC_BURST_RADIUS
-syn keyword lslConstant PSYS_SRC_BURST_SPEED_MIN
-syn keyword lslConstant PSYS_SRC_BURST_SPEED_MAX
-syn keyword lslConstant PSYS_SRC_MAX_AGE
-syn keyword lslConstant PSYS_SRC_ACCEL
-syn keyword lslConstant PSYS_SRC_TEXTURE
-syn keyword lslConstant PSYS_SRC_TARGET_KEY
-syn keyword lslConstant PSYS_SRC_OMEGA
-syn keyword lslConstant PSYS_SRC_PATTERN_DROP
-syn keyword lslConstant PSYS_SRC_PATTERN_EXPLODE
-syn keyword lslConstant PSYS_SRC_PATTERN_ANGLE
-syn keyword lslConstant PSYS_SRC_PATTERN_ANGLE_CONE
-syn keyword lslConstant PSYS_SRC_PATTERN_ANGLE_CONE_EMPTY
-syn keyword lslConstant PSYS_START_GLOW
-syn keyword lslConstant PSYS_END_GLOW
-syn keyword lslConstant PSYS_PART_BLEND_FUNC_SOURCE
-syn keyword lslConstant PSYS_BLEND_FUNC_DEST
-syn keyword lslConstant PSYS_PART_BF_ONE
-syn keyword lslConstant PSYS_PART_BF_ZERO
-syn keyword lslConstant PSYS_PART_BF_DEST_COLOR
-syn keyword lslConstant PSYS_PART_BF_SOURCE_COLOR
-syn keyword lslConstant PSYS_PART_BF_ONE_MINUS_DEST_COLOR
-syn keyword lslConstant PSYS_PART_BF_ONE_MINUS_SOURCE_COLOR
-syn keyword lslConstant PSYS_PART_BF_SOURCE_ALPHA
-syn keyword lslConstant PSYS_PART_BF_ONE_MINUS_SOURCE_ALPHA
-syn keyword lslConstant OBJECT_UNKNOWN_DETAIL
-syn keyword lslConstant OBJECT_NAME
-syn keyword lslConstant OBJECT_DESC
-syn keyword lslConstant OBJECT_POS
-syn keyword lslConstant OBJECT_ROT
-syn keyword lslConstant OBJECT_VELOCITY
-syn keyword lslConstant OBJECT_OWNER
-syn keyword lslConstant OBJECT_GROUP
-syn keyword lslConstant OBJECT_CREATOR
-syn keyword lslConstant OBJECT_RUNNING_SCRIPT_COUNT
-syn keyword lslConstant OBJECT_TOTAL_SCRIPT_COUNT
-syn keyword lslConstant OBJECT_SCRIPT_MEMORY
-syn keyword lslConstant OBJECT_SCRIPT_TIME
-syn keyword lslConstant OBJECT_PRIM_EQUIVALENCE
-syn keyword lslConstant OBJECT_SERVER_COST
-syn keyword lslConstant OBJECT_STREAMING_COST
-syn keyword lslConstant OBJECT_PHYSICS_COST
-syn keyword lslConstant OBJECT_PATHFINDING_TYPE
-syn keyword lslConstant OPT_UNKNOWN
-syn keyword lslConstant OPT_LEGACY_LINKSET
-syn keyword lslConstant OPT_AVATAR
-syn keyword lslConstant OPT_PATHFINDING_CHARACTER
-syn keyword lslConstant OPT_WALKABLE
-syn keyword lslConstant OPT_STATIC_OBSTACLE
-syn keyword lslConstant OPT_MATERIAL_VOLUME
-syn keyword lslConstant OPT_EXCLUSION_VOLUME
-syn keyword lslConstant VEHICLE_TYPE_NONE
-syn keyword lslConstant VEHICLE_TYPE_SLED
-syn keyword lslConstant VEHICLE_TYPE_CAR
-syn keyword lslConstant VEHICLE_TYPE_BOAT
-syn keyword lslConstant VEHICLE_TYPE_AIRPLANE
-syn keyword lslConstant VEHICLE_TYPE_BALLOON
-syn keyword lslConstant VEHICLE_REFERENCE_FRAME
-syn keyword lslConstant VEHICLE_LINEAR_FRICTION_TIMESCALE
-syn keyword lslConstant VEHICLE_ANGULAR_FRICTION_TIMESCALE
-syn keyword lslConstant VEHICLE_LINEAR_MOTOR_DIRECTION
-syn keyword lslConstant VEHICLE_LINEAR_MOTOR_OFFSET
-syn keyword lslConstant VEHICLE_ANGULAR_MOTOR_DIRECTION
-syn keyword lslConstant VEHICLE_HOVER_HEIGHT
-syn keyword lslConstant VEHICLE_HOVER_EFFICIENCY
-syn keyword lslConstant VEHICLE_HOVER_TIMESCALE
-syn keyword lslConstant VEHICLE_BUOYANCY
-syn keyword lslConstant VEHICLE_LINEAR_DEFLECTION_EFFICIENCY
-syn keyword lslConstant VEHICLE_LINEAR_DEFLECTION_TIMESCALE 
-syn keyword lslConstant VEHICLE_LINEAR_MOTOR_TIMESCALE
-syn keyword lslConstant VEHICLE_LINEAR_MOTOR_DECAY_TIMESCALE
-syn keyword lslConstant VEHICLE_ANGULAR_DEFLECTION_EFFICIENCY
-syn keyword lslConstant VEHICLE_ANGULAR_DEFLECTION_TIMESCALE
-syn keyword lslConstant VEHICLE_ANGULAR_MOTOR_TIMESCALE
-syn keyword lslConstant VEHICLE_ANGULAR_MOTOR_DECAY_TIMESCALE
-syn keyword lslConstant VEHICLE_VERTICAL_ATTRACTION_EFFICIENCY
-syn keyword lslConstant VEHICLE_VERTICAL_ATTRACTION_TIMESCALE
-syn keyword lslConstant VEHICLE_BANKING_EFFICIENCY
-syn keyword lslConstant VEHICLE_BANKING_MIX
-syn keyword lslConstant VEHICLE_BANKING_TIMESCALE
-syn keyword lslConstant VEHICLE_FLAG_NO_DEFLECTION_UP
-syn keyword lslConstant VEHICLE_FLAG_LIMIT_ROLL_ONLY
-syn keyword lslConstant VEHICLE_FLAG_HOVER_WATER_ONLY
-syn keyword lslConstant VEHICLE_FLAG_HOVER_TERRAIN_ONLY
-syn keyword lslConstant VEHICLE_FLAG_HOVER_GLOBAL_HEIGHT
-syn keyword lslConstant VEHICLE_FLAG_HOVER_UP_ONLY
-syn keyword lslConstant VEHICLE_FLAG_LIMIT_MOTOR_UP
-syn keyword lslConstant VEHICLE_FLAG_MOUSELOOK_STEER
-syn keyword lslConstant VEHICLE_FLAG_MOUSELOOK_BANK
-syn keyword lslConstant VEHICLE_FLAG_CAMERA_DECOUPLED
-syn keyword lslConstant CAMERA_PITCH
-syn keyword lslConstant CAMERA_FOCUS_OFFSET
-syn keyword lslConstant CAMERA_POSITION_LAG
-syn keyword lslConstant CAMERA_FOCUS_LAG
-syn keyword lslConstant CAMERA_DISTANCE
-syn keyword lslConstant CAMERA_BEHINDNESS_ANGLE
-syn keyword lslConstant CAMERA_BEHINDNESS_LAG
-syn keyword lslConstant CAMERA_POSITION_THRESHOLD
-syn keyword lslConstant CAMERA_FOCUS_THRESHOLD
-syn keyword lslConstant CAMERA_ACTIVE
-syn keyword lslConstant CAMERA_POSITION
-syn keyword lslConstant CAMERA_FOCUS
-syn keyword lslConstant CAMERA_POSITION_LOCKED
-syn keyword lslConstant CAMERA_FOCUS_LOCKED
-syn keyword lslConstant INVENTORY_TEXTURE
-syn keyword lslConstant INVENTORY_SOUND
-syn keyword lslConstant INVENTORY_OBJECT
-syn keyword lslConstant INVENTORY_SCRIPT
-syn keyword lslConstant INVENTORY_LANDMARK
-syn keyword lslConstant INVENTORY_CLOTHING
-syn keyword lslConstant INVENTORY_NOTECARD
-syn keyword lslConstant INVENTORY_BODYPART
-syn keyword lslConstant INVENTORY_ANIMATION
-syn keyword lslConstant INVENTORY_GESTURE
-syn keyword lslConstant INVENTORY_ALL
-syn keyword lslConstant INVENTORY_NONE
-syn keyword lslConstant ATTACH_CHEST
-syn keyword lslConstant ATTACH_HEAD
-syn keyword lslConstant ATTACH_LSHOULDER
-syn keyword lslConstant ATTACH_RSHOULDER
-syn keyword lslConstant ATTACH_LHAND
-syn keyword lslConstant ATTACH_RHAND
-syn keyword lslConstant ATTACH_LFOOT
-syn keyword lslConstant ATTACH_RFOOT
-syn keyword lslConstant ATTACH_BACK
-syn keyword lslConstant ATTACH_PELVIS
-syn keyword lslConstant ATTACH_MOUTH
-syn keyword lslConstant ATTACH_CHIN
-syn keyword lslConstant ATTACH_LEAR
-syn keyword lslConstant ATTACH_REAR
-syn keyword lslConstant ATTACH_LEYE
-syn keyword lslConstant ATTACH_REYE
-syn keyword lslConstant ATTACH_NOSE
-syn keyword lslConstant ATTACH_RUARM
-syn keyword lslConstant ATTACH_RLARM
-syn keyword lslConstant ATTACH_LUARM
-syn keyword lslConstant ATTACH_LLARM
-syn keyword lslConstant ATTACH_RHIP
-syn keyword lslConstant ATTACH_RULEG
-syn keyword lslConstant ATTACH_RLLEG
-syn keyword lslConstant ATTACH_LHIP
-syn keyword lslConstant ATTACH_LULEG
-syn keyword lslConstant ATTACH_LLLEG
-syn keyword lslConstant ATTACH_BELLY
-syn keyword lslConstant ATTACH_LEFT_PEC
-syn keyword lslConstant ATTACH_RIGHT_PEC
-syn keyword lslConstant ATTACH_HUD_BOTTOM
-syn keyword lslConstant ATTACH_HUD_BOTTOM_LEFT
-syn keyword lslConstant ATTACH_HUD_BOTTOM_RIGHT
-syn keyword lslConstant ATTACH_HUD_CENTER_1
-syn keyword lslConstant ATTACH_HUD_CENTER_2
-syn keyword lslConstant ATTACH_HUD_TOP_CENTER
-syn keyword lslConstant ATTACH_HUD_TOP_LEFT
-syn keyword lslConstant ATTACH_HUD_TOP_RIGHT
-syn keyword lslConstant ATTACH_NECK
-syn keyword lslConstant ATTACH_AVATAR_CENTER
-syn keyword lslConstant LAND_LEVEL
-syn keyword lslConstant LAND_RAISE
-syn keyword lslConstant LAND_LOWER
-syn keyword lslConstant LAND_SMOOTH
-syn keyword lslConstant LAND_NOISE
-syn keyword lslConstant LAND_REVERT
-syn keyword lslConstant LAND_SMALL_BRUSH
-syn keyword lslConstant LAND_MEDIUM_BRUSH
-syn keyword lslConstant LAND_LARGE_BRUSH
-syn keyword lslConstant DATA_PAYINFO
-syn keyword lslConstant DATA_ONLINE
-syn keyword lslConstant DATA_NAME
-syn keyword lslConstant DATA_BORN
-syn keyword lslConstant DATA_RATING
-syn keyword lslConstant DATA_SIM_POS
-syn keyword lslConstant DATA_SIM_STATUS
-syn keyword lslConstant DATA_SIM_RATING
-syn keyword lslConstant PAYMENT_INFO_ON_FILE
-syn keyword lslConstant PAYMENT_INFO_USED
-syn keyword lslConstant ANIM_ON
-syn keyword lslConstant LOOP
-syn keyword lslConstant REVERSE
-syn keyword lslConstant PING_PONG
-syn keyword lslConstant SMOOTH
-syn keyword lslConstant ROTATE
-syn keyword lslConstant SCALE
-syn keyword lslConstant ALL_SIDES
-syn keyword lslConstant LINK_SET
-syn keyword lslConstant LINK_ROOT
-syn keyword lslConstant LINK_ALL_OTHERS
-syn keyword lslConstant LINK_ALL_CHILDREN
-syn keyword lslConstant LINK_THIS
-syn keyword lslConstant CHANGED_INVENTORY
-syn keyword lslConstant CHANGED_COLOR
-syn keyword lslConstant CHANGED_SHAPE
-syn keyword lslConstant CHANGED_SCALE
-syn keyword lslConstant CHANGED_TEXTURE
-syn keyword lslConstant CHANGED_LINK
-syn keyword lslConstant CHANGED_ALLOWED_DROP
-syn keyword lslConstant CHANGED_OWNER
-syn keyword lslConstant CHANGED_REGION
-syn keyword lslConstant CHANGED_TELEPORT
-syn keyword lslConstant CHANGED_REGION_START
-syn keyword lslConstant CHANGED_MEDIA
-syn keyword lslConstant TEXTURE_BLANK
-syn keyword lslConstant TEXTURE_DEFAULT
-syn keyword lslConstant TEXTURE_MEDIA
-syn keyword lslConstant TEXTURE_TRANSPARENT
-syn keyword lslConstant TYPE_INTEGER
-syn keyword lslConstant TYPE_FLOAT
-syn keyword lslConstant TYPE_STRING
-syn keyword lslConstant TYPE_KEY
-syn keyword lslConstant TYPE_VECTOR
-syn keyword lslConstant TYPE_ROTATION
-syn keyword lslConstant TYPE_INVALID
-syn keyword lslConstant REMOTE_DATA_CHANNEL
-syn keyword lslConstant REMOTE_DATA_REQUEST
-syn keyword lslConstant REMOTE_DATA_REPLY
-syn keyword lslConstant PRIM_NAME
-syn keyword lslConstant PRIM_DESC
-syn keyword lslConstant PRIM_TYPE
-syn keyword lslConstant PRIM_MATERIAL
-syn keyword lslConstant PRIM_PHYSICS
-syn keyword lslConstant PRIM_FLEXIBLE
-syn keyword lslConstant PRIM_POINT_LIGHT
-syn keyword lslConstant PRIM_TEMP_ON_REZ
-syn keyword lslConstant PRIM_PHANTOM
-syn keyword lslConstant PRIM_CAST_SHADOWS
-syn keyword lslConstant PRIM_POSITION
-syn keyword lslConstant PRIM_SIZE
-syn keyword lslConstant PRIM_ROTATION
-syn keyword lslConstant PRIM_TEXT
-syn keyword lslConstant PRIM_TEXTURE
-syn keyword lslConstant PRIM_COLOR
-syn keyword lslConstant PRIM_BUMP_SHINY
-syn keyword lslConstant PRIM_FULLBRIGHT
-syn keyword lslConstant PRIM_TEXGEN
-syn keyword lslConstant PRIM_GLOW
-syn keyword lslConstant PRIM_POS_LOCAL
-syn keyword lslConstant PRIM_ROT_LOCAL
-syn keyword lslConstant PRIM_OMEGA
-syn keyword lslConstant PRIM_LINK_TARGET
-syn keyword lslConstant PRIM_SLICE
-syn keyword lslConstant PRIM_TYPE_BOX
-syn keyword lslConstant PRIM_TYPE_CYLINDER
-syn keyword lslConstant PRIM_TYPE_PRISM
-syn keyword lslConstant PRIM_TYPE_SPHERE
-syn keyword lslConstant PRIM_TYPE_TORUS
-syn keyword lslConstant PRIM_TYPE_TUBE
-syn keyword lslConstant PRIM_TYPE_RING
-syn keyword lslConstant PRIM_TYPE_SCULPT
-syn keyword lslConstant PRIM_HOLE_DEFAULT
-syn keyword lslConstant PRIM_HOLE_SQUARE
-syn keyword lslConstant PRIM_HOLE_CIRCLE
-syn keyword lslConstant PRIM_HOLE_TRIANGLE
-syn keyword lslConstant PRIM_MATERIAL_STONE
-syn keyword lslConstant PRIM_MATERIAL_METAL
-syn keyword lslConstant PRIM_MATERIAL_GLASS
-syn keyword lslConstant PRIM_MATERIAL_WOOD
-syn keyword lslConstant PRIM_MATERIAL_FLESH
-syn keyword lslConstant PRIM_MATERIAL_PLASTIC
-syn keyword lslConstant PRIM_MATERIAL_RUBBER
-syn keyword lslConstant PRIM_MATERIAL_LIGHT
-syn keyword lslConstant PRIM_SHINY_NONE
-syn keyword lslConstant PRIM_SHINY_LOW
-syn keyword lslConstant PRIM_SHINY_MEDIUM
-syn keyword lslConstant PRIM_SHINY_HIGH
-syn keyword lslConstant PRIM_BUMP_NONE
-syn keyword lslConstant PRIM_BUMP_BRIGHT
-syn keyword lslConstant PRIM_BUMP_DARK
-syn keyword lslConstant PRIM_BUMP_WOOD
-syn keyword lslConstant PRIM_BUMP_BARK
-syn keyword lslConstant PRIM_BUMP_BRICKS
-syn keyword lslConstant PRIM_BUMP_CHECKER
-syn keyword lslConstant PRIM_BUMP_CONCRETE
-syn keyword lslConstant PRIM_BUMP_TILE
-syn keyword lslConstant PRIM_BUMP_STONE
-syn keyword lslConstant PRIM_BUMP_DISKS
-syn keyword lslConstant PRIM_BUMP_GRAVEL
-syn keyword lslConstant PRIM_BUMP_BLOBS
-syn keyword lslConstant PRIM_BUMP_SIDING
-syn keyword lslConstant PRIM_BUMP_LARGETILE
-syn keyword lslConstant PRIM_BUMP_STUCCO
-syn keyword lslConstant PRIM_BUMP_SUCTION
-syn keyword lslConstant PRIM_BUMP_WEAVE
-syn keyword lslConstant PRIM_TEXGEN_DEFAULT
-syn keyword lslConstant PRIM_TEXGEN_PLANAR
-syn keyword lslConstant PRIM_SCULPT_TYPE_SPHERE
-syn keyword lslConstant PRIM_SCULPT_TYPE_TORUS
-syn keyword lslConstant PRIM_SCULPT_TYPE_PLANE
-syn keyword lslConstant PRIM_SCULPT_TYPE_CYLINDER
-syn keyword lslConstant PRIM_SCULPT_TYPE_MASK
-syn keyword lslConstant PRIM_SCULPT_FLAG_INVERT
-syn keyword lslConstant PRIM_SCULPT_FLAG_MIRROR
-syn keyword lslConstant PRIM_PHYSICS_SHAPE_TYPE
-syn keyword lslConstant PRIM_PHYSICS_SHAPE_PRIM
-syn keyword lslConstant PRIM_PHYSICS_SHAPE_NONE
-syn keyword lslConstant PRIM_PHYSICS_SHAPE_CONVEX
-syn keyword lslConstant MASK_BASE
-syn keyword lslConstant MASK_OWNER
-syn keyword lslConstant MASK_GROUP
-syn keyword lslConstant MASK_EVERYONE
-syn keyword lslConstant MASK_NEXT
-syn keyword lslConstant PERM_TRANSFER
-syn keyword lslConstant PERM_MODIFY
-syn keyword lslConstant PERM_COPY
-syn keyword lslConstant PERM_MOVE
-syn keyword lslConstant PERM_ALL
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_STOP
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_PAUSE
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_PLAY
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_LOOP
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_LOOP_SET
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_TEXTURE
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_URL
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_TYPE
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_DESC
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_TIME
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_SIZE
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_AGENT
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_UNLOAD
-syn keyword lslConstant PARCEL_MEDIA_COMMAND_AUTO_ALIGN
-syn keyword lslConstant PAY_HIDE
-syn keyword lslConstant PAY_DEFAULT
-syn keyword lslConstant LIST_STAT_MAX
-syn keyword lslConstant LIST_STAT_MIN
-syn keyword lslConstant LIST_STAT_MEAN
-syn keyword lslConstant LIST_STAT_MEDIAN
-syn keyword lslConstant LIST_STAT_STD_DEV
-syn keyword lslConstant LIST_STAT_SUM
-syn keyword lslConstant LIST_STAT_SUM_SQUARES
-syn keyword lslConstant LIST_STAT_NUM_COUNT
-syn keyword lslConstant LIST_STAT_GEOMETRIC_MEAN
-syn keyword lslConstant LIST_STAT_RANGE
-syn keyword lslConstant PARCEL_FLAG_ALLOW_FLY
-syn keyword lslConstant PARCEL_FLAG_ALLOW_GROUP_SCRIPTS
-syn keyword lslConstant PARCEL_FLAG_ALLOW_SCRIPTS
-syn keyword lslConstant PARCEL_FLAG_ALLOW_LANDMARK
-syn keyword lslConstant PARCEL_FLAG_ALLOW_TERRAFORM
-syn keyword lslConstant PARCEL_FLAG_ALLOW_DAMAGE
-syn keyword lslConstant PARCEL_FLAG_ALLOW_CREATE_OBJECTS
-syn keyword lslConstant PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS
-syn keyword lslConstant PARCEL_FLAG_USE_ACCESS_GROUP
-syn keyword lslConstant PARCEL_FLAG_USE_ACCESS_LIST
-syn keyword lslConstant PARCEL_FLAG_USE_BAN_LIST
-syn keyword lslConstant PARCEL_FLAG_USE_LAND_PASS_LIST
-syn keyword lslConstant PARCEL_FLAG_LOCAL_SOUND_ONLY
-syn keyword lslConstant PARCEL_FLAG_RESTRICT_PUSHOBJECT
-syn keyword lslConstant PARCEL_FLAG_ALLOW_ALL_OBJECT_ENTRY
-syn keyword lslConstant PARCEL_FLAG_ALLOW_GROUP_OBJECT_ENTRY
-syn keyword lslConstant REGION_FLAG_ALLOW_DAMAGE
-syn keyword lslConstant REGION_FLAG_FIXED_SUN
-syn keyword lslConstant REGION_FLAG_BLOCK_TERRAFORM
-syn keyword lslConstant REGION_FLAG_SANDBOX
-syn keyword lslConstant REGION_FLAG_DISABLE_COLLISIONS
-syn keyword lslConstant REGION_FLAG_DISABLE_PHYSICS
-syn keyword lslConstant REGION_FLAG_BLOCK_FLY
-syn keyword lslConstant REGION_FLAG_ALLOW_DIRECT_TELEPORT
-syn keyword lslConstant REGION_FLAG_RESTRICT_PUSHOBJECT
-syn keyword lslConstant HTTP_METHOD
-syn keyword lslConstant HTTP_MIMETYPE
-syn keyword lslConstant HTTP_BODY_MAXLENGTH
-syn keyword lslConstant HTTP_VERIFY_CERT
-syn keyword lslConstant HTTP_BODY_TRUNCATED
-syn keyword lslConstant HTTP_VERBOSE_THROTTLE
-syn keyword lslConstant HTTP_BODY_MAXLENGTH
-syn keyword lslConstant PARCEL_COUNT_TOTAL
-syn keyword lslConstant PARCEL_COUNT_OWNER
-syn keyword lslConstant PARCEL_COUNT_GROUP
-syn keyword lslConstant PARCEL_COUNT_OTHER
-syn keyword lslConstant PARCEL_COUNT_SELECTED
-syn keyword lslConstant PARCEL_COUNT_TEMP
-syn keyword lslConstant PARCEL_DETAILS_NAME
-syn keyword lslConstant PARCEL_DETAILS_DESC
-syn keyword lslConstant PARCEL_DETAILS_OWNER
-syn keyword lslConstant PARCEL_DETAILS_GROUP
-syn keyword lslConstant PARCEL_DETAILS_AREA
-syn keyword lslConstant PARCEL_DETAILS_ID
-syn keyword lslConstant PARCEL_DETAILS_SEE_AVATARS
-syn keyword lslConstant STRING_TRIM_HEAD
-syn keyword lslConstant STRING_TRIM_TAIL
-syn keyword lslConstant STRING_TRIM
-syn keyword lslConstant CLICK_ACTION_NONE
-syn keyword lslConstant CLICK_ACTION_TOUCH
-syn keyword lslConstant CLICK_ACTION_SIT
-syn keyword lslConstant CLICK_ACTION_BUY
-syn keyword lslConstant CLICK_ACTION_PAY
-syn keyword lslConstant CLICK_ACTION_OPEN
-syn keyword lslConstant CLICK_ACTION_PLAY
-syn keyword lslConstant CLICK_ACTION_OPEN_MEDIA
-syn keyword lslConstant CLICK_ACTION_ZOOM
-syn keyword lslConstant TOUCH_INVALID_TEXCOORD
-syn keyword lslConstant TOUCH_INVALID_VECTOR
-syn keyword lslConstant TOUCH_INVALID_FACE
-syn keyword lslConstant PRIM_MEDIA_ALT_IMAGE_ENABLE
-syn keyword lslConstant PRIM_MEDIA_CONTROLS
-syn keyword lslConstant PRIM_MEDIA_CURRENT_URL
-syn keyword lslConstant PRIM_MEDIA_HOME_URL
-syn keyword lslConstant PRIM_MEDIA_AUTO_LOOP
-syn keyword lslConstant PRIM_MEDIA_AUTO_PLAY
-syn keyword lslConstant PRIM_MEDIA_AUTO_SCALE
-syn keyword lslConstant PRIM_MEDIA_AUTO_ZOOM
-syn keyword lslConstant PRIM_MEDIA_FIRST_CLICK_INTERACT
-syn keyword lslConstant PRIM_MEDIA_WIDTH_PIXELS
-syn keyword lslConstant PRIM_MEDIA_HEIGHT_PIXELS
-syn keyword lslConstant PRIM_MEDIA_WHITELIST_ENABLE
-syn keyword lslConstant PRIM_MEDIA_WHITELIST
-syn keyword lslConstant PRIM_MEDIA_PERMS_INTERACT
-syn keyword lslConstant PRIM_MEDIA_PERMS_CONTROL
-syn keyword lslConstant PRIM_MEDIA_PARAM_MAX
-syn keyword lslConstant PRIM_MEDIA_CONTROLS_STANDARD
-syn keyword lslConstant PRIM_MEDIA_CONTROLS_MINI
-syn keyword lslConstant PRIM_MEDIA_PERM_NONE
-syn keyword lslConstant PRIM_MEDIA_PERM_OWNER
-syn keyword lslConstant PRIM_MEDIA_PERM_GROUP
-syn keyword lslConstant PRIM_MEDIA_PERM_ANYONE
-syn keyword lslConstant PRIM_MEDIA_MAX_URL_LENGTH
-syn keyword lslConstant PRIM_MEDIA_MAX_WHITELIST_SIZE
-syn keyword lslConstant PRIM_MEDIA_MAX_WHITELIST_COUNT
-syn keyword lslConstant PRIM_MEDIA_MAX_WIDTH_PIXELS
-syn keyword lslConstant PRIM_MEDIA_MAX_HEIGHT_PIXELS
-syn keyword lslConstant STATUS_OK
-syn keyword lslConstant STATUS_MALFORMED_PARAMS
-syn keyword lslConstant STATUS_TYPE_MISMATCH
-syn keyword lslConstant STATUS_BOUNDS_ERROR
-syn keyword lslConstant STATUS_NOT_FOUND
-syn keyword lslConstant STATUS_NOT_SUPPORTED
-syn keyword lslConstant STATUS_INTERNAL_ERROR
-syn keyword lslConstant STATUS_WHITELIST_FAILED
-syn keyword lslConstant PROFILE_NONE
-syn keyword lslConstant PROFILE_SCRIPT_MEMORY
-syn keyword lslConstant RC_DATA_FLAGS
-syn keyword lslConstant RC_DETECT_PHANTOM
-syn keyword lslConstant RC_GET_LINK_NUM
-syn keyword lslConstant RC_GET_NORMAL
-syn keyword lslConstant RC_GET_ROOT_KEY
-syn keyword lslConstant RC_MAX_HITS
-syn keyword lslConstant RC_REJECT_TYPES
-syn keyword lslConstant RC_REJECT_AGENTS
-syn keyword lslConstant RC_REJECT_PHYSICAL
-syn keyword lslConstant RC_REJECT_NONPHYSICAL
-syn keyword lslConstant RC_REJECT_LAND
-syn keyword lslConstant RCERR_CAST_TIME_EXCEEDED
-syn keyword lslConstant RCERR_SIM_PERF_LOW
-syn keyword lslConstant RCERR_UNKNOWN
-syn keyword lslConstant ESTATE_ACCESS_ALLOWED_AGENT_ADD
-syn keyword lslConstant ESTATE_ACCESS_ALLOWED_AGENT_REMOVE
-syn keyword lslConstant ESTATE_ACCESS_ALLOWED_GROUP_ADD
-syn keyword lslConstant ESTATE_ACCESS_ALLOWED_GROUP_REMOVE
-syn keyword lslConstant ESTATE_ACCESS_BANNED_AGENT_ADD
-syn keyword lslConstant ESTATE_ACCESS_BANNED_AGENT_REMOVE
-syn keyword lslConstant DENSITY
-syn keyword lslConstant FRICTION
-syn keyword lslConstant RESTITUTION
-syn keyword lslConstant GRAVITY_MULTIPLIER
-syn keyword lslConstant SIM_STAT_PCT_CHARS_STEPPED
-syn keyword lslConstant KFM_COMMAND
-syn keyword lslConstant KFM_CMD_PLAY
-syn keyword lslConstant KFM_CMD_STOP
-syn keyword lslConstant KFM_CMD_PAUSE
-syn keyword lslConstant KFM_MODE
-syn keyword lslConstant KFM_FORWARD
-syn keyword lslConstant KFM_LOOP
-syn keyword lslConstant KFM_PING_PONG
-syn keyword lslConstant KFM_REVERSE
-syn keyword lslConstant KFM_DATA
-syn keyword lslConstant KFM_ROTATION
-syn keyword lslConstant KFM_TRANSLATION
-syn keyword lslConstant CHARACTER_CMD_STOP
-syn keyword lslConstant CHARACTER_CMD_SMOOTH_STOP
-syn keyword lslConstant CHARACTER_CMD_JUMP
-syn keyword lslConstant CHARACTER_DESIRED_SPEED
-syn keyword lslConstant CHARACTER_RADIUS
-syn keyword lslConstant CHARACTER_LENGTH
-syn keyword lslConstant CHARACTER_ORIENTATION
-syn keyword lslConstant CHARACTER_AVOIDANCE_MODE
-syn keyword lslConstant CHARACTER_ACCOUNT_FOR_SKIPPED_FRAMES
-syn keyword lslConstant PURSUIT_OFFSET
-syn keyword lslConstant REQUIRE_LINE_OF_SIGHT
-syn keyword lslConstant PURSUIT_FUZZ_FACTOR
-syn keyword lslConstant PURSUIT_INTERCEPT
-syn keyword lslConstant PURSUIT_GOAL_TOLERANCE
-syn keyword lslConstant VERTICAL
-syn keyword lslConstant HORIZONTAL
-syn keyword lslConstant AVOID_CHARACTERS
-syn keyword lslConstant AVOID_DYNAMIC_OBSTACLES
-syn keyword lslConstant AVOID_NONE
-syn keyword lslConstant PU_EVADE_HIDDEN
-syn keyword lslConstant PU_EVADE_SPOTTED
-syn keyword lslConstant PU_FAILURE_INVALID_GOAL
-syn keyword lslConstant PU_FAILURE_INVALID_START
-syn keyword lslConstant PU_FAILURE_NO_VALID_DESTINATION
-syn keyword lslConstant PU_FAILURE_OTHER
-syn keyword lslConstant PU_FAILURE_TARGET_GONE
-syn keyword lslConstant PU_FAILURE_UNREACHABLE
-syn keyword lslConstant PU_GOAL_REACHED
-syn keyword lslConstant PU_SLOWDOWN_DISTANCE_REACHED
-syn keyword lslConstant PU_FAILURE_NO_NAVMESH
-syn keyword lslConstant PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED
-syn keyword lslConstant PU_FAILURE_PARCEL_UNREACHABLE
-syn keyword lslConstant CHARACTER_TYPE
-syn keyword lslConstant CHARACTER_TYPE_A
-syn keyword lslConstant CHARACTER_TYPE_B
-syn keyword lslConstant CHARACTER_TYPE_C
-syn keyword lslConstant CHARACTER_TYPE_D
-syn keyword lslConstant CHARACTER_TYPE_NONE
-syn keyword lslConstant TRAVERSAL_TYPE
-syn keyword lslConstant TRAVERSAL_TYPE_SLOW
-syn keyword lslConstant TRAVERSAL_TYPE_FAST
-syn keyword lslConstant TRAVERSAL_TYPE_NONE
-syn keyword lslConstant CHARACTER_MAX_ACCEL
-syn keyword lslConstant CHARACTER_MAX_DECEL
-syn keyword lslConstant CHARACTER_MAX_ANGULAR_SPEED
-syn keyword lslConstant CHARACTER_MAX_ANGULAR_ACCEL
-syn keyword lslConstant CHARACTER_TURN_SPEED_MULTIPLIER
-syn keyword lslConstant CHARACTER_DESIRED_TURN_SPEED
-syn keyword lslConstant CHARACTER_MAX_TURN_RADIUS
-syn keyword lslConstant CHARACTER_MAX_SPEED
-syn keyword lslConstant PATROL_PAUSE_AT_WAYPOINTS
-syn keyword lslConstant WANDER_PAUSE_AT_WAYPOINTS
-syn keyword lslConstant ZERO_VECTOR
-syn keyword lslConstant ZERO_ROTATION
-syn keyword lslConstant HTTP_METHOD
-syn keyword lslConstant HTTP_MIMETYPE
-syn keyword lslConstant HTTP_BODY_MAXLENGTH
-
-" Events
-syn keyword lslEvent state_entry
-syn keyword lslEvent state_exit
-syn keyword lslEvent touch_start
-syn keyword lslEvent touch
-syn keyword lslEvent touch_end
-syn keyword lslEvent collision_start
-syn keyword lslEvent collision
-syn keyword lslEvent collision_end
-syn keyword lslEvent land_collision_start
-syn keyword lslEvent land_collision
-syn keyword lslEvent land_collision_end
-syn keyword lslEvent timer
-syn keyword lslEvent listen
-syn keyword lslEvent sensor
-syn keyword lslEvent no_sensor
-syn keyword lslEvent control
-syn keyword lslEvent at_target
-syn keyword lslEvent not_at_target
-syn keyword lslEvent at_rot_target
-syn keyword lslEvent not_at_rot_target
-syn keyword lslEvent money
-syn keyword lslEvent email
-syn keyword lslEvent run_time_permissions
-syn keyword lslEvent attach
-syn keyword lslEvent dataserver
-syn keyword lslEvent moving_start
-syn keyword lslEvent moving_end
-syn keyword lslEvent on_rez
-syn keyword lslEvent object_rez
-syn keyword lslEvent link_message
-syn keyword lslEvent changed
-syn keyword lslEvent remote_data
-syn keyword lslEvent http_response
-syn keyword lslEvent http_request
-syn keyword lslEvent transaction_result
-syn keyword lslEvent path_update
-
-" Functions
-syn keyword lslFunction llAbs
-syn keyword lslFunction llAcos
-syn keyword lslFunction llAddToLandBanList
-syn keyword lslFunction llAddToLandPassList
-syn keyword lslFunction llAdjustSoundVolume
-syn keyword lslFunction llAllowInventoryDrop
-syn keyword lslFunction llAngleBetween
-syn keyword lslFunction llApplyImpulse
-syn keyword lslFunction llApplyRotationalImpulse
-syn keyword lslFunction llAsin
-syn keyword lslFunction llAtan2
-syn keyword lslFunction llAttachToAvatar
-syn keyword lslFunction llAttachToAvatarTemp
-syn keyword lslFunction llAvatarOnLinkSitTarget
-syn keyword lslFunction llAvatarOnSitTarget
-syn keyword lslFunction llAxes2Rot
-syn keyword lslFunction llAxisAngle2Rot
-syn keyword lslFunction llBase64ToInteger
-syn keyword lslFunction llBase64ToString
-syn keyword lslFunction llBreakAllLinks
-syn keyword lslFunction llBreakLink
-syn keyword lslFunction llCastRay
-syn keyword lslFunction llCeil
-syn keyword lslFunction llClearCameraParams
-syn keyword lslFunction llClearLinkMedia
-syn keyword lslFunction llClearPrimMedia
-syn keyword lslFunction llCloseRemoteDataChannel
-syn keyword lslFunction llCloud
-syn keyword lslFunction llCollisionFilter
-syn keyword lslFunction llCollisionSound
-syn keyword lslFunction llCollisionSprite
-syn keyword lslFunction llCos
-syn keyword lslFunction llCreateCharacter
-syn keyword lslFunction llCreateLink
-syn keyword lslFunction llCSV2List
-syn keyword lslFunction llDeleteCharacter
-syn keyword lslFunction llDeleteSubList
-syn keyword lslFunction llDeleteSubString
-syn keyword lslFunction llDetachFromAvatar
-syn keyword lslFunction llDetectedGrab
-syn keyword lslFunction llDetectedGroup
-syn keyword lslFunction llDetectedKey
-syn keyword lslFunction llDetectedLinkNumber
-syn keyword lslFunction llDetectedName
-syn keyword lslFunction llDetectedOwner
-syn keyword lslFunction llDetectedPos
-syn keyword lslFunction llDetectedRot
-syn keyword lslFunction llDetectedTouchBinormal
-syn keyword lslFunction llDetectedTouchFace
-syn keyword lslFunction llDetectedTouchNormal
-syn keyword lslFunction llDetectedTouchPos
-syn keyword lslFunction llDetectedTouchST
-syn keyword lslFunction llDetectedTouchUV
-syn keyword lslFunction llDetectedType
-syn keyword lslFunction llDetectedVel
-syn keyword lslFunction llDialog
-syn keyword lslFunction llDie
-syn keyword lslFunction llDumpList2String
-syn keyword lslFunction llEdgeOfWorld
-syn keyword lslFunction llEjectFromLand
-syn keyword lslFunction llEmail
-syn keyword lslFunction llEscapeURL
-syn keyword lslFunction llEuler2Rot
-syn keyword lslFunction llEvade
-syn keyword lslFunction llExecCharacterCmd
-syn keyword lslFunction llFabs
-syn keyword lslFunction llFleeFrom
-syn keyword lslFunction llFloor
-syn keyword lslFunction llForceMouselook
-syn keyword lslFunction llFrand
-syn keyword lslFunction llGenerateKey
-syn keyword lslFunction llGetAccel
-syn keyword lslFunction llGetAgentInfo
-syn keyword lslFunction llGetAgentLanguage
-syn keyword lslFunction llGetAgentList
-syn keyword lslFunction llGetAgentSize
-syn keyword lslFunction llGetAlpha
-syn keyword lslFunction llGetAndResetTime
-syn keyword lslFunction llGetAnimation
-syn keyword lslFunction llGetAnimationList
-syn keyword lslFunction llGetAnimationOverride
-syn keyword lslFunction llGetAttached
-syn keyword lslFunction llGetBoundingBox
-syn keyword lslFunction llGetCameraPos
-syn keyword lslFunction llGetCameraRot
-syn keyword lslFunction llGetCenterOfMass
-syn keyword lslFunction llGetClosestNavPoint
-syn keyword lslFunction llGetColor
-syn keyword lslFunction llGetCreator
-syn keyword lslFunction llGetDate
-syn keyword lslFunction llGetDisplayName
-syn keyword lslFunction llGetEnergy
-syn keyword lslFunction llGetEnv
-syn keyword lslFunction llGetForce
-syn keyword lslFunction llGetFreeMemory
-syn keyword lslFunction llGetFreeURLs
-syn keyword lslFunction llGetGeometricCenter
-syn keyword lslFunction llGetGMTclock
-syn keyword lslFunction llGetHTTPHeader
-syn keyword lslFunction llGetInventoryCreator
-syn keyword lslFunction llGetInventoryKey
-syn keyword lslFunction llGetInventoryName
-syn keyword lslFunction llGetInventoryNumber
-syn keyword lslFunction llGetInventoryPermMask
-syn keyword lslFunction llGetInventoryType
-syn keyword lslFunction llGetKey
-syn keyword lslFunction llGetLandOwnerAt
-syn keyword lslFunction llGetLinkKey
-syn keyword lslFunction llGetLinkMedia
-syn keyword lslFunction llGetLinkName
-syn keyword lslFunction llGetLinkNumber
-syn keyword lslFunction llGetLinkNumberOfSides
-syn keyword lslFunction llGetLinkPrimitiveParams
-syn keyword lslFunction llGetListEntryType
-syn keyword lslFunction llGetListLength
-syn keyword lslFunction llGetLocalPos
-syn keyword lslFunction llGetLocalRot
-syn keyword lslFunction llGetMass
-syn keyword lslFunction llGetMassMKS
-syn keyword lslFunction llGetMemoryLimit
-syn keyword lslFunction llGetNextEmail
-syn keyword lslFunction llGetNotecardLine
-syn keyword lslFunction llGetNumberOfNotecardLines
-syn keyword lslFunction llGetNumberOfPrims
-syn keyword lslFunction llGetNumberOfSides
-syn keyword lslFunction llGetObjectDesc
-syn keyword lslFunction llGetObjectDetails
-syn keyword lslFunction llGetObjectMass
-syn keyword lslFunction llGetObjectName
-syn keyword lslFunction llGetObjectPermMask
-syn keyword lslFunction llGetObjectPrimCount
-syn keyword lslFunction llGetOmega
-syn keyword lslFunction llGetOwner
-syn keyword lslFunction llGetOwnerKey
-syn keyword lslFunction llGetParcelDetails
-syn keyword lslFunction llGetParcelFlags
-syn keyword lslFunction llGetParcelMaxPrims
-syn keyword lslFunction llGetParcelMusicURL
-syn keyword lslFunction llGetParcelPrimCount
-syn keyword lslFunction llGetParcelPrimOwners
-syn keyword lslFunction llGetPermissions
-syn keyword lslFunction llGetPermissionsKey
-syn keyword lslFunction llGetPhysicsMaterial
-syn keyword lslFunction llGetPos
-syn keyword lslFunction llGetPrimitiveParams
-syn keyword lslFunction llGetPrimMediaParams
-syn keyword lslFunction llGetRegionAgentCount
-syn keyword lslFunction llGetRegionCorner
-syn keyword lslFunction llGetRegionFlags
-syn keyword lslFunction llGetRegionFPS
-syn keyword lslFunction llGetRegionName
-syn keyword lslFunction llGetRegionTimeDilation
-syn keyword lslFunction llGetRootPosition
-syn keyword lslFunction llGetRootRotation
-syn keyword lslFunction llGetRot
-syn keyword lslFunction llGetScale
-syn keyword lslFunction llGetScriptName
-syn keyword lslFunction llGetScriptState
-syn keyword lslFunction llGetSimStats
-syn keyword lslFunction llGetSimulatorHostname
-syn keyword lslFunction llGetSPMaxMemory
-syn keyword lslFunction llGetStartParameter
-syn keyword lslFunction llGetStaticPath
-syn keyword lslFunction llGetStatus
-syn keyword lslFunction llGetSubString
-syn keyword lslFunction llGetSunDirection
-syn keyword lslFunction llGetTexture
-syn keyword lslFunction llGetTextureOffset
-syn keyword lslFunction llGetTextureRot
-syn keyword lslFunction llGetTextureScale
-syn keyword lslFunction llGetTime
-syn keyword lslFunction llGetTimeOfDay
-syn keyword lslFunction llGetTimestamp
-syn keyword lslFunction llGetTorque
-syn keyword lslFunction llGetUnixTime
-syn keyword lslFunction llGetUsedMemory
-syn keyword lslFunction llGetUsername
-syn keyword lslFunction llGetVel
-syn keyword lslFunction llGetWallclock
-syn keyword lslFunction llGiveInventory
-syn keyword lslFunction llGiveInventoryList
-syn keyword lslFunction llGiveMoney
-syn keyword lslFunction llGodLikeRezObject
-syn keyword lslFunction llGround
-syn keyword lslFunction llGroundContour
-syn keyword lslFunction llGroundNormal
-syn keyword lslFunction llGroundRepel
-syn keyword lslFunction llGroundSlope
-syn keyword lslFunction llHTTPRequest
-syn keyword lslFunction llHTTPResponse
-syn keyword lslFunction llInsertString
-syn keyword lslFunction llInstantMessage
-syn keyword lslFunction llIntegerToBase64
-syn keyword lslFunction llJson2List
-syn keyword lslFunction llJsonGetValue
-syn keyword lslFunction llJsonSetValue
-syn keyword lslFunction llJsonValueType
-syn keyword lslFunction llKey2Name
-syn keyword lslFunction llLinkParticleSystem
-syn keyword lslFunction llLinkSitTarget
-syn keyword lslFunction llList2CSV
-syn keyword lslFunction llList2Float
-syn keyword lslFunction llList2Integer
-syn keyword lslFunction llList2Json
-syn keyword lslFunction llList2Key
-syn keyword lslFunction llList2List
-syn keyword lslFunction llList2ListStrided
-syn keyword lslFunction llList2Rot
-syn keyword lslFunction llList2String
-syn keyword lslFunction llList2Vector
-syn keyword lslFunction llListen
-syn keyword lslFunction llListenControl
-syn keyword lslFunction llListenRemove
-syn keyword lslFunction llListFindList
-syn keyword lslFunction llListInsertList
-syn keyword lslFunction llListRandomize
-syn keyword lslFunction llListReplaceList
-syn keyword lslFunction llListSort
-syn keyword lslFunction llListStatistics
-syn keyword lslFunction llLoadURL
-syn keyword lslFunction llLog
-syn keyword lslFunction llLog10
-syn keyword lslFunction llLookAt
-syn keyword lslFunction llLoopSound
-syn keyword lslFunction llLoopSoundMaster
-syn keyword lslFunction llLoopSoundSlave
-syn keyword lslFunction llMakeExplosion
-syn keyword lslFunction llMakeFire
-syn keyword lslFunction llMakeFountain
-syn keyword lslFunction llMakeSmoke
-syn keyword lslFunction llManageEstateAccess
-syn keyword lslFunction llMapDestination
-syn keyword lslFunction llMD5String
-syn keyword lslFunction llMessageLinked
-syn keyword lslFunction llMinEventDelay
-syn keyword lslFunction llModifyLand
-syn keyword lslFunction llModPow
-syn keyword lslFunction llMoveToTarget
-syn keyword lslFunction llNavigateTo
-syn keyword lslFunction llOffsetTexture
-syn keyword lslFunction llOpenRemoteDataChannel
-syn keyword lslFunction llOverMyLand
-syn keyword lslFunction llOwnerSay
-syn keyword lslFunction llParcelMediaCommandList
-syn keyword lslFunction llParcelMediaQuery
-syn keyword lslFunction llParseString2List
-syn keyword lslFunction llParseStringKeepNulls
-syn keyword lslFunction llParticleSystem
-syn keyword lslFunction llPassCollisions
-syn keyword lslFunction llPassTouches
-syn keyword lslFunction llPatrolPoints
-syn keyword lslFunction llPlaySound
-syn keyword lslFunction llPlaySoundSlave
-syn keyword lslFunction llPointAt
-syn keyword lslFunction llPow
-syn keyword lslFunction llPreloadSound
-syn keyword lslFunction llPursue
-syn keyword lslFunction llPushObject
-syn keyword lslFunction llRefreshPrimURL
-syn keyword lslFunction llRegionSay
-syn keyword lslFunction llRegionSayTo
-syn keyword lslFunction llReleaseCamera
-syn keyword lslFunction llReleaseControls
-syn keyword lslFunction llReleaseURL
-syn keyword lslFunction llRemoteDataReply
-syn keyword lslFunction llRemoteDataSetRegion
-syn keyword lslFunction llRemoteLoadScript
-syn keyword lslFunction llRemoteLoadScriptPin
-syn keyword lslFunction llRemoveFromLandBanList
-syn keyword lslFunction llRemoveFromLandPassList
-syn keyword lslFunction llRemoveInventory
-syn keyword lslFunction llRemoveVehicleFlags
-syn keyword lslFunction llRequestAgentData
-syn keyword lslFunction llRequestDisplayName
-syn keyword lslFunction llRequestInventoryData
-syn keyword lslFunction llRequestPermissions
-syn keyword lslFunction llRequestSecureURL
-syn keyword lslFunction llRequestSimulatorData
-syn keyword lslFunction llRequestURL
-syn keyword lslFunction llRequestUsername
-syn keyword lslFunction llResetAnimationOverride
-syn keyword lslFunction llResetLandBanList
-syn keyword lslFunction llResetLandPassList
-syn keyword lslFunction llResetOtherScript
-syn keyword lslFunction llResetScript
-syn keyword lslFunction llResetTime
-syn keyword lslFunction llReturnObjectsByID
-syn keyword lslFunction llReturnObjectsByOwner
-syn keyword lslFunction llRezAtRoot
-syn keyword lslFunction llRezObject
-syn keyword lslFunction llRot2Angle
-syn keyword lslFunction llRot2Axis
-syn keyword lslFunction llRot2Euler
-syn keyword lslFunction llRot2Fwd
-syn keyword lslFunction llRot2Left
-syn keyword lslFunction llRot2Up
-syn keyword lslFunction llRotateTexture
-syn keyword lslFunction llRotBetween
-syn keyword lslFunction llRotLookAt
-syn keyword lslFunction llRotTarget
-syn keyword lslFunction llRotTargetRemove
-syn keyword lslFunction llRound
-syn keyword lslFunction llSameGroup
-syn keyword lslFunction llSay
-syn keyword lslFunction llScaleTexture
-syn keyword lslFunction llScriptDanger
-syn keyword lslFunction llScriptProfiler
-syn keyword lslFunction llSendRemoteData
-syn keyword lslFunction llSensor
-syn keyword lslFunction llSensorRemove
-syn keyword lslFunction llSensorRepeat
-syn keyword lslFunction llSetAlpha
-syn keyword lslFunction llSetAngularVelocity
-syn keyword lslFunction llSetAnimationOverride
-syn keyword lslFunction llSetBuoyancy
-syn keyword lslFunction llSetCameraAtOffset
-syn keyword lslFunction llSetCameraEyeOffset
-syn keyword lslFunction llSetCameraParams
-syn keyword lslFunction llSetClickAction
-syn keyword lslFunction llSetColor
-syn keyword lslFunction llSetContentType
-syn keyword lslFunction llSetDamage
-syn keyword lslFunction llSetForce
-syn keyword lslFunction llSetForceAndTorque
-syn keyword lslFunction llSetHoverHeight
-syn keyword lslFunction llSetInventoryPermMask llSetKeyframedMotion
-syn keyword lslFunction llSetLinkAlpha
-syn keyword lslFunction llSetLinkCamera
-syn keyword lslFunction llSetLinkColor
-syn keyword lslFunction llSetLinkMedia
-syn keyword lslFunction llSetLinkPrimitiveParams
-syn keyword lslFunction llSetLinkPrimitiveParamsFast
-syn keyword lslFunction llSetLinkTexture
-syn keyword lslFunction llSetLinkTextureAnim
-syn keyword lslFunction llSetLocalRot
-syn keyword lslFunction llSetMemoryLimit
-syn keyword lslFunction llSetObjectDesc
-syn keyword lslFunction llSetObjectName
-syn keyword lslFunction llSetObjectPermMask
-syn keyword lslFunction llSetParcelMusicURL
-syn keyword lslFunction llSetPayPrice
-syn keyword lslFunction llSetPhysicsMaterial
-syn keyword lslFunction llSetPos
-syn keyword lslFunction llSetPrimitiveParams
-syn keyword lslFunction llSetPrimMediaParams
-syn keyword lslFunction llSetPrimURL
-syn keyword lslFunction llSetRegionPos
-syn keyword lslFunction llSetRemoteScriptAccessPin
-syn keyword lslFunction llSetRot
-syn keyword lslFunction llSetScale
-syn keyword lslFunction llSetScriptState
-syn keyword lslFunction llSetSitText
-syn keyword lslFunction llSetSoundQueueing
-syn keyword lslFunction llSetSoundRadius
-syn keyword lslFunction llSetStatus
-syn keyword lslFunction llSetText
-syn keyword lslFunction llSetTexture
-syn keyword lslFunction llSetTextureAnim
-syn keyword lslFunction llSetTimerEvent
-syn keyword lslFunction llSetTorque
-syn keyword lslFunction llSetTouchText
-syn keyword lslFunction llSetVehicleFlags
-syn keyword lslFunction llSetVehicleFloatParam
-syn keyword lslFunction llSetVehicleRotationParam
-syn keyword lslFunction llSetVehicleType
-syn keyword lslFunction llSetVehicleVectorParam
-syn keyword lslFunction llSetVelocity
-syn keyword lslFunction llSHA1String
-syn keyword lslFunction llShout
-syn keyword lslFunction llSin
-syn keyword lslFunction llSitTarget
-syn keyword lslFunction llSleep
-syn keyword lslFunction llSound
-syn keyword lslFunction llSoundPreload
-syn keyword lslFunction llSqrt
-syn keyword lslFunction llStartAnimation
-syn keyword lslFunction llStopAnimation
-syn keyword lslFunction llStopHover
-syn keyword lslFunction llStopLookAt
-syn keyword lslFunction llStopMoveToTarget
-syn keyword lslFunction llStopPointAt
-syn keyword lslFunction llStopSound
-syn keyword lslFunction llStringLength
-syn keyword lslFunction llStringToBase64
-syn keyword lslFunction llStringTrim
-syn keyword lslFunction llSubStringIndex
-syn keyword lslFunction llTakeCamera
-syn keyword lslFunction llTakeControls
-syn keyword lslFunction llTan
-syn keyword lslFunction llTarget
-syn keyword lslFunction llTargetOmega
-syn keyword lslFunction llTargetRemove
-syn keyword lslFunction llTeleportAgent
-syn keyword lslFunction llTeleportAgentGlobalCoords
-syn keyword lslFunction llTeleportAgentHome
-syn keyword lslFunction llTextBox
-syn keyword lslFunction llToLower
-syn keyword lslFunction llToUpper
-syn keyword lslFunction llTransferLindenDollars
-syn keyword lslFunction llTriggerSound
-syn keyword lslFunction llTriggerSoundLimited
-syn keyword lslFunction llUnescapeURL
-syn keyword lslFunction llUnSit
-syn keyword lslFunction llUpdateCharacter
-syn keyword lslFunction llVecDist
-syn keyword lslFunction llVecMag
-syn keyword lslFunction llVecNorm
-syn keyword lslFunction llVolumeDetect
-syn keyword lslFunction llWanderWithin
-syn keyword lslFunction llWater
-syn keyword lslFunction llWhisper
-syn keyword lslFunction llWind
-syn keyword lslFunction llXorBase64
-syn keyword lslFunction llXorBase64Strings
-syn keyword lslFunction llXorBase64StringsCorrect   
-
-" Operators
-syn match lslOperator +[-!%&*+/<=>^|~]+ display
-
-" Numbers
-syn match lslNumber +-\=\%(\<\d\+\|\%(\<\d\+\)\=\.\d\+\)\%([Ee][-+]\=\d\+\)\=\>\|\<0x\x\+\>+ display
-
-" Vectors and rotations
-syn match lslVectorRot +<[-\t +.0-9A-Za-z_]\+\%(,[-\t +.0-9A-Za-z_]\+\)\{2,3}>+ contains=lslNumber display
-
-" Vector and rotation properties
-syn match lslProperty +\.\@<=[sxyz]\>+ display
-
-" Strings
-syn region lslString start=+"+ skip=+\\.+ end=+"+ contains=lslSpecialChar,@Spell
-syn match lslSpecialChar +\\.+ contained display
-
-" Keys
-syn match lslKey +"\x\{8}-\x\{4}-\x\{4}-\x\{4}-\x\{12}"+ display
-
-" Parentheses, braces and brackets
-syn match lslBlock +[][(){}]+ display
-
-" Typecast operators
-syn match lslTypecast +(\%(float\|integer\|key\|list\|quaternion\|rotation\|string\|vector\))+ contains=lslType display
-
-" Comments
-syn keyword lslTodo         contained TODO FIXME XXX
-if exists("lsl_comment_strings")
-  syn region  lslCommentString    contained start=+"+ end=+"+ end=+$+ end=+\*/+me=s-1,he=s-1 contains=lslSpecial,lslCommentStar,lslSpecialChar,@Spell
-  syn region  lslComment2String   contained start=+"+    end=+$\|"+  contains=lslSpecial,lslSpecialChar,@Spell
-  syn match   lslCommentCharacter contained "'\\[^']\{1,6\}'" contains=lslSpecialChar
-  syn match   lslCommentCharacter contained "'\\''" contains=lslSpecialChar
-  syn match   lslCommentCharacter contained "'[^\\]'"
-  syn cluster lslCommentSpecial add=lslCommentString,lslCommentCharacter,lslNumber
-  syn cluster lslCommentSpecial2 add=lslComment2String,lslCommentCharacter,lslNumber
-endif
-syn region  lslComment         start="/\*"  end="\*/" contains=@lslCommentSpecial,lslTodo,@Spell
-syn match   lslCommentStar     contained "^\s*\*[^/]"me=e-1
-syn match   lslCommentStar     contained "^\s*\*$"
-syn match   lslLineComment     "//.*" contains=@lslCommentSpecial2,lslTodo,@Spell
+" nocompatible mode for lines with backslashes
+let s:cpo_save = &cpo
+set cpo&vim
 
 
-" Define the default highlighting.
-hi def link lslKeyword      Keyword
-hi def link lslType         Type
-hi def link lslLabel        Label
-hi def link lslConstant     Constant
-hi def link lslEvent        PreProc
-hi def link lslFunction     Function
-hi def link lslOperator     Operator
-hi def link lslNumber       Number
-hi def link lslVectorRot    Special
-hi def link lslProperty     Identifier
-hi def link lslString       String
-hi def link lslSpecialChar  SpecialChar
-hi def link lslKey          Special
-hi def link lslBlock        Special
-hi def link lslTypecast     Operator
-hi def link lslComment      Comment
-hi def link lslCommentStar  Comment
-hi def link lslLineComment  Comment
+
+
+" COMMENTS "
+syntax keyword lslTodo
+\ todo Todo TODO fixme Fixme FIXME bug Bug BUG xxx XXX
+
+" DEBUGGING "
+syntax keyword lslDebug
+\ debug Debug DEBUG temp Temp TEMP
+
+" PREPROCESSOR "
+syntax region lslDefine
+\ start='^\s*\(#\)\s*\(define\|undef\)\>' 
+\ end='$'
+\ contains=lslComment,lslCommentMulti,lslString,lslNumber
+\ keepend
+
+syntax region lslInclude
+\ start='^\s*\(#\)\s*\(include\)\>' 
+\ end='$'
+\ contains=lslComment,lslCommentMulti,lslString
+\ keepend
+
+syntax region lslPreCondit
+\ start='^\s*\(#\)\s*\(ifdef\|ifndef\|if\|elif\|else\|endif\)\>' 
+\ end='$'
+\ contains=lslComment,lslCommentMulti,lslString,lslNumber
+\ keepend
+
+syntax region lslPreProc
+\ start='^\s*\(#\)\s*\(pragma\|line\|warning\|error\)\>' 
+\ end='$'
+\ contains=lslComment,lslCommentMulti,lslString,lslNumber
+\ keepend
+
+" FUNCTIONS "
+syn keyword lslFunction
+\ llAbs
+\ llAcos
+\ llAddToLandBanList
+\ llAddToLandPassList
+\ llAdjustSoundVolume
+\ llAgentInExperience
+\ llAllowInventoryDrop
+\ llAngleBetween
+\ llApplyImpulse
+\ llApplyRotationalImpulse
+\ llAsin
+\ llAtan2
+\ llAttachToAvatar
+\ llAttachToAvatarTemp
+\ llAvatarOnLinkSitTarget
+\ llAvatarOnSitTarget
+\ llAxes2Rot
+\ llAxisAngle2Rot
+\ llBase64ToInteger
+\ llBase64ToString
+\ llBreakAllLinks
+\ llBreakLink
+\ llCastRay
+\ llCeil
+\ llClearCameraParams
+\ llClearLinkMedia
+\ llClearPrimMedia
+\ llCloseRemoteDataChannel
+\ llCollisionFilter
+\ llCollisionSound
+\ llCollisionSprite
+\ llCos
+\ llCreateCharacter
+\ llCreateKeyValue
+\ llCreateLink
+\ llCSV2List
+\ llDataSizeKeyValue
+\ llDeleteCharacter
+\ llDeleteKeyValue
+\ llDeleteSubList
+\ llDeleteSubString
+\ llDetachFromAvatar
+\ llDetectedGrab
+\ llDetectedGroup
+\ llDetectedKey
+\ llDetectedLinkNumber
+\ llDetectedName
+\ llDetectedOwner
+\ llDetectedPos
+\ llDetectedRot
+\ llDetectedTouchBinormal
+\ llDetectedTouchFace
+\ llDetectedTouchNormal
+\ llDetectedTouchPos
+\ llDetectedTouchST
+\ llDetectedTouchUV
+\ llDetectedType
+\ llDetectedVel
+\ llDialog
+\ llDie
+\ llDumpList2String
+\ llEdgeOfWorld
+\ llEjectFromLand
+\ llEmail
+\ llEscapeURL
+\ llEuler2Rot
+\ llEvade
+\ llExecCharacterCmd
+\ llFabs
+\ llFleeFrom
+\ llFloor
+\ llForceMouselook
+\ llFrand
+\ llGenerateKey
+\ llGetAccel
+\ llGetAgentInfo
+\ llGetAgentLanguage
+\ llGetAgentList
+\ llGetAgentSize
+\ llGetAlpha
+\ llGetAndResetTime
+\ llGetAnimation
+\ llGetAnimationList
+\ llGetAnimationOverride
+\ llGetAttached
+\ llGetAttachedList
+\ llGetBoundingBox
+\ llGetCameraPos
+\ llGetCameraRot
+\ llGetCenterOfMass
+\ llGetClosestNavPoint
+\ llGetColor
+\ llGetCreator
+\ llGetDate
+\ llGetDisplayName
+\ llGetEnergy
+\ llGetEnv
+\ llGetExperienceDetails
+\ llGetExperienceErrorMessage
+\ llGetForce
+\ llGetFreeMemory
+\ llGetFreeURLs
+\ llGetGeometricCenter
+\ llGetGMTclock
+\ llGetHTTPHeader
+\ llGetInventoryCreator
+\ llGetInventoryKey
+\ llGetInventoryName
+\ llGetInventoryNumber
+\ llGetInventoryPermMask
+\ llGetInventoryType
+\ llGetKey
+\ llGetLandOwnerAt
+\ llGetLinkKey
+\ llGetLinkMedia
+\ llGetLinkName
+\ llGetLinkNumber
+\ llGetLinkNumberOfSides
+\ llGetLinkPrimitiveParams
+\ llGetListEntryType
+\ llGetListLength
+\ llGetLocalPos
+\ llGetLocalRot
+\ llGetMass
+\ llGetMassMKS
+\ llGetMaxScaleFactor
+\ llGetMemoryLimit
+\ llGetMinScaleFactor
+\ llGetNextEmail
+\ llGetNotecardLine
+\ llGetNumberOfNotecardLines
+\ llGetNumberOfPrims
+\ llGetNumberOfSides
+\ llGetObjectAnimationNames
+\ llGetObjectDesc
+\ llGetObjectDetails
+\ llGetObjectMass
+\ llGetObjectName
+\ llGetObjectPermMask
+\ llGetObjectPrimCount
+\ llGetOmega
+\ llGetOwner
+\ llGetOwnerKey
+\ llGetParcelDetails
+\ llGetParcelFlags
+\ llGetParcelMaxPrims
+\ llGetParcelMusicURL
+\ llGetParcelPrimCount
+\ llGetParcelPrimOwners
+\ llGetPermissions
+\ llGetPermissionsKey
+\ llGetPhysicsMaterial
+\ llGetPos
+\ llGetPrimitiveParams
+\ llGetPrimMediaParams
+\ llGetRegionAgentCount
+\ llGetRegionCorner
+\ llGetRegionFlags
+\ llGetRegionFPS
+\ llGetRegionName
+\ llGetRegionTimeDilation
+\ llGetRootPosition
+\ llGetRootRotation
+\ llGetRot
+\ llGetScale
+\ llGetScriptName
+\ llGetScriptState
+\ llGetSimStats
+\ llGetSimulatorHostname
+\ llGetSPMaxMemory
+\ llGetStartParameter
+\ llGetStaticPath
+\ llGetStatus
+\ llGetSubString
+\ llGetSunDirection
+\ llGetTexture
+\ llGetTextureOffset
+\ llGetTextureRot
+\ llGetTextureScale
+\ llGetTime
+\ llGetTimeOfDay
+\ llGetTimestamp
+\ llGetTorque
+\ llGetUnixTime
+\ llGetUsedMemory
+\ llGetUsername
+\ llGetVel
+\ llGetWallclock
+\ llGiveInventory
+\ llGiveInventoryList
+\ llGiveMoney
+\ llGround
+\ llGroundContour
+\ llGroundNormal
+\ llGroundRepel
+\ llGroundSlope
+\ llHTTPRequest
+\ llHTTPResponse
+\ llInsertString
+\ llInstantMessage
+\ llIntegerToBase64
+\ llJson2List
+\ llJsonGetValue
+\ llJsonSetValue
+\ llJsonValueType
+\ llKey2Name
+\ llKeyCountKeyValue
+\ llKeysKeyValue
+\ llLinkParticleSystem
+\ llLinkSitTarget
+\ llList2CSV
+\ llList2Float
+\ llList2Integer
+\ llList2Json
+\ llList2Key
+\ llList2List
+\ llList2ListStrided
+\ llList2Rot
+\ llList2String
+\ llList2Vector
+\ llListen
+\ llListenControl
+\ llListenRemove
+\ llListFindList
+\ llListInsertList
+\ llListRandomize
+\ llListReplaceList
+\ llListSort
+\ llListStatistics
+\ llRequestUserKey
+\ llLoadURL
+\ llLog
+\ llLog10
+\ llLookAt
+\ llLoopSound
+\ llLoopSoundMaster
+\ llLoopSoundSlave
+\ llManageEstateAccess
+\ llMapDestination
+\ llMatchGroup
+\ llMD5String
+\ llMessageLinked
+\ llMinEventDelay
+\ llModifyLand
+\ llModPow
+\ llMoveToTarget
+\ llName2Key
+\ llNavigateTo
+\ llOffsetTexture
+\ llOpenRemoteDataChannel
+\ llOverMyLand
+\ llOwnerSay
+\ llParcelMediaCommandList
+\ llParcelMediaQuery
+\ llParseString2List
+\ llParseStringKeepNulls
+\ llParticleSystem
+\ llPassCollisions
+\ llPassTouches
+\ llPatrolPoints
+\ llPlaySound
+\ llPlaySoundSlave
+\ llPow
+\ llPreloadSound
+\ llPursue
+\ llPushObject
+\ llReadKeyValue
+\ llRegionSay
+\ llRegionSayTo
+\ llReleaseControls
+\ llReleaseURL
+\ llRemoteDataReply
+\ llRemoteLoadScriptPin
+\ llRemoveFromLandBanList
+\ llRemoveFromLandPassList
+\ llRemoveInventory
+\ llRemoveVehicleFlags
+\ llRequestAgentData
+\ llRequestDisplayName
+\ llRequestExperiencePermissions
+\ llRequestInventoryData
+\ llRequestPermissions
+\ llRequestSecureURL
+\ llRequestSimulatorData
+\ llRequestURL
+\ llRequestUsername
+\ llResetAnimationOverride
+\ llResetLandBanList
+\ llResetLandPassList
+\ llResetOtherScript
+\ llResetScript
+\ llResetTime
+\ llReturnObjectsByID
+\ llReturnObjectsByOwner
+\ llRezAtRoot
+\ llRezObject
+\ llRot2Angle
+\ llRot2Axis
+\ llRot2Euler
+\ llRot2Fwd
+\ llRot2Left
+\ llRot2Up
+\ llRotateTexture
+\ llRotBetween
+\ llRotLookAt
+\ llRotTarget
+\ llRotTargetRemove
+\ llRound
+\ llSameGroup
+\ llSay
+\ llScaleByFactor
+\ llScaleTexture
+\ llScriptDanger
+\ llScriptProfiler
+\ llSendRemoteData
+\ llSensor
+\ llSensorRemove
+\ llSensorRepeat
+\ llSetAlpha
+\ llSetAngularVelocity
+\ llSetAnimationOverride
+\ llSetBuoyancy
+\ llSetCameraAtOffset
+\ llSetLinkCamera
+\ llSetCameraEyeOffset
+\ llSetCameraParams
+\ llSetClickAction
+\ llSetColor
+\ llSetContentType
+\ llSetDamage
+\ llSetForce
+\ llSetForceAndTorque
+\ llSetHoverHeight
+\ llSetKeyframedMotion
+\ llSetLinkAlpha
+\ llSetLinkColor
+\ llSetLinkMedia
+\ llSetLinkTexture
+\ llSetLinkTextureAnim
+\ llSetLocalRot
+\ llSetMemoryLimit
+\ llSetObjectDesc
+\ llSetObjectName
+\ llSetParcelMusicURL
+\ llSetPayPrice
+\ llSetPhysicsMaterial
+\ llSetPos
+\ llSetLinkPrimitiveParams
+\ llSetLinkPrimitiveParamsFast
+\ llSetPrimitiveParams
+\ llSetPrimMediaParams
+\ llSetRegionPos
+\ llSetRemoteScriptAccessPin
+\ llSetRot
+\ llSetScale
+\ llSetScriptState
+\ llSetSculptAnim
+\ llSetSitText
+\ llSetSoundQueueing
+\ llSetSoundRadius
+\ llSetStatus
+\ llSetText
+\ llSetTexture
+\ llSetTextureAnim
+\ llSetTimerEvent
+\ llSetTorque
+\ llSetTouchText
+\ llSetVehicleFlags
+\ llSetVehicleFloatParam
+\ llSetVehicleRotationParam
+\ llSetVehicleType
+\ llSetVehicleVectorParam
+\ llSetVelocity
+\ llSHA1String
+\ llShout
+\ llSin
+\ llSitOnLink
+\ llSitTarget
+\ llSleep
+\ llSqrt
+\ llStartAnimation
+\ llStartObjectAnimation
+\ llStopAnimation
+\ llStopHover
+\ llStopLookAt
+\ llStopMoveToTarget
+\ llStopObjectAnimation
+\ llStopSound
+\ llStringLength
+\ llStringToBase64
+\ llStringTrim
+\ llSubStringIndex
+\ llTakeControls
+\ llTan
+\ llTarget
+\ llTargetOmega
+\ llTargetRemove
+\ llTeleportAgent
+\ llTeleportAgentGlobalCoords
+\ llTeleportAgentHome
+\ llTextBox
+\ llToLower
+\ llToUpper
+\ llTransferLindenDollars
+\ llTriggerSound
+\ llTriggerSoundLimited
+\ llUnescapeURL
+\ llUnSit
+\ llUpdateCharacter
+\ llUpdateKeyValue
+\ llVecDist
+\ llVecMag
+\ llVecNorm
+\ llVolumeDetect
+\ llWanderWithin
+\ llWater
+\ llWhisper
+\ llWind
+\ llXorBase64
+
+" EVENTS "
+syn keyword lslEvent
+\ attach
+\ at_rot_target
+\ at_target
+\ changed
+\ collision
+\ collision_end
+\ collision_start
+\ control
+\ dataserver
+\ email
+\ event_order
+\ experience_permissions
+\ experience_permissions_denied
+\ http_request
+\ http_response
+\ land_collision
+\ land_collision_end
+\ land_collision_start
+\ link_message
+\ listen
+\ money
+\ moving_end
+\ moving_start
+\ not_at_rot_target
+\ not_at_target
+\ no_sensor
+\ object_rez
+\ on_rez
+\ path_update
+\ remote_data
+\ run_time_permissions
+\ sensor
+\ state_entry
+\ state_exit
+\ timer
+\ touch
+\ touch_end
+\ touch_start
+\ transaction_result
+
+" CONSTANTS "
+syn keyword lslConstant
+\ ACTIVE
+\ AGENT
+\ AGENT_ALWAYS_RUN
+\ AGENT_ATTACHMENTS
+\ AGENT_AUTOPILOT
+\ AGENT_AWAY
+\ AGENT_BUSY
+\ AGENT_BY_LEGACY_NAME
+\ AGENT_BY_USERNAME
+\ AGENT_CROUCHING
+\ AGENT_FLYING
+\ AGENT_IN_AIR
+\ AGENT_LIST_PARCEL
+\ AGENT_LIST_PARCEL_OWNER
+\ AGENT_LIST_REGION
+\ AGENT_MOUSELOOK
+\ AGENT_ON_OBJECT
+\ AGENT_SCRIPTED
+\ AGENT_SITTING
+\ AGENT_TYPING
+\ AGENT_WALKING
+\ ALL_SIDES
+\ ANIM_ON
+\ ATTACH_AVATAR_CENTER
+\ ATTACH_BACK
+\ ATTACH_BELLY
+\ ATTACH_CHEST
+\ ATTACH_CHIN
+\ ATTACH_HEAD
+\ ATTACH_HUD_BOTTOM
+\ ATTACH_HUD_BOTTOM_LEFT
+\ ATTACH_HUD_BOTTOM_RIGHT
+\ ATTACH_HUD_CENTER_1
+\ ATTACH_HUD_CENTER_2
+\ ATTACH_HUD_TOP_CENTER
+\ ATTACH_HUD_TOP_LEFT
+\ ATTACH_HUD_TOP_RIGHT
+\ ATTACH_LEAR
+\ ATTACH_LEFT_PEC
+\ ATTACH_LEYE
+\ ATTACH_LFOOT
+\ ATTACH_LHAND
+\ ATTACH_LHIP
+\ ATTACH_LLARM
+\ ATTACH_LLLEG
+\ ATTACH_LSHOULDER
+\ ATTACH_LUARM
+\ ATTACH_LULEG
+\ ATTACH_MOUTH
+\ ATTACH_NECK
+\ ATTACH_NOSE
+\ ATTACH_PELVIS
+\ ATTACH_REAR
+\ ATTACH_REYE
+\ ATTACH_RFOOT
+\ ATTACH_RHAND
+\ ATTACH_RHIP
+\ ATTACH_RIGHT_PEC
+\ ATTACH_RLARM
+\ ATTACH_RLLEG
+\ ATTACH_RSHOULDER
+\ ATTACH_RUARM
+\ ATTACH_RULEG
+\ CAMERA_ACTIVE
+\ CAMERA_BEHINDNESS_ANGLE
+\ CAMERA_BEHINDNESS_LAG
+\ CAMERA_DISTANCE
+\ CAMERA_FOCUS
+\ CAMERA_FOCUS_LAG
+\ CAMERA_FOCUS_LOCKED
+\ CAMERA_FOCUS_OFFSET
+\ CAMERA_FOCUS_THRESHOLD
+\ CAMERA_PITCH
+\ CAMERA_POSITION
+\ CAMERA_POSITION_LAG
+\ CAMERA_POSITION_LOCKED
+\ CAMERA_POSITION_THRESHOLD
+\ CHANGED_ALLOWED_DROP
+\ CHANGED_COLOR
+\ CHANGED_INVENTORY
+\ CHANGED_LINK
+\ CHANGED_MEDIA
+\ CHANGED_OWNER
+\ CHANGED_REGION
+\ CHANGED_REGION_START
+\ CHANGED_SCALE
+\ CHANGED_SHAPE
+\ CHANGED_TELEPORT
+\ CHANGED_TEXTURE
+\ CHARACTER_ACCOUNT_FOR_SKIPPED_FRAMES
+\ CHARACTER_AVOIDANCE_MODE
+\ CHARACTER_DESIRED_SPEED
+\ CHARACTER_DESIRED_TURN_SPEED
+\ CHARACTER_LENGTH
+\ CHARACTER_MAX_ACCEL
+\ CHARACTER_MAX_DECEL
+\ CHARACTER_MAX_SPEED
+\ CHARACTER_MAX_TURN_RADIUS
+\ CHARACTER_ORIENTATION
+\ CHARACTER_RADIUS
+\ CHARACTER_STAY_WITHIN_PARCEL
+\ CHARACTER_TYPE
+\ CHARACTER_TYPE_A
+\ CHARACTER_TYPE_B
+\ CHARACTER_TYPE_C
+\ CHARACTER_TYPE_D
+\ CHARACTER_TYPE_NONE
+\ CLICK_ACTION_BUY
+\ CLICK_ACTION_NONE
+\ CLICK_ACTION_OPEN
+\ CLICK_ACTION_OPEN_MEDIA
+\ CLICK_ACTION_PAY
+\ CLICK_ACTION_PLAY
+\ CLICK_ACTION_SIT
+\ CLICK_ACTION_TOUCH
+\ CLICK_ACTION_ZOOM
+\ CONTENT_TYPE_ATOM
+\ CONTENT_TYPE_FORM
+\ CONTENT_TYPE_HTML
+\ CONTENT_TYPE_JSON
+\ CONTENT_TYPE_LLSD
+\ CONTENT_TYPE_RSS
+\ CONTENT_TYPE_TEXT
+\ CONTENT_TYPE_XHTML
+\ CONTENT_TYPE_XML
+\ CONTROL_BACK
+\ CONTROL_DOWN
+\ CONTROL_FWD
+\ CONTROL_LBUTTON
+\ CONTROL_LEFT
+\ CONTROL_ML_LBUTTON
+\ CONTROL_RIGHT
+\ CONTROL_ROT_LEFT
+\ CONTROL_ROT_RIGHT
+\ CONTROL_UP
+\ DATA_BORN
+\ DATA_NAME
+\ DATA_ONLINE
+\ DATA_PAYINFO
+\ DATA_RATING
+\ DATA_SIM_POS
+\ DATA_SIM_RATING
+\ DATA_SIM_STATUS
+\ DEBUG_CHANNEL
+\ DEG_TO_RAD
+\ EOF
+\ ERR_GENERIC
+\ ERR_MALFORMED_PARAMS
+\ ERR_PARCEL_PERMISSIONS
+\ ERR_RUNTIME_PERMISSIONS
+\ ERR_THROTTLED
+\ ESTATE_ACCESS_ALLOWED_AGENT_ADD
+\ ESTATE_ACCESS_ALLOWED_AGENT_REMOVE
+\ ESTATE_ACCESS_ALLOWED_GROUP_ADD
+\ ESTATE_ACCESS_ALLOWED_GROUP_REMOVE
+\ ESTATE_ACCESS_BANNED_AGENT_ADD
+\ ESTATE_ACCESS_BANNED_AGENT_REMOVE
+\ FALSE
+\ FORCE_DIRECT_PATH
+\ HORIZONTAL
+\ HTTP_ACCEPT
+\ HTTP_BODY_MAXLENGTH
+\ HTTP_BODY_TRUNCATED
+\ HTTP_CUSTOM_HEADER
+\ HTTP_METHOD
+\ HTTP_MIMETYPE
+\ HTTP_PRAGMA_NO_CACHE
+\ HTTP_USER_AGENT
+\ HTTP_VERBOSE_THROTTLE
+\ HTTP_VERIFY_CERT
+\ INVENTORY_ALL
+\ INVENTORY_ANIMATION
+\ INVENTORY_BODYPART
+\ INVENTORY_CLOTHING
+\ INVENTORY_GESTURE
+\ INVENTORY_LANDMARK
+\ INVENTORY_NONE
+\ INVENTORY_NOTECARD
+\ INVENTORY_OBJECT
+\ INVENTORY_SCRIPT
+\ INVENTORY_SOUND
+\ INVENTORY_TEXTURE
+\ JSON_APPEND
+\ JSON_ARRAY
+\ JSON_DELETE
+\ JSON_FALSE
+\ JSON_INVALID
+\ JSON_NULL
+\ JSON_NUMBER
+\ JSON_OBJECT
+\ JSON_STRING
+\ JSON_TRUE
+\ KFM_CMD_PAUSE
+\ KFM_CMD_PLAY
+\ KFM_CMD_STOP
+\ KFM_COMMAND
+\ KFM_DATA
+\ KFM_FORWARD
+\ KFM_LOOP
+\ KFM_MODE
+\ KFM_PING_PONG
+\ KFM_REVERSE
+\ KFM_ROTATION
+\ KFM_TRANSLATION
+\ LAND_LEVEL
+\ LAND_LOWER
+\ LAND_NOISE
+\ LAND_RAISE
+\ LAND_REVERT
+\ LAND_SMOOTH
+\ LINK_ALL_CHILDREN
+\ LINK_ALL_OTHERS
+\ LINK_ROOT
+\ LINK_SET
+\ LINK_THIS
+\ LIST_STAT_GEOMETRIC_MEAN
+\ LIST_STAT_MAX
+\ LIST_STAT_MEAN
+\ LIST_STAT_MEDIAN
+\ LIST_STAT_MIN
+\ LIST_STAT_NUM_COUNT
+\ LIST_STAT_RANGE
+\ LIST_STAT_STD_DEV
+\ LIST_STAT_SUM
+\ LIST_STAT_SUM_SQUARES
+\ LOOP
+\ MASK_BASE
+\ MASK_EVERYONE
+\ MASK_GROUP
+\ MASK_NEXT
+\ MASK_OWNER
+\ NULL_KEY
+\ OBJECT_ATTACHED_POINT
+\ OBJECT_BODY_SHAPE_TYPE
+\ OBJECT_CHARACTER_TIME
+\ OBJECT_CLICK_ACTION
+\ OBJECT_CREATOR
+\ OBJECT_DESC
+\ OBJECT_GROUP
+\ OBJECT_HOVER_HEIGHT
+\ OBJECT_LAST_OWNER_ID
+\ OBJECT_NAME
+\ OBJECT_OMEGA
+\ OBJECT_OWNER
+\ OBJECT_PATHFINDING_TYPE
+\ OBJECT_PHANTOM
+\ OBJECT_PHYSICS
+\ OBJECT_PHYSICS_COST
+\ OBJECT_POS
+\ OBJECT_PRIM_COUNT
+\ OBJECT_PRIM_EQUIVALENCE
+\ OBJECT_RENDER_WEIGHT
+\ OBJECT_RETURN_PARCEL
+\ OBJECT_RETURN_PARCEL_OWNER
+\ OBJECT_RETURN_REGION
+\ OBJECT_ROOT
+\ OBJECT_ROT
+\ OBJECT_RUNNING_SCRIPT_COUNT
+\ OBJECT_SCRIPT_MEMORY
+\ OBJECT_SCRIPT_TIME
+\ OBJECT_SERVER_COST
+\ OBJECT_STREAMING_COST
+\ OBJECT_TEMP_ON_REZ
+\ OBJECT_TOTAL_INVENTORY_COUNT
+\ OBJECT_TOTAL_SCRIPT_COUNT
+\ OBJECT_UNKNOWN_DETAIL
+\ OBJECT_VELOCITY
+\ OPT_CHARACTER
+\ OPT_AVATAR
+\ OPT_EXCLUSION_VOLUME
+\ OPT_LEGACY_LINKSET
+\ OPT_MATERIAL_VOLUME
+\ OPT_OTHER
+\ OPT_STATIC_OBSTACLE
+\ OPT_WALKABLE
+\ PARCEL_COUNT_GROUP
+\ PARCEL_COUNT_OTHER
+\ PARCEL_COUNT_OWNER
+\ PARCEL_COUNT_SELECTED
+\ PARCEL_COUNT_TEMP
+\ PARCEL_COUNT_TOTAL
+\ PARCEL_DETAILS_AREA
+\ PARCEL_DETAILS_DESC
+\ PARCEL_DETAILS_GROUP
+\ PARCEL_DETAILS_ID
+\ PARCEL_DETAILS_NAME
+\ PARCEL_DETAILS_OWNER
+\ PARCEL_DETAILS_SEE_AVATARS
+\ PARCEL_FLAG_ALLOW_ALL_OBJECT_ENTRY
+\ PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS
+\ PARCEL_FLAG_ALLOW_CREATE_OBJECTS
+\ PARCEL_FLAG_ALLOW_DAMAGE
+\ PARCEL_FLAG_ALLOW_FLY
+\ PARCEL_FLAG_ALLOW_GROUP_OBJECT_ENTRY
+\ PARCEL_FLAG_ALLOW_GROUP_SCRIPTS
+\ PARCEL_FLAG_ALLOW_LANDMARK
+\ PARCEL_FLAG_ALLOW_SCRIPTS
+\ PARCEL_FLAG_ALLOW_TERRAFORM
+\ PARCEL_FLAG_LOCAL_SOUND_ONLY
+\ PARCEL_FLAG_RESTRICT_PUSHOBJECT
+\ PARCEL_FLAG_USE_ACCESS_GROUP
+\ PARCEL_FLAG_USE_ACCESS_LIST
+\ PARCEL_FLAG_USE_BAN_LIST
+\ PARCEL_FLAG_USE_LAND_PASS_LIST
+\ PARCEL_MEDIA_COMMAND_AGENT
+\ PARCEL_MEDIA_COMMAND_AUTO_ALIGN
+\ PARCEL_MEDIA_COMMAND_DESC
+\ PARCEL_MEDIA_COMMAND_LOOP
+\ PARCEL_MEDIA_COMMAND_LOOP_SET
+\ PARCEL_MEDIA_COMMAND_PAUSE
+\ PARCEL_MEDIA_COMMAND_PLAY
+\ PARCEL_MEDIA_COMMAND_SIZE
+\ PARCEL_MEDIA_COMMAND_STOP
+\ PARCEL_MEDIA_COMMAND_TEXTURE
+\ PARCEL_MEDIA_COMMAND_TIME
+\ PARCEL_MEDIA_COMMAND_TYPE
+\ PARCEL_MEDIA_COMMAND_UNLOAD
+\ PARCEL_MEDIA_COMMAND_URL
+\ PASSIVE
+\ PASS_ALWAYS
+\ PASS_IF_NOT_HANDLED
+\ PASS_NEVER
+\ PATROL_PAUSE_AT_WAYPOINTS
+\ PAYMENT_INFO_ON_FILE
+\ PAYMENT_INFO_USED
+\ PAY_DEFAULT
+\ PAY_HIDE
+\ PERMISSION_ATTACH
+\ PERMISSION_CHANGE_LINKS
+\ PERMISSION_CONTROL_CAMERA
+\ PERMISSION_DEBIT
+\ PERMISSION_OVERRIDE_ANIMATIONS
+\ PERMISSION_RETURN_OBJECTS
+\ PERMISSION_SILENT_ESTATE_MANAGEMENT
+\ PERMISSION_TAKE_CONTROLS
+\ PERMISSION_TELEPORT
+\ PERMISSION_TRACK_CAMERA
+\ PERMISSION_TRIGGER_ANIMATION
+\ PERM_ALL
+\ PERM_COPY
+\ PERM_MODIFY
+\ PERM_MOVE
+\ PERM_TRANSFER
+\ PI
+\ PING_PONG
+\ PI_BY_TWO
+\ PRIM_ALLOW_UNSIT
+\ PRIM_ALPHA_MODE
+\ PRIM_ALPHA_MODE_BLEND
+\ PRIM_ALPHA_MODE_EMISSIVE
+\ PRIM_ALPHA_MODE_MASK
+\ PRIM_ALPHA_MODE_NONE
+\ PRIM_BUMP_BARK
+\ PRIM_BUMP_BLOBS
+\ PRIM_BUMP_BRICKS
+\ PRIM_BUMP_BRIGHT
+\ PRIM_BUMP_CHECKER
+\ PRIM_BUMP_CONCRETE
+\ PRIM_BUMP_DARK
+\ PRIM_BUMP_DISKS
+\ PRIM_BUMP_GRAVEL
+\ PRIM_BUMP_LARGETILE
+\ PRIM_BUMP_NONE
+\ PRIM_BUMP_SHINY
+\ PRIM_BUMP_SIDING
+\ PRIM_BUMP_STONE
+\ PRIM_BUMP_STUCCO
+\ PRIM_BUMP_SUCTION
+\ PRIM_BUMP_TILE
+\ PRIM_BUMP_WEAVE
+\ PRIM_BUMP_WOOD
+\ PRIM_COLOR
+\ PRIM_DESC
+\ PRIM_FLEXIBLE
+\ PRIM_FULLBRIGHT
+\ PRIM_GLOW
+\ PRIM_HOLE_CIRCLE
+\ PRIM_HOLE_DEFAULT
+\ PRIM_HOLE_SQUARE
+\ PRIM_HOLE_TRIANGLE
+\ PRIM_LINK_TARGET
+\ PRIM_MATERIAL
+\ PRIM_MATERIAL_FLESH
+\ PRIM_MATERIAL_GLASS
+\ PRIM_MATERIAL_LIGHT
+\ PRIM_MATERIAL_METAL
+\ PRIM_MATERIAL_PLASTIC
+\ PRIM_MATERIAL_RUBBER
+\ PRIM_MATERIAL_STONE
+\ PRIM_MATERIAL_WOOD
+\ PRIM_MEDIA_ALT_IMAGE_ENABLE
+\ PRIM_MEDIA_AUTO_LOOP
+\ PRIM_MEDIA_AUTO_PLAY
+\ PRIM_MEDIA_AUTO_SCALE
+\ PRIM_MEDIA_AUTO_ZOOM
+\ PRIM_MEDIA_CURRENT_URL
+\ PRIM_MEDIA_FIRST_CLICK_INTERACT
+\ PRIM_MEDIA_HEIGHT_PIXELS
+\ PRIM_MEDIA_HOME_URL
+\ PRIM_MEDIA_PERMS_CONTROL
+\ PRIM_MEDIA_PERMS_INTERACT
+\ PRIM_MEDIA_PERM_ANYONE
+\ PRIM_MEDIA_PERM_GROUP
+\ PRIM_MEDIA_PERM_NONE
+\ PRIM_MEDIA_PERM_OWNER
+\ PRIM_MEDIA_WHITELIST
+\ PRIM_MEDIA_WHITELIST_ENABLE
+\ PRIM_MEDIA_WIDTH_PIXELS
+\ PRIM_NAME
+\ PRIM_NORMAL
+\ PRIM_OMEGA
+\ PRIM_PHANTOM
+\ PRIM_PHYSICS
+\ PRIM_PHYSICS_SHAPE_CONVEX
+\ PRIM_PHYSICS_SHAPE_NONE
+\ PRIM_PHYSICS_SHAPE_PRIM
+\ PRIM_PHYSICS_SHAPE_TYPE
+\ PRIM_POINT_LIGHT
+\ PRIM_POSITION
+\ PRIM_POS_LOCAL
+\ PRIM_ROTATION
+\ PRIM_ROT_LOCAL
+\ PRIM_SCRIPTED_SIT_ONLY
+\ PRIM_SCULPT_FLAG_INVERT
+\ PRIM_SCULPT_FLAG_MIRROR
+\ PRIM_SCULPT_TYPE_CYLINDER
+\ PRIM_SCULPT_TYPE_MASK
+\ PRIM_SCULPT_TYPE_PLANE
+\ PRIM_SCULPT_TYPE_SPHERE
+\ PRIM_SCULPT_TYPE_TORUS
+\ PRIM_SHINY_HIGH
+\ PRIM_SHINY_LOW
+\ PRIM_SHINY_MEDIUM
+\ PRIM_SHINY_NONE
+\ PRIM_SIT_TARGET
+\ PRIM_SIZE
+\ PRIM_SLICE
+\ PRIM_SPECULAR
+\ PRIM_TEMP_ON_REZ
+\ PRIM_TEXGEN
+\ PRIM_TEXGEN_DEFAULT
+\ PRIM_TEXGEN_PLANAR
+\ PRIM_TEXT
+\ PRIM_TEXTURE
+\ PRIM_TYPE
+\ PRIM_TYPE_BOX
+\ PRIM_TYPE_CYLINDER
+\ PRIM_TYPE_PRISM
+\ PRIM_TYPE_RING
+\ PRIM_TYPE_SCULPT
+\ PRIM_TYPE_SPHERE
+\ PRIM_TYPE_TORUS
+\ PRIM_TYPE_TUBE
+\ PROFILE_NONE
+\ PROFILE_SCRIPT_MEMORY
+\ PUBLIC_CHANNEL
+\ RAD_TO_DEG
+\ RCERR_CAST_TIME_EXCEEDED
+\ RCERR_SIM_PERF_LOW
+\ RCERR_UNKNOWN
+\ RC_DATA_FLAGS
+\ RC_DETECT_PHANTOM
+\ RC_GET_LINK_NUM
+\ RC_GET_NORMAL
+\ RC_GET_ROOT_KEY
+\ RC_MAX_HITS
+\ RC_REJECT_AGENTS
+\ RC_REJECT_LAND
+\ RC_REJECT_NONPHYSICAL
+\ RC_REJECT_PHYSICAL
+\ RC_REJECT_TYPES
+\ REGION_FLAG_ALLOW_DAMAGE
+\ REGION_FLAG_ALLOW_DIRECT_TELEPORT
+\ REGION_FLAG_BLOCK_FLY
+\ REGION_FLAG_BLOCK_TERRAFORM
+\ REGION_FLAG_DISABLE_COLLISIONS
+\ REGION_FLAG_DISABLE_PHYSICS
+\ REGION_FLAG_FIXED_SUN
+\ REGION_FLAG_RESTRICT_PUSHOBJECT
+\ REGION_FLAG_SANDBOX
+\ REMOTE_DATA_CHANNEL
+\ REMOTE_DATA_REPLY
+\ REMOTE_DATA_REQUEST
+\ REVERSE
+\ ROTATE
+\ SCALE
+\ SCRIPTED
+\ SIM_STAT_PCT_CHARS_STEPPED
+\ SMOOTH
+\ SQRT2
+\ STATUS_BLOCK_GRAB
+\ STATUS_BLOCK_GRAB_OBJECT
+\ STATUS_BOUNDS_ERROR
+\ STATUS_CAST_SHADOWS
+\ STATUS_DIE_AT_EDGE
+\ STATUS_INTERNAL_ERROR
+\ STATUS_MALFORMED_PARAMS
+\ STATUS_NOT_FOUND
+\ STATUS_NOT_SUPPORTED
+\ STATUS_OK
+\ STATUS_PHANTOM
+\ STATUS_PHYSICS
+\ STATUS_RETURN_AT_EDGE
+\ STATUS_ROTATE_X
+\ STATUS_ROTATE_Y
+\ STATUS_ROTATE_Z
+\ STATUS_SANDBOX
+\ STATUS_TYPE_MISMATCH
+\ STATUS_WHITELIST_FAILED
+\ STRING_TRIM
+\ STRING_TRIM_HEAD
+\ STRING_TRIM_TAIL
+\ TEXTURE_DEFAULT
+\ TEXTURE_BLANK
+\ TEXTURE_MEDIA
+\ TEXTURE_PLYWOOD
+\ TEXTURE_TRANSPARENT
+\ TOUCH_INVALID_FACE
+\ TOUCH_INVALID_TEXCOORD
+\ TOUCH_INVALID_VECTOR
+\ TRAVERSAL_TYPE
+\ TRUE
+\ TWO_PI
+\ TYPE_FLOAT
+\ TYPE_INTEGER
+\ TYPE_INVALID
+\ TYPE_KEY
+\ TYPE_ROTATION
+\ TYPE_STRING
+\ TYPE_VECTOR
+\ URL_REQUEST_DENIED
+\ URL_REQUEST_GRANTED
+\ VEHICLE_FLAG_NO_FLY_UP
+\ VEHICLE_ANGULAR_DEFLECTION_EFFICIENCY
+\ VEHICLE_ANGULAR_DEFLECTION_TIMESCALE
+\ VEHICLE_ANGULAR_FRICTION_TIMESCALE
+\ VEHICLE_ANGULAR_MOTOR_DECAY_TIMESCALE
+\ VEHICLE_ANGULAR_MOTOR_DIRECTION
+\ VEHICLE_ANGULAR_MOTOR_TIMESCALE
+\ VEHICLE_BANKING_EFFICIENCY
+\ VEHICLE_BANKING_MIX
+\ VEHICLE_BANKING_TIMESCALE
+\ VEHICLE_BUOYANCY
+\ VEHICLE_FLAG_CAMERA_DECOUPLED
+\ VEHICLE_FLAG_HOVER_GLOBAL_HEIGHT
+\ VEHICLE_FLAG_HOVER_TERRAIN_ONLY
+\ VEHICLE_FLAG_HOVER_UP_ONLY
+\ VEHICLE_FLAG_HOVER_WATER_ONLY
+\ VEHICLE_FLAG_LIMIT_MOTOR_UP
+\ VEHICLE_FLAG_LIMIT_ROLL_ONLY
+\ VEHICLE_FLAG_MOUSELOOK_BANK
+\ VEHICLE_FLAG_MOUSELOOK_STEER
+\ VEHICLE_FLAG_NO_DEFLECTION_UP
+\ VEHICLE_HOVER_EFFICIENCY
+\ VEHICLE_HOVER_HEIGHT
+\ VEHICLE_HOVER_TIMESCALE
+\ VEHICLE_LINEAR_DEFLECTION_EFFICIENCY
+\ VEHICLE_LINEAR_DEFLECTION_TIMESCALE
+\ VEHICLE_LINEAR_FRICTION_TIMESCALE
+\ VEHICLE_LINEAR_MOTOR_DECAY_TIMESCALE
+\ VEHICLE_LINEAR_MOTOR_DIRECTION
+\ VEHICLE_LINEAR_MOTOR_OFFSET
+\ VEHICLE_LINEAR_MOTOR_TIMESCALE
+\ VEHICLE_REFERENCE_FRAME
+\ VEHICLE_TYPE_AIRPLANE
+\ VEHICLE_TYPE_BALLOON
+\ VEHICLE_TYPE_BOAT
+\ VEHICLE_TYPE_CAR
+\ VEHICLE_TYPE_NONE
+\ VEHICLE_TYPE_SLED
+\ VEHICLE_VERTICAL_ATTRACTION_EFFICIENCY
+\ VEHICLE_VERTICAL_ATTRACTION_TIMESCALE
+\ VERTICAL
+\ ZERO_ROTATION
+\ ZERO_VECTOR
+
+" DEPRECATED "
+syn keyword lslDeprecated
+\ llCloud
+\ llGodLikeRezObject
+\ llMakeExplosion
+\ llMakeFire
+\ llMakeFountain
+\ llMakeSmoke
+\ llPointAt
+\ llRefreshPrimURL
+\ llReleaseCamera
+\ llRemoteDataSetRegion
+\ llRemoteLoadScript
+\ llSetInventoryPermMask
+\ llSetObjectPermMask
+\ llSetPrimURL
+\ llSound
+\ llSoundPreload
+\ llStopPointAt
+\ llTakeCamera
+\ llXorBase64Strings
+\ llXorBase64StringsCorrect
+\ llGetPizza
+\ PRIM MATERIAL LIGHT
+\ STATUS CAST SHADOWS
+
+" CONDITIONAL "
+syn keyword lslConditional
+\ if
+\ else
+
+" REPEATS "
+syn keyword lslRepeat
+\ do
+\ while
+\ for
+\ jump
+\ return
+
+" TYPES "
+syn keyword lslType
+\ key
+\ string
+\ list
+\ integer
+\ float
+\ vector
+\ rotation
+
+" LABELS "
+syn keyword lslLabel
+\ state default
+
+" DISPLAYS "
+syn match lslNumber display
+\ /\A\(\([0-9]*\)\(\.\?\)\([0-9]\+\)\>\)/
+
+syn match lslNumber	display
+\ /0x\x\+\(u\=l\{0,2}\|ll\=u\)\>/
+
+syn region lslString display
+\ start='"' skip='//.' end='"' contains=lslStringEscape, @Spell
+
+syn match lslStringEscape display
+\ /\\t\|\\n/
+
+syn region lslBlock
+\ start='{' end='}' fold transparent contains=ALL
+
+syn region lslParen display
+\ start='(' end=')' fold transparent contains=ALL
+
+syn region lslList display
+\ start='\[' end='\]' fold transparent contains=ALL
+
+syn match lslState display
+\ /\b(state)[' ']\w*/ contains=lslLabel
+
+syn region lslComment display
+\ start='\/\/' end='$' contains=lslTodo,@Spell
+
+syn region lslCommentMulti display
+\ start='\/\*' skip='$' end='\*\/' contains=lslTodo,@Spell
+
+syn match lslOperator display
+\ /[!%<>=*\+\-\|&\?\^~]/
+
+syn match lslOperator display
+\ /\/\(\/\)@!/
+
+" HIGHLIGHTING "
+highlight default link lslDefine        Macro
+highlight default link lslInclude       Include
+highlight default link lslPreCondit     PreCondit
+highlight default link lslPreProc       PreProc
+
+highlight default link lslTodo          Todo
+highlight default link lslDebug         Special
+highlight default link lslComment       Comment
+highlight default link lslCommentMulti  Comment
+
+highlight default link lslFunction      Function
+highlight default link lslEvent         Function
+highlight default link lslConstant      Constant
+highlight default link lslDeprecated    Error
+
+highlight default link lslType          Type
+highlight default link lslConditional   Conditional
+highlight default link lslRepeat        Repeat
+highlight default link lslLabel         Label
+highlight default link lslOperator      Operator
+
+highlight default link lslString        String
+highlight default link lslStringEscaped Special
+highlight default link lslNumber        Number
+highlight default link lslKey           Special
+highlight default link lslState         Label
+
+highlight default link lslParen         Special
+highlight default link lslBlock         Special
+highlight default link lslList          Special
+
 
 let b:current_syntax = "lsl"
 
-" vim: ts=8
+let &cpo = s:cpo_save
+unlet s:cpo_save
+
