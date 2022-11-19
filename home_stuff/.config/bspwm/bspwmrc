@@ -4,33 +4,24 @@ if [[ $(xrandr -q | grep 'HDMI-0 connected')  ]]; then
     xrandr --output DP-4 --primary --mode 1920x1080 --rotate normal --output HDMI-0 --mode 1920x1080 --rotate normal --right-of DP-4
 fi
 
-killall -q polybar
-
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
-
-polybar bottom &
-
-if [[ $(xrandr -q | grep 'HDMI-0 connected') ]]; then
-        polybar bottom_2 &
-fi
 xsetroot -cursor_name left_ptr &
 
 
 #bspc config focus_follows_pointer true
 bspc config ignore_ewmh_focus true
-bspc config border_width 1
+bspc config border_width 3
 bspc config window_gap 10
 bspc config single_monocle true
 bspc config border_radius 10
 bspc config split_ratio 0.50
-bspc config borderless_monocle true
+bspc config borderless_monocle false
 bspc config gapless_monocle true
 
 #bspc rule -a krita desktop='^5'
 #bspc rule -a mpv state=floating
 #bspc rule -a REAPER desktop='^4'
-#bspc rule -a spotify desktop='^8' fullscreen=no focus=no
-#bspc rule -a discord desktop='^9' focus=no
+bspc rule -a spotify desktop='^8' fullscreen=no focus=no
+bspc rule -a discord desktop='^9' fullscreen=no focus=no
 #bspc rule -a QjackCtl desktop='^8'
 #bspc rule -a qutebrowser desktop='^2'
 #bspc rule -a mplayer2 state=floating
@@ -52,4 +43,16 @@ if pgrep sxhkd; then killall sxhkd; fi
 sxhkd &
 setxkbmap -model pc105 -layout us,gr -variant qwerty -option grp:win_space_toggle &
 setxkbmap us &
+
+if pgrep nm-applet; then killall nm-applet; fi
+nm-applet &
+
+killall -q polybar
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+polybar bottom &
+
+if [[ $(xrandr -q | grep 'HDMI-0 connected') ]]; then
+     polybar bottom_2 &
+fi
 
