@@ -40,19 +40,23 @@ discord &
 #nm-applet &
 
 if pgrep sxhkd; then killall sxhkd; fi
-sxhkd &
-setxkbmap -model pc105 -layout us,gr -variant qwerty -option grp:win_space_toggle &
-setxkbmap us &
 
 if pgrep nm-applet; then killall nm-applet; fi
 nm-applet &
 
 killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
-
 polybar bottom &
+
+killall -q picom
+while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
+picom --config ~/.config/picom.conf &
 
 if [[ $(xrandr -q | grep 'HDMI-0 connected') ]]; then
      polybar bottom_2 &
 fi
+
+sxhkd &
+setxkbmap -model pc105 -layout us,gr -variant qwerty -option grp:win_space_toggle &
+setxkbmap us &
 
