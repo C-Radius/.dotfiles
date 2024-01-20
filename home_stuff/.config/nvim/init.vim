@@ -15,6 +15,9 @@ let $NVIM_PYTHON_LOG_FILE="/tmp/nvlog"  "Set locaiton for nvlog file.
 
 "ENABLE PYTHON SUPPORT (pacman -S python-neovim python2-neovim)
 "-------------------------------------------------------------------------
+"For python support you have to install pynvim and neovim packages in python
+"and alter the variables bellow to reflect the right location of python's
+"executable
 if has('win32')
     let g:python_host_prog=''
     let g:python3_host_prog='C:\Program Files\Python310\python.exe'
@@ -87,6 +90,8 @@ Plug 'sharkdp/fd'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'BurntSushi/ripgrep'
 Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'ahmedkhalf/project.nvim'
 
 call plug#end()
 
@@ -415,7 +420,6 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
 "Telescope------------------------------------------------------------------
-" Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
@@ -426,3 +430,13 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+" Project.nvim setup
+
+lua << EOF
+  require("project_nvim").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
