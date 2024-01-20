@@ -15,26 +15,41 @@ let $NVIM_PYTHON_LOG_FILE="/tmp/nvlog"  "Set locaiton for nvlog file.
 
 "ENABLE PYTHON SUPPORT (pacman -S python-neovim python2-neovim)
 "-------------------------------------------------------------------------
-let g:python_host_prog='/usr/bin/python2'
-let g:python3_host_prog='/usr/bin/python3'
+if !has('win32')
+    let g:python_host_prog='/usr/bin/python2'
+    let g:python3_host_prog='/usr/bin/python3'
+endif
 "-------------------------------------------------------------------------
 "Setting up vimplug - the vim plugin bundler
 "-------------------------------------------------------------------------{{{
 let iCanHazVimPlug=1
 
-let vim_plug_exists=expand('~/.config/nvim/autoload/plug.vim')
+if has('win32')
+    let vim_plug_exists=expand('~/AppData/Local/nvim/autoload/plug.vim')
+else
+    let vim_plug_exists=expand('~/.config/nvim/autoload/plug.vim')
+endif
 
 if !filereadable(vim_plug_exists)
     echo "Installing Vimplug.."
     echo ""
-    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    source ~/.config/nvim/autoload/plug.vim
+    if has('win32')
+        :exe "!curl -fLo ". $HOME . "/AppData/Local/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+        :exe "source " . $HOME . "/AppData/Local/nvim/autoload/plug.vim"
+    else
+        silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        source ~/.config/nvim/autoload/plug.vim
+    endif
 
     let iCanHazVimPlug=0
 endif
 filetype off
 
-call plug#begin('~/.config/nvim/plugged')
+if has('win32')
+    call plug#begin('~/AppData/Local/nvim/plugged')
+else
+    call plug#begin('~/.config/nvim/plugged')
+endif
 
 Plug 'mattn/webapi-vim'
 Plug 'dylanaraps/wal.vim'
@@ -62,7 +77,7 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'cespare/vim-toml'
-Plug 'sakhnik/nvim-gdb'
+"Plug 'sakhnik/nvim-gdb'
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc-highlight'
 Plug 'sharkdp/fd'
