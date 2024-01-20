@@ -1,4 +1,3 @@
-
 "
 "   ____      ____           _ _
 "  / ___|    |  _ \ __ _  __| (_)_   _ ___
@@ -90,9 +89,6 @@ Plug 'sharkdp/fd'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'BurntSushi/ripgrep'
 Plug 'nvim-telescope/telescope.nvim'
-
-Plug 'ahmedkhalf/project.nvim'
-
 call plug#end()
 
 filetype on
@@ -430,13 +426,3 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-
-" Project.nvim setup
-
-lua << EOF
-  require("project_nvim").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
-EOF
