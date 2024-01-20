@@ -7,7 +7,7 @@
 "  \____|    |_| \_\__,_|\__,_|_|\__,_|___/
 "
 "Author: C-Radius
-"Last Mod: 20/1/2024
+"Last Mod: 22/05/2020
 
 "Environment variables
 let g:polyglot_disabled = ['markdown']
@@ -15,7 +15,10 @@ let $NVIM_PYTHON_LOG_FILE="/tmp/nvlog"  "Set locaiton for nvlog file.
 
 "ENABLE PYTHON SUPPORT (pacman -S python-neovim python2-neovim)
 "-------------------------------------------------------------------------
-if !has('win32')
+if has('win32')
+    let g:python_host_prog=''
+    let g:python3_host_prog='C:\Program Files\Python310\python.exe'
+else
     let g:python_host_prog='/usr/bin/python2'
     let g:python3_host_prog='/usr/bin/python3'
 endif
